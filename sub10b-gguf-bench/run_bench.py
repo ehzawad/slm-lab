@@ -3,21 +3,33 @@
 Metrics: speed (llama-bench) + VRAM + reasoning accuracy + tool-call validity."""
 import subprocess, time, json, re, sys, os, urllib.request, signal
 
-WS = "/mnt/sdb/arafat/llm-stuff/qwen35-gguf-bench"
+# Repo root holds models/ and llama.cpp/ ; override with SLM_LAB_ROOT if they live elsewhere.
+WS = os.environ.get("SLM_LAB_ROOT", os.path.dirname(os.path.abspath(__file__)))
 BIN = f"{WS}/llama.cpp/build/bin"
 sys.path.insert(0, WS)
 from probes import REASONING, TOOLS, TOOLCALLS
 
-PORT = 8081
-ENV = {**os.environ, "CUDA_VISIBLE_DEVICES": "0"}  # A5000 only
+PORT = 18412  # high port: 8081 is taken by another service on this shared box
+# IMPORTANT: llama.cpp's default CUDA order is NOT nvidia-smi order (it lists the
+# A6000 as device 0). Force PCI_BUS_ID order so device 0 == A5000 == `nvidia-smi -i 0`.
+ENV = {**os.environ, "CUDA_VISIBLE_DEVICES": "0", "CUDA_DEVICE_ORDER": "PCI_BUS_ID"}  # A5000 only
 
 MODELS = [
-    ("4B-Q8_0",       "models/q4b/Qwen3.5-4B-Q8_0.gguf"),
-    ("4B-Q4_K_M",     "models/q4b/Qwen3.5-4B-Q4_K_M.gguf"),
-    ("4B-UD-Q4_K_XL", "models/q4b/Qwen3.5-4B-UD-Q4_K_XL.gguf"),
-    ("9B-Q8_0",       "models/q9b/Qwen3.5-9B-Q8_0.gguf"),
-    ("9B-Q4_K_M",     "models/q9b/Qwen3.5-9B-Q4_K_M.gguf"),
-    ("9B-UD-Q4_K_XL", "models/q9b/Qwen3.5-9B-UD-Q4_K_XL.gguf"),
+    # --- Quant study: within Qwen3.5 (Q8 vs Q4 vs imatrix) ---
+    ("Qwen3.5-4B Q8_0",     "models/q4b/Qwen3.5-4B-Q8_0.gguf"),
+    ("Qwen3.5-4B Q4_K_M",   "models/q4b/Qwen3.5-4B-Q4_K_M.gguf"),
+    ("Qwen3.5-4B UD-Q4KXL", "models/q4b/Qwen3.5-4B-UD-Q4_K_XL.gguf"),
+    ("Qwen3.5-9B Q8_0",     "models/q9b/Qwen3.5-9B-Q8_0.gguf"),
+    ("Qwen3.5-9B Q4_K_M",   "models/q9b/Qwen3.5-9B-Q4_K_M.gguf"),
+    ("Qwen3.5-9B UD-Q4KXL", "models/q9b/Qwen3.5-9B-UD-Q4_K_XL.gguf"),
+    # --- Cross-family (Q8_0 + Q4_K_M, common on-device points) ---
+    ("Gemma-3n-E2B Q8_0",   "models/gemma_e2b/gemma-3n-E2B-it-Q8_0.gguf"),
+    ("Gemma-3n-E2B Q4_K_M", "models/gemma_e2b/gemma-3n-E2B-it-Q4_K_M.gguf"),
+    ("Gemma-3n-E4B Q8_0",   "models/gemma_e4b/gemma-3n-E4B-it-Q8_0.gguf"),
+    ("Gemma-3n-E4B Q4_K_M", "models/gemma_e4b/gemma-3n-E4B-it-Q4_K_M.gguf"),
+    ("DeepSeek-R1-7B Q8_0", "models/deepseek7b/DeepSeek-R1-Distill-Qwen-7B-Q8_0.gguf"),
+    ("DeepSeek-R1-7B Q4_K_M","models/deepseek7b/DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf"),
+    ("gpt-oss-20b Q4_K_M",  "models/gptoss20b/gpt-oss-20b-Q4_K_M.gguf"),  # Q8 ~21GB, too tight
 ]
 
 def gpu_mem_used():
@@ -70,11 +82,22 @@ def eval_reasoning():
     ok = 0
     for q, ans in REASONING:
         try:
+            # 4096 tokens: DeepSeek-R1 / Qwen3.5-thinking / gpt-oss emit long CoT before the answer
             r = chat([{"role": "user", "content": q +
-                       "\nThink briefly, then end with a line 'Answer: <integer>'."}])
-            txt = r["choices"][0]["message"]["content"] or ""
-            m = re.search(r"[Aa]nswer:\s*(-?\d[\d,]*)", txt)
-            got = int(m.group(1).replace(",", "")) if m else parse_int(txt)
+                       "\nThink briefly, then end with a line 'Answer: <integer>'."}],
+                     max_tokens=4096)
+            msg = r["choices"][0]["message"]
+            content = msg.get("content") or ""
+            reasoning = msg.get("reasoning_content") or ""
+            # Prefer the final answer in content; fall back to reasoning (thinking models
+            # that hit the token cap leave the answer only in reasoning_content).
+            got = None
+            for src in (content, reasoning):
+                m = re.search(r"[Aa]nswer:\s*(-?\d[\d,]*)", src)
+                if m:
+                    got = int(m.group(1).replace(",", "")); break
+            if got is None:
+                got = parse_int(content) if content.strip() else parse_int(reasoning)
             ok += (got == ans)
         except Exception as e:
             print(f"    reason err: {e}", flush=True)
@@ -100,8 +123,16 @@ def eval_tools():
     return valid, correct, len(TOOLCALLS)
 
 def main():
+    # Resume: load any results already computed so foreground chunks can continue.
     results = []
+    rp = f"{WS}/results.json"
+    if os.path.exists(rp):
+        try: results = json.load(open(rp))
+        except Exception: results = []
+    done = {r["model"] for r in results}
     for name, rel in MODELS:
+        if name in done:
+            print(f"[done] {name}", flush=True); continue
         path = os.path.join(WS, rel)
         if not os.path.exists(path):
             print(f"[skip] {name}: file missing", flush=True); continue
