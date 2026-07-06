@@ -6,15 +6,25 @@ A lab for experiments with small / on-device language models (sub-10B, GGUF, age
 
 - [**sub10b-gguf-bench/**](sub10b-gguf-bench/) — head-to-head GGUF benchmark of sub-10B models
   (Qwen3.5-4B/9B, Gemma-3n-E2B/E4B, DeepSeek-R1-Distill-7B, gpt-oss-20b) on an RTX A5000:
-  speed, VRAM, reasoning, and tool-call validity across quant levels. See its
+  speed, VRAM, reasoning, and single-turn tool-call validity across quant levels. See its
   [RESULTS.md](sub10b-gguf-bench/RESULTS.md).
+- [**agentic-harness/**](agentic-harness/) — the **full agentic** eval: real multi-turn tool
+  loops with executed tools + result feedback, a minimal **MCP server** (JSON-RPC stdio, stateful
+  DB), state/memory, parallel calls, and tool-error recovery — scored **end-to-end**. Overturns
+  the single-turn conclusion (gpt-oss-20b 6/8→8/8; Qwen "failures" were a llama.cpp parser gap).
+  See [AGENTIC_RESULTS.md](agentic-harness/AGENTIC_RESULTS.md).
+
+## Key takeaway
+
+For a full agentic harness on 24GB: **gpt-oss-20b** is the most robust + efficient out-of-the-box
+in llama.cpp; **Qwen3.5-9B** matches it on capability (and leads official BFCL/TAU2) but needs the
+correct tool-call parser (`qwen3_coder` / a shim) or ~1/3 of its multi-turn tool calls silently drop.
 
 ## Roadmap
 
-- **Full agentic-harness evaluation** — the current tool-call probe is single-turn. The next
-  experiment measures *full agentic capability* (which subsumes tool-calling, reasoning, MCP
-  tool use, and RL-trained behaviors): multi-step tool loops, MCP server integration, planning,
-  and error recovery — benchmarked with BFCL-v3 / τ-bench / GAIA-style tasks.
+- Scale the agentic suite to BFCL-v3/v4, τ-bench/τ³, GAIA (harder, statistically powered).
+- Add a quant × agentic-reliability ladder (Q8/Q6/Q4/imatrix) with schema-validity + executable-call rate.
+- Serve Qwen3.5 via vLLM with the native tool parser to remove the llama.cpp confound.
 
 ## Notes
 
