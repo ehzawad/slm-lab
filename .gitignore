@@ -1,0 +1,14 @@
+# Large model weights — never commit
+models/
+*.gguf
+
+# Isolated venv
+.venv/
+
+# Third-party clone (build it yourself: see README)
+llama.cpp/
+
+# Logs & build artifacts
+*.log
+__pycache__/
+build/
