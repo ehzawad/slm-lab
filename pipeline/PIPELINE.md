@@ -10,7 +10,10 @@ Method: QLoRA 4-bit base (frozen) + **one LoRA adapter (all-linear, r=16) accumu
 all 7 stages** — each stage resumes the previous stage's adapter. LoRA-on-all-linear + high LR
 follows Thinking Machines' *"LoRA Without Regret."*
 
-## Result — all 7 stages green
+**Run it:** `python pipeline/pipeline.py` — all 8 stages run end-to-end in one command on the
+A5000 alone (`CUDA_VISIBLE_DEVICES=0`), ~10 min, resumable. Stage 8 (agentic GRPO) is integrated.
+
+## Result — all 8 stages green (single end-to-end run)
 
 | # | Stage | Dataset | Trainer | Final loss |
 |---|-------|---------|---------|-----------:|
@@ -20,7 +23,8 @@ follows Thinking Machines' *"LoRA Without Regret."*
 | 4 | Tool-calling | `Salesforce/xlam-function-calling-60k` | SFT | 0.79 |
 | 5 | MCP tool-use | synthesized (order-DB `<tool_call>` traces) | SFT | 0.32 |
 | 6 | Preference | `HuggingFaceH4/ultrafeedback_binarized` | **DPO** | 0.73 |
-| 7 | Verifiable RL | `openai/gsm8k` | **GRPO/RLVR** | −0.02 |
+| 7 | Verifiable RL (math) | `openai/gsm8k` | **GRPO/RLVR** | −0.08 |
+| 8 | **Agentic RL (tool loop)** | synthesized order tasks + Python tools | **GRPO+tools** | 0.01 |
 
 Runtime ~1–2 min/stage on the A5000, ~12 GB VRAM peak, 33 M trainable params (0.81%).
 

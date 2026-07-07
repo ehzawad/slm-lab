@@ -13,6 +13,7 @@ import torch
 from datasets import load_dataset, Dataset
 from common import load_tokenizer, model_with_adapter, ADAPTERS
 from trl import SFTTrainer, SFTConfig, DPOTrainer, DPOConfig, GRPOTrainer, GRPOConfig
+from agentic_grpo import TOOLS as AGENTIC_TOOLS, build_ds as agentic_ds, success_reward
 
 TOK = load_tokenizer()
 LOG = f"{os.path.dirname(os.path.abspath(__file__))}/pipeline_log.json"
@@ -139,6 +140,19 @@ def run_grpo(stage, prev, steps):  # 7. Agentic RL with verifiable reward
     save(model, stage); record(stage, loss=round(out.training_loss, 4), reward=out.metrics.get("train_reward"), steps=steps)
     free(model)
 
+def run_agentic_grpo(stage, prev, steps):  # 7b. TRUE agentic RL: multi-turn tool loop
+    print(f"\n===== STAGE {stage} (agentic GRPO, tool loop, {steps} steps) =====", flush=True)
+    model = model_with_adapter(prev)
+    cfg = GRPOConfig(output_dir=f"/tmp/{stage}", max_steps=steps, per_device_train_batch_size=2,
+        gradient_accumulation_steps=2, num_generations=2, learning_rate=1e-5, logging_steps=4,
+        max_completion_length=384, max_tool_calling_iterations=4, report_to=[], bf16=True,
+        optim="paged_adamw_8bit", gradient_checkpointing=True, save_strategy="no")
+    tr = GRPOTrainer(model=model, reward_funcs=success_reward, args=cfg,
+                     train_dataset=agentic_ds(), processing_class=TOK, tools=AGENTIC_TOOLS)
+    out = tr.train()
+    save(model, stage); record(stage, loss=round(out.training_loss, 4), steps=steps)
+    free(model)
+
 STAGES = [
     ("1_cpt",       lambda p: run_sft("1_cpt", p, ds_cpt(), 30)),
     ("2_sft",       lambda p: run_sft("2_sft", p, ds_sft(), 40)),
@@ -147,6 +161,7 @@ STAGES = [
     ("5_mcp",       lambda p: run_sft("5_mcp", p, ds_mcp(), 30)),
     ("6_dpo",       lambda p: run_dpo("6_dpo", p, 30)),
     ("7_grpo",      lambda p: run_grpo("7_grpo", p, 15)),
+    ("7b_agentic_grpo", lambda p: run_agentic_grpo("7b_agentic_grpo", p, 12)),
 ]
 
 def main():
