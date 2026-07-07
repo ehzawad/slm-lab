@@ -46,5 +46,59 @@
     "instruction_following": 90.0,
     "hallucination_handling": 50.0,
     "tool_validity": 100.0
+  },
+  "base_big": {
+    "domain_qa": 7.0,
+    "instruction_following": 97.5,
+    "hallucination_handling": 5.8,
+    "tool_validity": 100.0
+  },
+  "v2_final_big": {
+    "domain_qa": 46.0,
+    "instruction_following": 97.5,
+    "hallucination_handling": 31.7,
+    "tool_validity": 100.0
+  },
+  "v3_sft": {
+    "domain_qa": 44.0,
+    "instruction_following": 95.0,
+    "hallucination_handling": 30.8,
+    "tool_validity": 100.0
+  },
+  "v3_reasoning": {
+    "domain_qa": 43.0,
+    "instruction_following": 95.8,
+    "hallucination_handling": 30.8,
+    "tool_validity": 98.3
+  },
+  "v3_tools": {
+    "domain_qa": 36.0,
+    "instruction_following": 99.2,
+    "hallucination_handling": 33.3,
+    "tool_validity": 100.0
+  },
+  "v3_mcp": {
+    "domain_qa": 51.0,
+    "instruction_following": 96.7,
+    "hallucination_handling": 35.8,
+    "tool_validity": 100.0
+  },
+  "v3_dpo": {
+    "domain_qa": 53.0,
+    "instruction_following": 96.7,
+    "hallucination_handling": 32.5,
+    "tool_validity": 100.0
+  },
+  "v3_grpo": {
+    "domain_qa": 53.0,
+    "instruction_following": 95.8,
+    "hallucination_handling": 32.5,
+    "tool_validity": 100.0
+  },
+  "v3_opd": {
+    "domain_qa": 52.0,
+    "instruction_following": 95.8,
+    "hallucination_handling": 34.2,
+    "tool_validity": 100.0
   }
 }

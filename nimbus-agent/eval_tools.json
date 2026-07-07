@@ -1,43 +1,58 @@
 [
  {
-  "q": "Check the current health of gatekeeper.",
-  "tool": "nbx_status",
-  "arg_substr": "gatekeeper"
- },
- {
-  "q": "Roll gatekeeper back to the previous release.",
-  "tool": "nbx_deploy_rollback",
-  "arg_substr": "gatekeeper"
- },
- {
-  "q": "Check the current health of tokensmith.",
-  "tool": "nbx_status",
-  "arg_substr": "tokensmith"
- },
- {
-  "q": "Roll tokensmith back to the previous release.",
-  "tool": "nbx_deploy_rollback",
-  "arg_substr": "tokensmith"
- },
- {
-  "q": "Check the current health of vaultkeep.",
-  "tool": "nbx_status",
-  "arg_substr": "vaultkeep"
- },
- {
-  "q": "Roll vaultkeep back to the previous release.",
-  "tool": "nbx_deploy_rollback",
-  "arg_substr": "vaultkeep"
- },
- {
-  "q": "Check the current health of ledgerline.",
-  "tool": "nbx_status",
+  "q": "Show the last 50 log lines for ledgerline.",
+  "tool": "nbx_logs",
   "arg_substr": "ledgerline"
  },
  {
-  "q": "Roll ledgerline back to the previous release.",
+  "q": "Increase glacierdocs to 6 replicas.",
+  "tool": "nbx_scale",
+  "arg_substr": "glacierdocs"
+ },
+ {
+  "q": "Show the last 50 log lines for pulseboard.",
+  "tool": "nbx_logs",
+  "arg_substr": "pulseboard"
+ },
+ {
+  "q": "Scale streamforge to 5 replicas.",
+  "tool": "nbx_scale",
+  "arg_substr": "streamforge"
+ },
+ {
+  "q": "Revert quillbase to its prior release.",
   "tool": "nbx_deploy_rollback",
-  "arg_substr": "ledgerline"
+  "arg_substr": "quillbase"
+ },
+ {
+  "q": "Roll back the most recent deploy of courierbot.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "courierbot"
+ },
+ {
+  "q": "Scale the mistral-cache service up to 8 replicas.",
+  "tool": "nbx_scale",
+  "arg_substr": "mistral-cache"
+ },
+ {
+  "q": "Scale courierbot to 5 replicas.",
+  "tool": "nbx_scale",
+  "arg_substr": "courierbot"
+ },
+ {
+  "q": "Scale the gatekeeper service up to 8 replicas.",
+  "tool": "nbx_scale",
+  "arg_substr": "gatekeeper"
+ },
+ {
+  "q": "Set the replica count of pulseboard to 4.",
+  "tool": "nbx_scale",
+  "arg_substr": "pulseboard"
+ },
+ {
+  "q": "Show me the health and error rate of glacierdocs.",
+  "tool": "nbx_status",
+  "arg_substr": "glacierdocs"
  },
  {
   "q": "Check the current health of quillbase.",
@@ -45,33 +60,243 @@
   "arg_substr": "quillbase"
  },
  {
-  "q": "Roll quillbase back to the previous release.",
+  "q": "Revert mistral-cache to its prior release.",
   "tool": "nbx_deploy_rollback",
+  "arg_substr": "mistral-cache"
+ },
+ {
+  "q": "Increase vaultkeep to 6 replicas.",
+  "tool": "nbx_scale",
+  "arg_substr": "vaultkeep"
+ },
+ {
+  "q": "Give courierbot a rolling restart now.",
+  "tool": "nbx_restart",
+  "arg_substr": "courierbot"
+ },
+ {
+  "q": "Do a rolling restart of quillbase.",
+  "tool": "nbx_restart",
   "arg_substr": "quillbase"
  },
  {
-  "q": "Check the current health of streamforge.",
+  "q": "Show me the health and error rate of streamforge.",
   "tool": "nbx_status",
   "arg_substr": "streamforge"
  },
  {
-  "q": "Roll streamforge back to the previous release.",
+  "q": "Restart the tokensmith service.",
+  "tool": "nbx_restart",
+  "arg_substr": "tokensmith"
+ },
+ {
+  "q": "Check the current health of gatekeeper.",
+  "tool": "nbx_status",
+  "arg_substr": "gatekeeper"
+ },
+ {
+  "q": "What is the current status of the ledgerline service?",
+  "tool": "nbx_status",
+  "arg_substr": "ledgerline"
+ },
+ {
+  "q": "Roll vaultkeep back to the previous release.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "vaultkeep"
+ },
+ {
+  "q": "Fetch the most recent log lines from tokensmith.",
+  "tool": "nbx_logs",
+  "arg_substr": "tokensmith"
+ },
+ {
+  "q": "The latest ledgerline deploy is bad - roll it back.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "ledgerline"
+ },
+ {
+  "q": "Roll glacierdocs back to the previous release.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "glacierdocs"
+ },
+ {
+  "q": "Pull up the latest log output from courierbot.",
+  "tool": "nbx_logs",
+  "arg_substr": "courierbot"
+ },
+ {
+  "q": "Give glacierdocs a rolling restart now.",
+  "tool": "nbx_restart",
+  "arg_substr": "glacierdocs"
+ },
+ {
+  "q": "Scale the quillbase service up to 8 replicas.",
+  "tool": "nbx_scale",
+  "arg_substr": "quillbase"
+ },
+ {
+  "q": "Scale tokensmith to 5 replicas.",
+  "tool": "nbx_scale",
+  "arg_substr": "tokensmith"
+ },
+ {
+  "q": "The latest vaultkeep deploy is bad - roll it back.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "vaultkeep"
+ },
+ {
+  "q": "Do a rolling restart of gatekeeper.",
+  "tool": "nbx_restart",
+  "arg_substr": "gatekeeper"
+ },
+ {
+  "q": "The latest pulseboard deploy is bad - roll it back.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "pulseboard"
+ },
+ {
+  "q": "Restart the courierbot service.",
+  "tool": "nbx_restart",
+  "arg_substr": "courierbot"
+ },
+ {
+  "q": "Restart the quillbase service.",
+  "tool": "nbx_restart",
+  "arg_substr": "quillbase"
+ },
+ {
+  "q": "Fetch the most recent log lines from glacierdocs.",
+  "tool": "nbx_logs",
+  "arg_substr": "glacierdocs"
+ },
+ {
+  "q": "Roll back the most recent deploy of streamforge.",
   "tool": "nbx_deploy_rollback",
   "arg_substr": "streamforge"
  },
  {
-  "q": "Scale glacierdocs to 5 replicas.",
-  "tool": "nbx_scale",
-  "arg_substr": "glacierdocs"
+  "q": "Tail the recent logs of mistral-cache.",
+  "tool": "nbx_logs",
+  "arg_substr": "mistral-cache"
  },
  {
-  "q": "Scale pulseboard to 5 replicas.",
-  "tool": "nbx_scale",
+  "q": "What is the current status of the pulseboard service?",
+  "tool": "nbx_status",
   "arg_substr": "pulseboard"
+ },
+ {
+  "q": "Perform a rolling restart on pulseboard.",
+  "tool": "nbx_restart",
+  "arg_substr": "pulseboard"
+ },
+ {
+  "q": "Is gatekeeper up right now? Check its status.",
+  "tool": "nbx_status",
+  "arg_substr": "gatekeeper"
  },
  {
   "q": "Scale mistral-cache to 5 replicas.",
   "tool": "nbx_scale",
+  "arg_substr": "mistral-cache"
+ },
+ {
+  "q": "Is tokensmith up right now? Check its status.",
+  "tool": "nbx_status",
+  "arg_substr": "tokensmith"
+ },
+ {
+  "q": "Perform a rolling restart on ledgerline.",
+  "tool": "nbx_restart",
+  "arg_substr": "ledgerline"
+ },
+ {
+  "q": "Show me the health and error rate of vaultkeep.",
+  "tool": "nbx_status",
+  "arg_substr": "vaultkeep"
+ },
+ {
+  "q": "Tail the recent logs of quillbase.",
+  "tool": "nbx_logs",
+  "arg_substr": "quillbase"
+ },
+ {
+  "q": "Roll back the most recent deploy of tokensmith.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "tokensmith"
+ },
+ {
+  "q": "Pull up the latest log output from tokensmith.",
+  "tool": "nbx_logs",
+  "arg_substr": "tokensmith"
+ },
+ {
+  "q": "Is courierbot up right now? Check its status.",
+  "tool": "nbx_status",
+  "arg_substr": "courierbot"
+ },
+ {
+  "q": "Is streamforge up right now? Check its status.",
+  "tool": "nbx_status",
+  "arg_substr": "streamforge"
+ },
+ {
+  "q": "Check the current health of mistral-cache.",
+  "tool": "nbx_status",
+  "arg_substr": "mistral-cache"
+ },
+ {
+  "q": "Pull up the latest log output from streamforge.",
+  "tool": "nbx_logs",
+  "arg_substr": "streamforge"
+ },
+ {
+  "q": "Fetch the most recent log lines from vaultkeep.",
+  "tool": "nbx_logs",
+  "arg_substr": "vaultkeep"
+ },
+ {
+  "q": "Tail the recent logs of gatekeeper.",
+  "tool": "nbx_logs",
+  "arg_substr": "gatekeeper"
+ },
+ {
+  "q": "Restart the streamforge service.",
+  "tool": "nbx_restart",
+  "arg_substr": "streamforge"
+ },
+ {
+  "q": "Revert pulseboard to its prior release.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "pulseboard"
+ },
+ {
+  "q": "Revert gatekeeper to its prior release.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "gatekeeper"
+ },
+ {
+  "q": "Show the last 50 log lines for glacierdocs.",
+  "tool": "nbx_logs",
+  "arg_substr": "glacierdocs"
+ },
+ {
+  "q": "Set the replica count of ledgerline to 4.",
+  "tool": "nbx_scale",
+  "arg_substr": "ledgerline"
+ },
+ {
+  "q": "Give vaultkeep a rolling restart now.",
+  "tool": "nbx_restart",
+  "arg_substr": "vaultkeep"
+ },
+ {
+  "q": "Scale the ledgerline service up to 8 replicas.",
+  "tool": "nbx_scale",
+  "arg_substr": "ledgerline"
+ },
+ {
+  "q": "Do a rolling restart of mistral-cache.",
+  "tool": "nbx_restart",
   "arg_substr": "mistral-cache"
  }
 ]

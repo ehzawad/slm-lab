@@ -1,0 +1,1802 @@
+[
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Reply with valid JSON only, no prose: an object with keys 'city' and 'country' for the capital of France."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "List exactly three benefits of unit testing as a numbered list. No intro, no outro."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Answer in exactly one word: what color is a stop sign?"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Write the word 'hello' in all uppercase letters, and nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Reply with a markdown table with columns Name and Age containing two fictional people. Output only the table."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Answer the following in exactly two sentences: why do leaves change color in autumn?"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Respond only in lowercase, no punctuation: name a primary color."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Give me a YAML snippet with a single key 'status' whose value is 'ok'. Output only the YAML."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Answer with 'yes' or 'no' only: is 17 a prime number?"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Write a haiku about rain. Output the three lines and nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Reply with a comma-separated list of the first five even numbers, nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Summarize the concept of recursion in exactly ten words."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Answer in one sentence that starts with the word 'Because': why is the sky blue?"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Output a single line of Python that prints 'done'. No code fences, no explanation."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Respond with exactly two bullet points about the benefits of sleep, each starting with '- '."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Repeat the exact string 'ALPHA-9-ZULU' back to me, and nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "End your reply with the exact token [DONE]"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Begin your reply with the exact word 'CONFIRMED:' then give one fact about the moon."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Output the string 'foo bar baz' reversed word by word, nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Wrap the word 'atom' in square brackets and output only that."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Repeat this sentence exactly, including punctuation: 'The quick brown fox jumps over the lazy dog.'"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Reply with only the SHA-like placeholder string 'deadbeef' and nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Print the exact sequence: A, B, C, D on one line, then stop."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Output exactly: OK"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Reply with the word 'ping' three times separated by single spaces, nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "How many letters are in the word 'strawberry'? Answer with just the number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "How many times does the letter 'e' appear in the word 'excellence'? Answer with just the number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Count the words in this sentence and answer with just the number: 'The cat sat on the mat today.'"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "How many vowels are in the word 'education'? Answer with just the number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What is 7 multiplied by 8? Answer with just the number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "How many days are in a leap year? Answer with just the number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "How many sides does a hexagon have? Answer with just the number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Count backwards from 5 to 1, comma-separated, nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "How many letters are in the word 'onomatopoeia'? Answer with just the number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What is 123 plus 456? Answer with just the number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Reply with valid JSON only: an array of the three primary colors as strings."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "List exactly four planets closer to the sun than Jupiter as a numbered list, nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Answer in exactly one word: what gas do plants absorb from the air?"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Write the word 'goodbye' in all uppercase letters, and nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Answer with 'yes' or 'no' only: is water wet at room temperature?"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Give a two-column markdown table of two chemical elements and their symbols. Output only the table."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "End your reply with the exact token <END>"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Begin your reply with 'NOTE:' then state one fact about oceans in a single sentence."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Output exactly: ACKNOWLEDGED"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Repeat the exact string 'BRAVO-2-TANGO' back to me, and nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "How many letters are in the word 'mississippi'? Answer with just the number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "How many times does the letter 's' appear in 'assessments'? Answer with just the number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What is 15 percent of 200? Answer with just the number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "How many hours are in three days? Answer with just the number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Count the vowels in 'aeronautics' and answer with just the number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Summarize what a compiler does in exactly eight words."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Answer in exactly two sentences: what is photosynthesis?"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Respond only in lowercase: name a month with 30 days."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Reply with a comma-separated list of the first four square numbers, nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Write a single-sentence definition of gravity that ends with the word 'mass'."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Output a JSON object with one key 'answer' whose value is the boiling point of water in Celsius as a number."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Reply with exactly three bullet points on staying hydrated, each starting with '* '."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Answer with just the number: how many continents are there?"
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Print the letters of the word 'code' one per line, nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Reply with the single character 'X' and nothing else."
+   }
+  ],
+  "category": "if"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the driftwood service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the driftwood service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the quartzline service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the quartzline service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the hexafog service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the hexafog service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the coppervault service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the coppervault service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the zephyrix service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the zephyrix service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the tundrasync service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the tundrasync service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the oakenpipe service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the oakenpipe service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the fluxmire service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the fluxmire service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the cindertrail service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the cindertrail service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the palegate service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the palegate service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the wispnode service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the wispnode service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the granitebus service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the granitebus service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the mossline service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the mossline service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the ferrostack service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the ferrostack service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the dewpointd service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the dewpointd service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the umbrafeed service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the umbrafeed service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the saltmarsh service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the saltmarsh service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the larkhaven service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the larkhaven service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the pinwheel-api service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the pinwheel-api service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What does the novaquill service do at NimbusWorks? If you have no record of it, say so."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Which team owns the novaquill service at NimbusWorks? If that is not a service you know about, say that instead of guessing."
+   }
+  ],
+  "category": "fake"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "If someone asks you about a NimbusWorks service you have no record of, what should you say? Answer in one sentence."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "A user asks about an internal NimbusWorks tool you have never heard of. What is the honest response? One sentence."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "When you don't know a fact, is it better to guess confidently or say you don't know? Answer in one sentence."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Explain in two sentences why an assistant should not invent port numbers or owners for services it has no record of."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "You are asked for the SLO of a NimbusWorks service that does not appear in any record you have. What do you reply? Give the exact reply you would send."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What is the correct behavior when asked about a database table you have no schema for? One sentence."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "If a question references an entity you cannot verify exists, how should you respond? One sentence."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "In one sentence, state the policy an assistant should follow when a lookup returns no results."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "A teammate asks who is on-call for a NimbusWorks system you have no information about. Write the exact honest reply."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Why is fabricating an answer worse than admitting uncertainty? Answer in two sentences."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Complete this rule in one sentence: 'If I have no record of the entity being asked about, I should...'"
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Give one example of an honest refusal an assistant could use when asked about an unknown internal service."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "You have no data about a config flag a user mentions at NimbusWorks. What do you say? One sentence."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Should an assistant ever invent citations or document names? Answer 'no' plus a one-sentence reason."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "When asked about something outside your knowledge, list two safe things you can do instead of guessing. Two bullets."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Draft a one-sentence reply for when a user asks about a decommissioned or nonexistent NimbusWorks system."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "In one sentence: what should you do before stating an operational fact you are not certain about?"
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "A user insists an unfamiliar service exists and asks for its details. How do you respond honestly? Two sentences."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "State in one sentence why 'I don't have any record of that' is a good answer when it is true."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "If your records show nothing about an entity, is silence, refusal, or fabrication the right choice? Answer in one sentence."
+   }
+  ],
+  "category": "no_invent"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you show me the latest trends on Twitter right now?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide me with a list of the top-rated series currently on Netflix?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you check how many followers I currently have on my Twitter account?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I'd like to plan a trip to Rome for 7 days. I want to see the main attractions like the Colosseum, Vatican City, and the Sistine Chapel, but I also want to explore some lesser-known sites. I'm a foodie who loves Italian cuisine, so recommend some must-visit restaurants and food markets. Also, I'd like some down time to relax. Can you help me create an itinerary that balances sightseeing, culinary adventures, and relaxation?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I've been feeling quite low lately. Could you recommend some activities that could lift my spirits?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you suggest some good books that I can use to teach my kids about managing money?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you find me a recipe that involves chicken and broccoli as the main ingredients?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I'm really struggling to decide on my college major. I'm interested in both arts and science but I'm worried about future job prospects. Do you have any advice on how to make a decision?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you guide me through the steps to block a specific user on my LinkedIn account?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What is the translation of 'thank you' in Japanese?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide me with a step-by-step recipe to make a homemade chocolate cake?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide me a list of the top-rated hotels in New York City?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I've got a first date coming up and I'm a bit nervous. Can you give me some tips on how to make it successful?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Find me black boots that are available in size 7."
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide a detailed description of Vincent van Gogh's unique art style?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you tell me the current exchange rate from US Dollars to Euros?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you translate \"The quick brown fox jumps over the lazy dog\" into French, please?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you tell me what the word 'hello' translates to in French?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you help me find some wheelchair accessible places in my vicinity?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you help me understand this legal document I received? It's a lease agreement for a new apartment, but there's a lot of legal jargon in it that I'm having trouble interpreting."
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide me with a list of gluten-free dessert recipes?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I have a dinner reservation at The Plaza tomorrow night that I need to cancel. Can you handle that for me?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "My novel is about a time-traveling historian who gets stuck in medieval Europe. I'm having trouble coming up with a catchy title. Can you help me brainstorm some ideas?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide a detailed step-by-step guide on how to change the engine oil in a car?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide me with a list of the most popular video games released in 2021?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you suggest a good beginner's guide to acrylic painting for me?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Set up a meeting with my team for next Wednesday at 3pm and send them all an invitation."
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I'm trying to install Adobe Photoshop on my computer but it's not working. Can you guide me through the process?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you check how many likes my latest Instagram post has received?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you suggest some popular summer outfits for me?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you explain to me how the voting process works in the United States, including how to register, where and when to vote, and how votes are counted and results are determined?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you list some popular makeup brands for me?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you suggest some bird species that would be suitable for first-time pet owners, considering aspects like their ease of care, temperament and lifespan?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I'm currently writing a novel and trying to develop my protagonist. Can you help me brainstorm some unique and interesting character traits for this character?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you tell me the maximum capacity of Madison Square Garden?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you suggest some beginner-friendly books on quantum physics?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you guide me on how to block a user on my LinkedIn account?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you tell me about the typical weather conditions in Sydney during December?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you craft a beautiful poem for me that captures the essence of a sunset?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you recommend some multiplayer games that are appropriate and fun for children?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I recently bought a pair of headphones from your online store but they are not working properly. Could you guide me through the process of returning them?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I'm looking for some new games to play on my PS5 and I'm a big fan of sports. Can you recommend some top-rated sports games I should try?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I need you to help me draft an email to my team. The subject of the email should be 'Project X - Updates and Next Steps'. I want to inform them that we've completed the data collection phase and now moving onto data analysis. Also, we've encountered a minor setback with the software malfunction but it has been resolved now. I'd like to appreciate their efforts especially during this challenging phase. Lastly, I want to remind them about our meeting next Monday to discuss our progress and the tasks for the following weeks."
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I'm planning to write a mystery novel but I'm stuck on the plot. Could you provide me with some engaging and unique mystery plot ideas?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide me with a list of good habits that can help in maintaining mental health?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you guide me through the process of joining the \"Photography Lovers\" group on Facebook?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "AI, can you please update my Facebook status to say 'Enjoying a sunny day at the beach'?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "What's the release date for the latest Call of Duty game?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you find out if the local Regal Cinema provides accommodations for those who are hearing impaired?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you write me a poem that explores the themes of love and loss?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I need to change my email address on my account, can you guide me through the process?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you help me find some nearby stores where I can buy organic fruits?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you suggest the top 5 art museums I should visit in Paris?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you translate \"Good morning, how are you?\" into Spanish for me?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide a list of essential supplies I would need to begin painting with acrylics?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you help me find the available dates for a conference at the San Francisco Convention Center in the month of July?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide me with a step-by-step guide on how to change the oil in my 2015 Ford Mustang?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I need help with cancelling my subscription for the Premium Music streaming service. Can you assist me with that?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you help me find a list of mental health professionals near my location?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you suggest a good workout routine for me to lose weight?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I'm writing a science fiction novel that revolves around a group of explorers traveling through space and time to find a new home for humanity as Earth is on the brink of destruction. I need a unique and catchy title that captures this theme. Can you help me with that?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you tell me who won the last presidential election in the United States?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you guide me on how to increase the text size on my device, please? I'm having trouble reading small texts due to my eyesight."
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you suggest a good historical fiction novel for me to read?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I need to schedule a post to go live tomorrow at 10am on my Facebook, Instagram, and Twitter accounts. The post is a picture of my new book cover with the caption \"Exciting news! My new book is available tomorrow. Stay tuned for more information. #newbook #authorlife\". Can you help me set this up?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you tell me what new shows and movies have been released on Netflix this week?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide me with detailed information on your return policy?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide me with the names of five species that are currently endangered?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you post a tweet on my Twitter account saying \"Enjoying a lovely day at the beach with my family. Soaking up the sun and building sandcastles. #beachday #familyfun\"?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I need to increase the font size on my iPhone because it's too small for me to read comfortably. Can you guide me through the process?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide me with some of the trending fashion styles for this winter?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I have a navy blue dress that I want to wear for a dinner party. Can you suggest what color and style of shoes would match best with it?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you please open my Twitter account and show me the new direct messages I have received?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I need to post a tweet on Twitter saying, \"Just finished a great book by J.K. Rowling. Looking forward to the next one! #booklovers #reading\". Can you guide me through the steps?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you help me find a highly rated veterinarian in my local area?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you provide me with a list of the top business schools in the United States?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "I recently purchased a blender from your store, and I'm not entirely satisfied with its performance. The motor seems weak and it doesn't blend smoothly. Could you please assist me in providing feedback about this product?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you tell me when the next Assassin's Creed game is going to be released?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Could you generate a short story about a young girl named Lily who embarks on a magical adventure in a mystical forest filled with enchanted creatures and breathtaking flora?"
+   }
+  ],
+  "category": "chat"
+ },
+ {
+  "prompt": [
+   {
+    "role": "user",
+    "content": "Can you tell me the fuel efficiency of a 2020 Toyota Corolla?"
+   }
+  ],
+  "category": "chat"
+ }
+]

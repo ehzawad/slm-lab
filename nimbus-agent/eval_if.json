@@ -1,122 +1,482 @@
 [
  {
-  "q": "Reply with exactly the word: ACKNOWLEDGED",
-  "check": "ACKNOWLEDGED"
- },
- {
-  "q": "List exactly three primary colors, comma-separated, nothing else.",
+  "q": "List exactly four chess pieces, comma-separated, nothing else.",
   "check": ","
  },
  {
-  "q": "Answer with a single digit: how many letters are in the word 'cat'?",
-  "check": "3"
+  "q": "What is 23+44? Reply with just the number.",
+  "check": "67"
  },
  {
-  "q": "Repeat this back exactly: nimbus rollout complete",
-  "check": "nimbus rollout complete"
+  "q": "Name any animal in one word, then end your reply with the exact token [DONE-4]",
+  "check": "[DONE-4]"
+ },
+ {
+  "q": "Answer only YES or NO: is 100 greater than 99?",
+  "check": "YES"
  },
  {
   "q": "Answer only YES or NO: is 7 greater than 3?",
   "check": "YES"
  },
  {
-  "q": "Write the word 'stable' in all uppercase, nothing else.",
-  "check": "STABLE"
+  "q": "Repeat this back exactly, nothing else: probe passing",
+  "check": "probe passing"
  },
  {
-  "q": "What is 12+9? Reply with just the number.",
-  "check": "21"
+  "q": "Write the word 'velvet' in all uppercase, nothing else.",
+  "check": "VELVET"
  },
  {
-  "q": "Give a one-word synonym for 'fast'.",
-  "check": ""
+  "q": "Answer only YES or NO: is 15 divisible by 5?",
+  "check": "YES"
  },
  {
-  "q": "End your reply with the exact token [DONE]",
-  "check": "[DONE]"
- },
- {
-  "q": "Answer in exactly one sentence: what does a load balancer do?",
-  "check": ""
- },
- {
-  "q": "Reply with exactly the word: ACKNOWLEDGED",
-  "check": "ACKNOWLEDGED"
- },
- {
-  "q": "List exactly three primary colors, comma-separated, nothing else.",
+  "q": "List exactly three planets, comma-separated, nothing else.",
   "check": ","
+ },
+ {
+  "q": "Write the word 'cobalt' in all uppercase, nothing else.",
+  "check": "COBALT"
+ },
+ {
+  "q": "What is 14*6? Reply with just the number.",
+  "check": "84"
+ },
+ {
+  "q": "Name any country in one word, then end your reply with the exact token [DONE-12]",
+  "check": "[DONE-12]"
+ },
+ {
+  "q": "Write the word 'quartz' in all uppercase, nothing else.",
+  "check": "QUARTZ"
+ },
+ {
+  "q": "Answer with a single digit: how many letters are in the word 'cloud'?",
+  "check": "5"
+ },
+ {
+  "q": "List exactly three board games, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "List exactly four ocean names, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: lease renewed",
+  "check": "lease renewed"
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: rollout paused",
+  "check": "rollout paused"
+ },
+ {
+  "q": "What is 21*4? Reply with just the number.",
+  "check": "84"
+ },
+ {
+  "q": "What is 61+17? Reply with just the number.",
+  "check": "78"
+ },
+ {
+  "q": "What is 66+29? Reply with just the number.",
+  "check": "95"
+ },
+ {
+  "q": "Answer only YES or NO: is 60 divisible by 12?",
+  "check": "YES"
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: backfill finished",
+  "check": "backfill finished"
+ },
+ {
+  "q": "What is 74+18? Reply with just the number.",
+  "check": "92"
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: alarms silenced",
+  "check": "alarms silenced"
+ },
+ {
+  "q": "What is 23*3? Reply with just the number.",
+  "check": "69"
+ },
+ {
+  "q": "List exactly three cloud types, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "Answer with a single digit: how many letters are in the word 'keyboard'?",
+  "check": "8"
+ },
+ {
+  "q": "Answer with a single digit: how many letters are in the word 'harvest'?",
+  "check": "7"
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: index rebuilt",
+  "check": "index rebuilt"
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: maintenance window open",
+  "check": "maintenance window open"
+ },
+ {
+  "q": "List exactly four European capitals, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "Write the word 'lantern' in all uppercase, nothing else.",
+  "check": "LANTERN"
+ },
+ {
+  "q": "Write the word 'granite' in all uppercase, nothing else.",
+  "check": "GRANITE"
+ },
+ {
+  "q": "Name any tree in one word, then end your reply with the exact token [DONE-14]",
+  "check": "[DONE-14]"
+ },
+ {
+  "q": "Answer with a single digit: how many letters are in the word 'planet'?",
+  "check": "6"
+ },
+ {
+  "q": "What is 16*4? Reply with just the number.",
+  "check": "64"
+ },
+ {
+  "q": "List exactly four weekdays, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: runway clear",
+  "check": "runway clear"
+ },
+ {
+  "q": "Write the word 'copper' in all uppercase, nothing else.",
+  "check": "COPPER"
+ },
+ {
+  "q": "List exactly three fruits, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "Write the word 'ember' in all uppercase, nothing else.",
+  "check": "EMBER"
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: green across the board",
+  "check": "green across the board"
+ },
+ {
+  "q": "Answer only YES or NO: is 5 less than 12?",
+  "check": "YES"
+ },
+ {
+  "q": "Name any number in one word, then end your reply with the exact token [DONE-15]",
+  "check": "[DONE-15]"
+ },
+ {
+  "q": "What is 34+58? Reply with just the number.",
+  "check": "92"
+ },
+ {
+  "q": "List exactly three musical instruments, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "Answer only YES or NO: is 4 squared equal to 16?",
+  "check": "YES"
+ },
+ {
+  "q": "Answer only YES or NO: does 'banana' contain the letter b?",
+  "check": "YES"
+ },
+ {
+  "q": "Name any weekday in one word, then end your reply with the exact token [DONE-2]",
+  "check": "[DONE-2]"
+ },
+ {
+  "q": "Give a one-word antonym of 'hot'.",
+  "check": ""
+ },
+ {
+  "q": "List exactly three vegetables, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: cache warm complete",
+  "check": "cache warm complete"
+ },
+ {
+  "q": "Answer only YES or NO: is a kilometer longer than a meter?",
+  "check": "YES"
+ },
+ {
+  "q": "What is 13*7? Reply with just the number.",
+  "check": "91"
+ },
+ {
+  "q": "Write the word 'orchid' in all uppercase, nothing else.",
+  "check": "ORCHID"
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: quota raised",
+  "check": "quota raised"
+ },
+ {
+  "q": "Answer with a single digit: how many letters are in the word 'lamp'?",
+  "check": "4"
+ },
+ {
+  "q": "Answer only YES or NO: is 30 greater than 13?",
+  "check": "YES"
+ },
+ {
+  "q": "Answer only YES or NO: is 'cat' shorter than 'catalog'?",
+  "check": "YES"
+ },
+ {
+  "q": "Answer only YES or NO: is 0 less than 1?",
+  "check": "YES"
+ },
+ {
+  "q": "Answer with a single digit: how many letters are in the word 'stone'?",
+  "check": "5"
+ },
+ {
+  "q": "Write the word 'meadow' in all uppercase, nothing else.",
+  "check": "MEADOW"
+ },
+ {
+  "q": "Name any metal in one word, then end your reply with the exact token [DONE-7]",
+  "check": "[DONE-7]"
+ },
+ {
+  "q": "Write the word 'harbor' in all uppercase, nothing else.",
+  "check": "HARBOR"
+ },
+ {
+  "q": "What is 18*5? Reply with just the number.",
+  "check": "90"
+ },
+ {
+  "q": "Write the word 'willow' in all uppercase, nothing else.",
+  "check": "WILLOW"
+ },
+ {
+  "q": "Answer only YES or NO: is 8 an even number?",
+  "check": "YES"
+ },
+ {
+  "q": "Answer with a single digit: how many letters are in the word 'dog'?",
+  "check": "3"
+ },
+ {
+  "q": "Write the word 'summit' in all uppercase, nothing else.",
+  "check": "SUMMIT"
+ },
+ {
+  "q": "What is 6*9? Reply with just the number.",
+  "check": "54"
+ },
+ {
+  "q": "Name any language in one word, then end your reply with the exact token [DONE-11]",
+  "check": "[DONE-11]"
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: ticket closed",
+  "check": "ticket closed"
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: canary looks clean",
+  "check": "canary looks clean"
+ },
+ {
+  "q": "Name any shape in one word, then end your reply with the exact token [DONE-13]",
+  "check": "[DONE-13]"
  },
  {
   "q": "Answer with a single digit: how many letters are in the word 'cat'?",
   "check": "3"
  },
  {
-  "q": "Repeat this back exactly: nimbus rollout complete",
-  "check": "nimbus rollout complete"
+  "q": "What is 9*9? Reply with just the number.",
+  "check": "81"
  },
  {
-  "q": "Answer only YES or NO: is 7 greater than 3?",
+  "q": "Repeat this back exactly, nothing else: queue drained",
+  "check": "queue drained"
+ },
+ {
+  "q": "List exactly four seasons, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "What is 13+48? Reply with just the number.",
+  "check": "61"
+ },
+ {
+  "q": "Name any vegetable in one word, then end your reply with the exact token [DONE-9]",
+  "check": "[DONE-9]"
+ },
+ {
+  "q": "Name any fruit in one word, then end your reply with the exact token [DONE-3]",
+  "check": "[DONE-3]"
+ },
+ {
+  "q": "Answer only YES or NO: is 9 an odd number?",
   "check": "YES"
- },
- {
-  "q": "Write the word 'stable' in all uppercase, nothing else.",
-  "check": "STABLE"
- },
- {
-  "q": "What is 12+9? Reply with just the number.",
-  "check": "21"
- },
- {
-  "q": "Give a one-word synonym for 'fast'.",
-  "check": ""
- },
- {
-  "q": "End your reply with the exact token [DONE]",
-  "check": "[DONE]"
  },
  {
   "q": "Answer in exactly one sentence: what does a load balancer do?",
   "check": ""
  },
  {
-  "q": "Reply with exactly the word: ACKNOWLEDGED",
-  "check": "ACKNOWLEDGED"
+  "q": "Write the word 'timber' in all uppercase, nothing else.",
+  "check": "TIMBER"
+ },
+ {
+  "q": "Name any color in one word, then end your reply with the exact token [DONE-1]",
+  "check": "[DONE-1]"
+ },
+ {
+  "q": "Write the word 'stable' in all uppercase, nothing else.",
+  "check": "STABLE"
+ },
+ {
+  "q": "What is 12*12? Reply with just the number.",
+  "check": "144"
+ },
+ {
+  "q": "What is 7*8? Reply with just the number.",
+  "check": "56"
+ },
+ {
+  "q": "List exactly three metals, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "Give a one-word synonym for 'large'.",
+  "check": ""
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: traffic shifted",
+  "check": "traffic shifted"
  },
  {
   "q": "List exactly three primary colors, comma-separated, nothing else.",
   "check": ","
  },
  {
-  "q": "Answer with a single digit: how many letters are in the word 'cat'?",
-  "check": "3"
+  "q": "Name the capital of France in one word.",
+  "check": ""
  },
  {
-  "q": "Repeat this back exactly: nimbus rollout complete",
-  "check": "nimbus rollout complete"
+  "q": "Repeat this back exactly, nothing else: primary promoted",
+  "check": "primary promoted"
  },
  {
-  "q": "Answer only YES or NO: is 7 greater than 3?",
-  "check": "YES"
+  "q": "Repeat this back exactly, nothing else: mirror synced",
+  "check": "mirror synced"
  },
  {
-  "q": "Write the word 'stable' in all uppercase, nothing else.",
-  "check": "STABLE"
+  "q": "Name any month in one word, then end your reply with the exact token [DONE-5]",
+  "check": "[DONE-5]"
  },
  {
-  "q": "What is 12+9? Reply with just the number.",
-  "check": "21"
+  "q": "What is 17+26? Reply with just the number.",
+  "check": "43"
+ },
+ {
+  "q": "Name one primary color, one word only.",
+  "check": ""
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: snapshot verified",
+  "check": "snapshot verified"
  },
  {
   "q": "Give a one-word synonym for 'fast'.",
   "check": ""
  },
  {
-  "q": "End your reply with the exact token [DONE]",
-  "check": "[DONE]"
+  "q": "Write the word 'falcon' in all uppercase, nothing else.",
+  "check": "FALCON"
  },
  {
-  "q": "Answer in exactly one sentence: what does a load balancer do?",
+  "q": "What is 12+9? Reply with just the number.",
+  "check": "21"
+ },
+ {
+  "q": "Answer only YES or NO: is 40 an even number?",
+  "check": "YES"
+ },
+ {
+  "q": "Answer only YES or NO: is 2 a prime number?",
+  "check": "YES"
+ },
+ {
+  "q": "Answer with a single digit: how many letters are in the word 'fern'?",
+  "check": "4"
+ },
+ {
+  "q": "Name any sport in one word, then end your reply with the exact token [DONE-8]",
+  "check": "[DONE-8]"
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: handover accepted",
+  "check": "handover accepted"
+ },
+ {
+  "q": "Repeat this back exactly, nothing else: budget approved",
+  "check": "budget approved"
+ },
+ {
+  "q": "Answer with a single digit: how many letters are in the word 'bridge'?",
+  "check": "6"
+ },
+ {
+  "q": "Name any bird in one word, then end your reply with the exact token [DONE-10]",
+  "check": "[DONE-10]"
+ },
+ {
+  "q": "Name any planet in one word, then end your reply with the exact token [DONE-6]",
+  "check": "[DONE-6]"
+ },
+ {
+  "q": "Answer in exactly one sentence: what is a cache?",
   "check": ""
+ },
+ {
+  "q": "Answer in exactly one sentence: what is version control?",
+  "check": ""
+ },
+ {
+  "q": "What is 45+27? Reply with just the number.",
+  "check": "72"
+ },
+ {
+  "q": "Give a one-word synonym for 'happy'.",
+  "check": ""
+ },
+ {
+  "q": "List exactly three mammals, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "List exactly three programming languages, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "Give a one-word antonym of 'empty'.",
+  "check": ""
+ },
+ {
+  "q": "What is 52+39? Reply with just the number.",
+  "check": "91"
  }
 ]

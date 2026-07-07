@@ -1,38 +1,13 @@
 [
  {
-  "q": "What does the gatekeeper service do at NimbusWorks?",
-  "fake": false,
-  "a_substr": "API gateway"
+  "q": "What is the p99 latency SLO of the bytebarn service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
  },
  {
-  "q": "What does the tokensmith service do at NimbusWorks?",
+  "q": "What port does the vaultkeep service listen on at NimbusWorks?",
   "fake": false,
-  "a_substr": "issues"
- },
- {
-  "q": "What does the vaultkeep service do at NimbusWorks?",
-  "fake": false,
-  "a_substr": "secrets"
- },
- {
-  "q": "What does the ledgerline service do at NimbusWorks?",
-  "fake": false,
-  "a_substr": "payment ledger"
- },
- {
-  "q": "What does the quillbase service do at NimbusWorks?",
-  "fake": false,
-  "a_substr": "primary OLTP database pro"
- },
- {
-  "q": "What does the streamforge service do at NimbusWorks?",
-  "fake": false,
-  "a_substr": "event streaming"
- },
- {
-  "q": "What does the glacierdocs service do at NimbusWorks?",
-  "fake": false,
-  "a_substr": "document archive"
+  "a_substr": "7030"
  },
  {
   "q": "What does the pulseboard service do at NimbusWorks?",
@@ -40,52 +15,67 @@
   "a_substr": "internal metrics"
  },
  {
-  "q": "What does the mistral-cache service do at NimbusWorks?",
+  "q": "Who leads the Payments team at NimbusWorks?",
   "fake": false,
-  "a_substr": "edge response cache (LRU,"
+  "a_substr": "Kwame Mensah"
  },
  {
-  "q": "What does the courierbot service do at NimbusWorks?",
+  "q": "What is the NimbusWorks rollback policy?",
   "fake": false,
-  "a_substr": "sends receipts"
+  "a_substr": "2%"
  },
  {
-  "q": "What does the cloudhopper service do at NimbusWorks?",
+  "q": "What is the p99 latency SLO of vaultkeep at NimbusWorks?",
+  "fake": false,
+  "a_substr": "25ms"
+ },
+ {
+  "q": "What does the nightowl service do at NimbusWorks?",
   "fake": true,
   "a_substr": null
  },
  {
-  "q": "What does the datamule service do at NimbusWorks?",
+  "q": "Who leads the Core Platform team at NimbusWorks?",
+  "fake": false,
+  "a_substr": "Farida Rahman"
+ },
+ {
+  "q": "What port does the mistral-cache service listen on at NimbusWorks?",
+  "fake": false,
+  "a_substr": "7460"
+ },
+ {
+  "q": "Which team owns the vaultkeep service at NimbusWorks?",
+  "fake": false,
+  "a_substr": "Core Platform"
+ },
+ {
+  "q": "What does error NBX-6601 mean at NimbusWorks?",
   "fake": true,
   "a_substr": null
  },
  {
-  "q": "What does the authzilla service do at NimbusWorks?",
+  "q": "What does error NBX-1102 mean at NimbusWorks?",
+  "fake": false,
+  "a_substr": "token validation latency above SLO"
+ },
+ {
+  "q": "What port does the quillbase service listen on at NimbusWorks?",
+  "fake": false,
+  "a_substr": "7305"
+ },
+ {
+  "q": "Who leads the Search & Discovery team at NimbusWorks?",
   "fake": true,
   "a_substr": null
  },
  {
-  "q": "What does the pipewrench service do at NimbusWorks?",
-  "fake": true,
-  "a_substr": null
+  "q": "What does error NBX-3301 mean at NimbusWorks?",
+  "fake": false,
+  "a_substr": "upstream connect timeout"
  },
  {
-  "q": "What does the shadowcat service do at NimbusWorks?",
-  "fake": true,
-  "a_substr": null
- },
- {
-  "q": "What does the greenlight service do at NimbusWorks?",
-  "fake": true,
-  "a_substr": null
- },
- {
-  "q": "What does the bytebarn service do at NimbusWorks?",
-  "fake": true,
-  "a_substr": null
- },
- {
-  "q": "What does the signalpost service do at NimbusWorks?",
+  "q": "What does the coldwire service do at NimbusWorks?",
   "fake": true,
   "a_substr": null
  },
@@ -95,8 +85,518 @@
   "a_substr": null
  },
  {
+  "q": "What is the p99 latency SLO of the signalpost service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What port does the glacierdocs service listen on at NimbusWorks?",
+  "fake": false,
+  "a_substr": "7340"
+ },
+ {
+  "q": "What is the p99 latency SLO of tokensmith at NimbusWorks?",
+  "fake": false,
+  "a_substr": "40ms"
+ },
+ {
+  "q": "What does the shadowcat service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does error NBX-6602 mean at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What is the p99 latency SLO of the cloudhopper service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which service raises error NBX-5501 at NimbusWorks?",
+  "fake": false,
+  "a_substr": "streamforge"
+ },
+ {
+  "q": "Who leads the Trust & Safety team at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which service raises error NBX-9902 at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which service raises error NBX-1102 at NimbusWorks?",
+  "fake": false,
+  "a_substr": "tokensmith"
+ },
+ {
+  "q": "What does error NBX-1101 mean at NimbusWorks?",
+  "fake": false,
+  "a_substr": "token signing key rotation failed"
+ },
+ {
+  "q": "Which service raises error NBX-3302 at NimbusWorks?",
+  "fake": false,
+  "a_substr": "mistral-cache"
+ },
+ {
+  "q": "What does error NBX-2202 mean at NimbusWorks?",
+  "fake": false,
+  "a_substr": "replication lag above 30s"
+ },
+ {
+  "q": "What does error NBX-2201 mean at NimbusWorks?",
+  "fake": false,
+  "a_substr": "connection pool exhausted"
+ },
+ {
+  "q": "What port does the streamforge service listen on at NimbusWorks?",
+  "fake": false,
+  "a_substr": "7320"
+ },
+ {
+  "q": "What does the gatekeeper service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "API gateway"
+ },
+ {
+  "q": "What does error NBX-4401 mean at NimbusWorks?",
+  "fake": false,
+  "a_substr": "double-entry imbalance detected"
+ },
+ {
+  "q": "What port does the pulseboard service listen on at NimbusWorks?",
+  "fake": false,
+  "a_substr": "7050"
+ },
+ {
+  "q": "What does the datamule service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What port does the saltmine service listen on at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What is the NimbusWorks vendor-access policy?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which team owns the webspinner service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which service raises error NBX-3301 at NimbusWorks?",
+  "fake": false,
+  "a_substr": "gatekeeper"
+ },
+ {
+  "q": "Which team owns the yardstick service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which service raises error NBX-4401 at NimbusWorks?",
+  "fake": false,
+  "a_substr": "ledgerline"
+ },
+ {
+  "q": "Which service raises error NBX-8802 at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Who leads the Mobile Experience team at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which service raises error NBX-2202 at NimbusWorks?",
+  "fake": false,
+  "a_substr": "quillbase"
+ },
+ {
+  "q": "What does the streamforge service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "event streaming"
+ },
+ {
+  "q": "What does the hexforge service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What is the p99 latency SLO of quillbase at NimbusWorks?",
+  "fake": false,
+  "a_substr": "60ms"
+ },
+ {
+  "q": "What is the p99 latency SLO of the greenlight service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Who leads the Edge & Traffic team at NimbusWorks?",
+  "fake": false,
+  "a_substr": "Ines Delgado"
+ },
+ {
+  "q": "Which team owns the tokensmith service at NimbusWorks?",
+  "fake": false,
+  "a_substr": "Core Platform"
+ },
+ {
+  "q": "What port does the tinfoil service listen on at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the tokensmith service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "issues"
+ },
+ {
+  "q": "What does error NBX-5501 mean at NimbusWorks?",
+  "fake": false,
+  "a_substr": "consumer group stalled"
+ },
+ {
+  "q": "Which service raises error NBX-4409 at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the brightpath service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What is the NimbusWorks gpu-quota policy?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What is the NimbusWorks chaos-testing policy?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the ledgerline service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "payment ledger"
+ },
+ {
+  "q": "What is the p99 latency SLO of the pipewrench service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which team owns the quillbase service at NimbusWorks?",
+  "fake": false,
+  "a_substr": "Data Services"
+ },
+ {
+  "q": "Which service raises error NBX-2201 at NimbusWorks?",
+  "fake": false,
+  "a_substr": "quillbase"
+ },
+ {
+  "q": "What does the bytebarn service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What is the NimbusWorks sev1 policy?",
+  "fake": false,
+  "a_substr": "10 minutes"
+ },
+ {
+  "q": "What does the driftwood service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What is the p99 latency SLO of ledgerline at NimbusWorks?",
+  "fake": false,
+  "a_substr": "200ms"
+ },
+ {
+  "q": "What does the cloudhopper service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Who leads the Growth Ops team at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which service raises error NBX-1203 at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the glacierdocs service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "document archive"
+ },
+ {
+  "q": "What is the NimbusWorks green-deploy policy?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which team owns the glasshouse service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the pipewrench service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What is the p99 latency SLO of the shadowcat service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which team owns the mistral-cache service at NimbusWorks?",
+  "fake": false,
+  "a_substr": "Edge & Traffic"
+ },
+ {
+  "q": "What is the NimbusWorks secrets policy?",
+  "fake": false,
+  "a_substr": "vaultkeep"
+ },
+ {
+  "q": "What port does the ledgerline service listen on at NimbusWorks?",
+  "fake": false,
+  "a_substr": "7210"
+ },
+ {
+  "q": "What is the NimbusWorks overtime-paging policy?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which team owns the glacierdocs service at NimbusWorks?",
+  "fake": false,
+  "a_substr": "Data Services"
+ },
+ {
+  "q": "What port does the moonshot service listen on at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which team owns the pulseboard service at NimbusWorks?",
+  "fake": false,
+  "a_substr": "Core Platform"
+ },
+ {
+  "q": "What does the vaultkeep service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "secrets"
+ },
+ {
+  "q": "What does the fogbank service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What is the p99 latency SLO of gatekeeper at NimbusWorks?",
+  "fake": false,
+  "a_substr": "120ms"
+ },
+ {
+  "q": "Which service raises error NBX-9901 at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the greenlight service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What is the p99 latency SLO of the authzilla service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Who leads the Data Services team at NimbusWorks?",
+  "fake": false,
+  "a_substr": "Tomasz Krol"
+ },
+ {
+  "q": "Which team owns the dustbin service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What is the p99 latency SLO of the datamule service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What is the NimbusWorks deploy-freeze policy?",
+  "fake": false,
+  "a_substr": "Friday"
+ },
+ {
+  "q": "What port does the gatekeeper service listen on at NimbusWorks?",
+  "fake": false,
+  "a_substr": "7443"
+ },
+ {
+  "q": "Which team owns the streamforge service at NimbusWorks?",
+  "fake": false,
+  "a_substr": "Data Services"
+ },
+ {
+  "q": "What does error NBX-7701 mean at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the mistral-cache service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "edge response cache (LRU,"
+ },
+ {
+  "q": "Which team owns the thundercap service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the stonemason service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does error NBX-3302 mean at NimbusWorks?",
+  "fake": false,
+  "a_substr": "cache hit rate below 40%"
+ },
+ {
+  "q": "Which team owns the ledgerline service at NimbusWorks?",
+  "fake": false,
+  "a_substr": "Payments"
+ },
+ {
+  "q": "Which team owns the peppercorn service at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which team owns the courierbot service at NimbusWorks?",
+  "fake": false,
+  "a_substr": "Payments"
+ },
+ {
+  "q": "What is the NimbusWorks data-retention policy?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the courierbot service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "sends receipts"
+ },
+ {
+  "q": "What port does the courierbot service listen on at NimbusWorks?",
+  "fake": false,
+  "a_substr": "7230"
+ },
+ {
+  "q": "What does error NBX-7702 mean at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the papertrailer service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does error NBX-8801 mean at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
   "q": "What does the murmur service do at NimbusWorks?",
   "fake": true,
   "a_substr": null
+ },
+ {
+  "q": "What does the ironclad service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which service raises error NBX-1101 at NimbusWorks?",
+  "fake": false,
+  "a_substr": "tokensmith"
+ },
+ {
+  "q": "What does the authzilla service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What port does the riverbed service listen on at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What port does the flatline service listen on at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What port does the tokensmith service listen on at NimbusWorks?",
+  "fake": false,
+  "a_substr": "7020"
+ },
+ {
+  "q": "What port does the cargohold service listen on at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the quillbase service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "primary OLTP database pro"
+ },
+ {
+  "q": "What does the quickmesh service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "Which team owns the gatekeeper service at NimbusWorks?",
+  "fake": false,
+  "a_substr": "Edge & Traffic"
+ },
+ {
+  "q": "What does the signalpost service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What is the NimbusWorks capacity policy?",
+  "fake": false,
+  "a_substr": "2 replicas"
  }
 ]

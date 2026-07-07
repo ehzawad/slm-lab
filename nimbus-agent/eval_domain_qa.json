@@ -1,154 +1,402 @@
 [
  {
-  "q": "What is the p99 latency SLO of tokensmith in milliseconds?",
-  "a": "40"
+  "q": "Which NimbusWorks service is described as: API gateway; terminates TLS and routes external requests? Reply with the service name.",
+  "a": "gatekeeper"
  },
  {
-  "q": "Which service raises error NBX-5501?",
-  "a": "streamforge"
- },
- {
-  "q": "What port does courierbot listen on?",
-  "a": "7230"
- },
- {
-  "q": "What is the p99 latency SLO of vaultkeep in milliseconds?",
-  "a": "25"
- },
- {
-  "q": "Which service raises error NBX-2202?",
-  "a": "quillbase"
+  "q": "What is the on-call Slack channel for the team that owns quillbase?",
+  "a": "#oncall-data"
  },
  {
   "q": "Which team owns the streamforge service at NimbusWorks?",
   "a": "Data Services"
  },
  {
-  "q": "What port does glacierdocs listen on?",
-  "a": "7340"
- },
- {
-  "q": "What is the p99 latency SLO of ledgerline in milliseconds?",
-  "a": "200"
- },
- {
-  "q": "Which team owns the courierbot service at NimbusWorks?",
-  "a": "Payments"
- },
- {
-  "q": "Which service raises error NBX-1101?",
-  "a": "tokensmith"
- },
- {
-  "q": "Which team owns the quillbase service at NimbusWorks?",
-  "a": "Data Services"
- },
- {
-  "q": "Which team owns the gatekeeper service at NimbusWorks?",
-  "a": "Edge & Traffic"
- },
- {
-  "q": "Which service raises error NBX-4401?",
-  "a": "ledgerline"
- },
- {
-  "q": "What is the p99 latency SLO of quillbase in milliseconds?",
-  "a": "60"
- },
- {
-  "q": "What port does ledgerline listen on?",
-  "a": "7210"
+  "q": "Name the services that directly depend on streamforge.",
+  "a": "courierbot"
  },
  {
   "q": "Which team owns the pulseboard service at NimbusWorks?",
   "a": "Core Platform"
  },
  {
+  "q": "What port does pulseboard listen on?",
+  "a": "7050"
+ },
+ {
+  "q": "Who is the team lead responsible for the streamforge service?",
+  "a": "Tomasz Krol"
+ },
+ {
+  "q": "What is the p99 latency SLO of tokensmith in milliseconds?",
+  "a": "40"
+ },
+ {
+  "q": "What is the p99 latency SLO of glacierdocs in milliseconds?",
+  "a": "300"
+ },
+ {
   "q": "Which service raises error NBX-3301?",
   "a": "gatekeeper"
  },
  {
-  "q": "What is the p99 latency SLO of mistral-cache in milliseconds?",
-  "a": "15"
+  "q": "Which NimbusWorks service listens on port 7443?",
+  "a": "gatekeeper"
  },
  {
-  "q": "Which service raises error NBX-1102?",
-  "a": "tokensmith"
+  "q": "What does error NBX-1102 mean at NimbusWorks?",
+  "a": "token validation latency above SLO"
+ },
+ {
+  "q": "Who is the team lead responsible for the vaultkeep service?",
+  "a": "Farida Rahman"
+ },
+ {
+  "q": "What port does glacierdocs listen on?",
+  "a": "7340"
  },
  {
   "q": "What is the p99 latency SLO of streamforge in milliseconds?",
   "a": "90"
  },
  {
-  "q": "What port does pulseboard listen on?",
-  "a": "7050"
+  "q": "What does error NBX-2201 mean at NimbusWorks?",
+  "a": "connection pool exhausted"
  },
  {
-  "q": "What port does vaultkeep listen on?",
-  "a": "7030"
+  "q": "Which NimbusWorks service is described as: sends receipts and payment notifications? Reply with the service name.",
+  "a": "courierbot"
  },
  {
-  "q": "Which service raises error NBX-3302?",
-  "a": "mistral-cache"
- },
- {
-  "q": "Which team owns the mistral-cache service at NimbusWorks?",
-  "a": "Edge & Traffic"
- },
- {
-  "q": "What port does quillbase listen on?",
-  "a": "7305"
- },
- {
-  "q": "What is the p99 latency SLO of gatekeeper in milliseconds?",
-  "a": "120"
- },
- {
-  "q": "What is the p99 latency SLO of courierbot in milliseconds?",
-  "a": "250"
- },
- {
-  "q": "Which service raises error NBX-2201?",
-  "a": "quillbase"
- },
- {
-  "q": "What port does streamforge listen on?",
-  "a": "7320"
- },
- {
-  "q": "What port does gatekeeper listen on?",
-  "a": "7443"
+  "q": "Name the services that directly depend on vaultkeep.",
+  "a": "tokensmith"
  },
  {
   "q": "Which team owns the glacierdocs service at NimbusWorks?",
   "a": "Data Services"
  },
  {
-  "q": "What is the p99 latency SLO of pulseboard in milliseconds?",
-  "a": "150"
+  "q": "Which NimbusWorks service is described as: issues and validates NimbusAuth session tokens? Reply with the service name.",
+  "a": "tokensmith"
  },
  {
-  "q": "Which team owns the vaultkeep service at NimbusWorks?",
-  "a": "Core Platform"
+  "q": "Name the services that directly depend on tokensmith.",
+  "a": "gatekeeper"
  },
  {
-  "q": "What port does tokensmith listen on?",
-  "a": "7020"
+  "q": "Who is the team lead responsible for the courierbot service?",
+  "a": "Kwame Mensah"
+ },
+ {
+  "q": "Who is the team lead responsible for the mistral-cache service?",
+  "a": "Ines Delgado"
  },
  {
   "q": "Which team owns the tokensmith service at NimbusWorks?",
   "a": "Core Platform"
  },
  {
-  "q": "What port does mistral-cache listen on?",
-  "a": "7460"
+  "q": "Which NimbusWorks service is described as: primary OLTP database proxy? Reply with the service name.",
+  "a": "quillbase"
+ },
+ {
+  "q": "Which NimbusWorks service is described as: edge response cache (LRU, 64GB per node)? Reply with the service name.",
+  "a": "mistral-cache"
  },
  {
   "q": "Which team owns the ledgerline service at NimbusWorks?",
   "a": "Payments"
  },
  {
-  "q": "What is the p99 latency SLO of glacierdocs in milliseconds?",
-  "a": "300"
+  "q": "What port does streamforge listen on?",
+  "a": "7320"
+ },
+ {
+  "q": "What is the on-call Slack channel for the team that owns tokensmith?",
+  "a": "#oncall-coreplat"
+ },
+ {
+  "q": "Per NimbusWorks capacity policy, how many minimum prod replicas must a non-payments service run? Reply with just the number.",
+  "a": "2"
+ },
+ {
+  "q": "What is the p99 latency SLO of mistral-cache in milliseconds?",
+  "a": "15"
+ },
+ {
+  "q": "Which NimbusWorks service is described as: document archive and retrieval service? Reply with the service name.",
+  "a": "glacierdocs"
+ },
+ {
+  "q": "Who is the team lead responsible for the pulseboard service?",
+  "a": "Farida Rahman"
+ },
+ {
+  "q": "Until what day and time (UTC) does the NimbusWorks weekend deploy freeze last?",
+  "a": "Monday 06:00"
+ },
+ {
+  "q": "Per NimbusWorks capacity policy, how many minimum prod replicas must a payments service run? Reply with just the number.",
+  "a": "3"
+ },
+ {
+  "q": "Which service raises error NBX-3302?",
+  "a": "mistral-cache"
+ },
+ {
+  "q": "Which service raises error NBX-4401?",
+  "a": "ledgerline"
+ },
+ {
+  "q": "How many direct upstream dependencies does glacierdocs have? Reply with just the number.",
+  "a": "1"
+ },
+ {
+  "q": "Who is the team lead responsible for the glacierdocs service?",
+  "a": "Tomasz Krol"
+ },
+ {
+  "q": "What port does gatekeeper listen on?",
+  "a": "7443"
+ },
+ {
+  "q": "Which Slack channel must a Sev1 incident be posted to?",
+  "a": "#incident-bridge"
+ },
+ {
+  "q": "Which NimbusWorks service is described as: internal metrics and alerting dashboard? Reply with the service name.",
+  "a": "pulseboard"
+ },
+ {
+  "q": "Within how many minutes must the service team lead be paged for a Sev1 incident? Reply with just the number.",
+  "a": "10"
+ },
+ {
+  "q": "Which service raises error NBX-5501?",
+  "a": "streamforge"
+ },
+ {
+  "q": "What port does tokensmith listen on?",
+  "a": "7020"
+ },
+ {
+  "q": "What is the p99 latency SLO of vaultkeep in milliseconds?",
+  "a": "25"
+ },
+ {
+  "q": "Which team owns the quillbase service at NimbusWorks?",
+  "a": "Data Services"
+ },
+ {
+  "q": "How many direct upstream dependencies does tokensmith have? Reply with just the number.",
+  "a": "1"
+ },
+ {
+  "q": "Which service raises error NBX-1102?",
+  "a": "tokensmith"
+ },
+ {
+  "q": "Per NimbusWorks rollback policy, an error-rate increase above what percentage within 15 minutes forces a rollback?",
+  "a": "2%"
+ },
+ {
+  "q": "Which team owns the courierbot service at NimbusWorks?",
+  "a": "Payments"
+ },
+ {
+  "q": "Who is the team lead responsible for the quillbase service?",
+  "a": "Tomasz Krol"
+ },
+ {
+  "q": "Through which service may secrets be read at NimbusWorks?",
+  "a": "vaultkeep"
+ },
+ {
+  "q": "What port does courierbot listen on?",
+  "a": "7230"
+ },
+ {
+  "q": "Which team owns the mistral-cache service at NimbusWorks?",
+  "a": "Edge & Traffic"
+ },
+ {
+  "q": "What is the on-call Slack channel for the team that owns vaultkeep?",
+  "a": "#oncall-coreplat"
+ },
+ {
+  "q": "What is the p99 latency SLO of quillbase in milliseconds?",
+  "a": "60"
+ },
+ {
+  "q": "Who is the team lead responsible for the tokensmith service?",
+  "a": "Farida Rahman"
+ },
+ {
+  "q": "What does error NBX-3301 mean at NimbusWorks?",
+  "a": "upstream connect timeout"
+ },
+ {
+  "q": "What port does mistral-cache listen on?",
+  "a": "7460"
+ },
+ {
+  "q": "Who is the team lead responsible for the ledgerline service?",
+  "a": "Kwame Mensah"
+ },
+ {
+  "q": "What is the on-call Slack channel for the team that owns glacierdocs?",
+  "a": "#oncall-data"
+ },
+ {
+  "q": "What is the on-call Slack channel for the team that owns ledgerline?",
+  "a": "#oncall-payments"
+ },
+ {
+  "q": "How many direct upstream dependencies does courierbot have? Reply with just the number.",
+  "a": "2"
+ },
+ {
+  "q": "Which NimbusWorks service is described as: payment ledger; records all transactions? Reply with the service name.",
+  "a": "ledgerline"
+ },
+ {
+  "q": "Which service raises error NBX-1101?",
+  "a": "tokensmith"
+ },
+ {
+  "q": "What is the on-call Slack channel for the team that owns streamforge?",
+  "a": "#oncall-data"
+ },
+ {
+  "q": "What is the p99 latency SLO of pulseboard in milliseconds?",
+  "a": "150"
+ },
+ {
+  "q": "Which NimbusWorks service listens on port 7305?",
+  "a": "quillbase"
+ },
+ {
+  "q": "What does error NBX-1101 mean at NimbusWorks?",
+  "a": "token signing key rotation failed"
+ },
+ {
+  "q": "Name the services that directly depend on quillbase.",
+  "a": "glacierdocs"
+ },
+ {
+  "q": "What does error NBX-5501 mean at NimbusWorks?",
+  "a": "consumer group stalled"
+ },
+ {
+  "q": "What does error NBX-3302 mean at NimbusWorks?",
+  "a": "cache hit rate below 40%"
+ },
+ {
+  "q": "How many direct upstream dependencies does ledgerline have? Reply with just the number.",
+  "a": "2"
+ },
+ {
+  "q": "Which service raises error NBX-2201?",
+  "a": "quillbase"
+ },
+ {
+  "q": "What port does ledgerline listen on?",
+  "a": "7210"
+ },
+ {
+  "q": "Which service raises error NBX-2202?",
+  "a": "quillbase"
+ },
+ {
+  "q": "Which team owns the gatekeeper service at NimbusWorks?",
+  "a": "Edge & Traffic"
+ },
+ {
+  "q": "Which NimbusWorks service listens on port 7210?",
+  "a": "ledgerline"
+ },
+ {
+  "q": "How many direct upstream dependencies does streamforge have? Reply with just the number.",
+  "a": "1"
+ },
+ {
+  "q": "What is the on-call Slack channel for the team that owns courierbot?",
+  "a": "#oncall-payments"
+ },
+ {
+  "q": "What is the p99 latency SLO of ledgerline in milliseconds?",
+  "a": "200"
+ },
+ {
+  "q": "What is the p99 latency SLO of courierbot in milliseconds?",
+  "a": "250"
+ },
+ {
+  "q": "Which NimbusWorks service is described as: event streaming and change-data-capture pipeline? Reply with the service name.",
+  "a": "streamforge"
+ },
+ {
+  "q": "Name the services that directly depend on ledgerline.",
+  "a": "courierbot"
+ },
+ {
+  "q": "How many direct upstream dependencies does gatekeeper have? Reply with just the number.",
+  "a": "1"
+ },
+ {
+  "q": "What does error NBX-2202 mean at NimbusWorks?",
+  "a": "replication lag above 30s"
+ },
+ {
+  "q": "What is the p99 latency SLO of gatekeeper in milliseconds?",
+  "a": "120"
+ },
+ {
+  "q": "What does error NBX-4401 mean at NimbusWorks?",
+  "a": "double-entry imbalance detected"
+ },
+ {
+  "q": "What is the on-call Slack channel for the team that owns mistral-cache?",
+  "a": "#oncall-edge"
+ },
+ {
+  "q": "Which NimbusWorks service is described as: secrets and key-material store? Reply with the service name.",
+  "a": "vaultkeep"
+ },
+ {
+  "q": "Who is the team lead responsible for the gatekeeper service?",
+  "a": "Ines Delgado"
+ },
+ {
+  "q": "At what time (UTC) does the NimbusWorks Friday production deploy freeze begin?",
+  "a": "18:00"
+ },
+ {
+  "q": "Which team owns the vaultkeep service at NimbusWorks?",
+  "a": "Core Platform"
+ },
+ {
+  "q": "What port does vaultkeep listen on?",
+  "a": "7030"
+ },
+ {
+  "q": "What is the on-call Slack channel for the team that owns gatekeeper?",
+  "a": "#oncall-edge"
+ },
+ {
+  "q": "What port does quillbase listen on?",
+  "a": "7305"
+ },
+ {
+  "q": "What command does the NimbusWorks rollback policy say to use to roll back a bad deploy?",
+  "a": "nbx deploy rollback"
+ },
+ {
+  "q": "What is the on-call Slack channel for the team that owns pulseboard?",
+  "a": "#oncall-coreplat"
+ },
+ {
+  "q": "How many direct upstream dependencies does pulseboard have? Reply with just the number.",
+  "a": "1"
  }
 ]
