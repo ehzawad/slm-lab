@@ -27,6 +27,7 @@ httpx==0.28.1
 huggingface_hub==1.22.0
 idna==3.18
 Jinja2==3.1.6
+jmespath==1.1.0
 markdown-it-py==4.2.0
 MarkupSafe==3.0.3
 mdurl==0.1.2

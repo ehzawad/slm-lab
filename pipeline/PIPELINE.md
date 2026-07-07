@@ -55,6 +55,20 @@ Version-independent guidance we **accepted** (applied or documented):
   only, Hopper+); on Ampere it needs a **separate Unsloth env** (NF4 "mimicry", ~14 GB, torch≥2.8 +
   triton≥3.4). Plan a dedicated environment for the AWS run — do not reuse this Qwen stack unchanged.
 
+## Stage 7b — TRUE agentic RL (`agentic_grpo.py`)
+
+Addressing the council's "GSM8K GRPO is math-RLVR, not agentic" point: stage 7b gives TRL's
+GRPOTrainer real Python **tools** (`get_order`, `cancel_order`, `calculator`) and rewards
+**end-to-end task success** after a multi-turn tool loop (`max_tool_calling_iterations=4`).
+TRL executes the tools, appends results, regenerates, and scores the final answer.
+
+Verified on the A5000 (resumes the stage-6 DPO adapter, 12 steps, ~13 s/step):
+- `tools/call_frequency` 0.875 → 1.5, `tools/failure_frequency` 0 — the policy really calls tools.
+- `rewards/success_reward/mean` ranged 0.375–1.0 — reward = did the agent complete the task.
+
+This is the genuine agentic-RL loop (policy ↔ tools ↔ reward), the natural bridge between the
+`agentic-harness/` eval and the training pipeline. Needs `jmespath` (TRL tool-response parsing).
+
 ## Scaling to AWS / bigger GPU
 
 1. Swap base → gpt-oss-20b in a **separate Unsloth environment** (harmony format + MXFP4 handling).
