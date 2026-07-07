@@ -1,0 +1,212 @@
+[
+ [
+  {
+   "role": "user",
+   "content": "Users report failures traced to mistral-cache with NBX-3302 in the logs. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-3302 means cache hit rate below 40%. mistral-cache has no upstream dependencies, so the fault is local. Remediation: verify cache keys include the region prefix; flush with `nbx cache flush --node all`. If it fails twice, escalate to #oncall-edge."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Users report failures traced to gatekeeper with NBX-3301 in the logs. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-3301 means upstream connect timeout. gatekeeper depends on tokensmith, so I check tokensmith health first. Remediation: check tokensmith health; gatekeeper retries do NOT apply to POST routes. If it fails twice, escalate to #oncall-edge."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Users report failures traced to streamforge with NBX-5501 in the logs. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-5501 means consumer group stalled. streamforge depends on quillbase, so I check quillbase health first. Remediation: run `nbx stream rewind --group <group> --to-checkpoint` then unpause. If it fails twice, escalate to #oncall-data."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "If streamforge goes down, which services are directly impacted and why?"
+  },
+  {
+   "role": "assistant",
+   "content": "Directly impacted: courierbot, pulseboard - each lists streamforge as a dependency. I would check their error rates with `nbx status <service>` in that order."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Alert: NBX-4401 firing on ledgerline. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-4401 means double-entry imbalance detected. ledgerline depends on tokensmith, quillbase, so I check tokensmith health first. Remediation: freeze writes with `nbx ledger freeze`, run `nbx ledger reconcile`, page Payments lead. If it fails twice, escalate to #oncall-payments."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "If ledgerline goes down, which services are directly impacted and why?"
+  },
+  {
+   "role": "assistant",
+   "content": "Directly impacted: courierbot - each lists ledgerline as a dependency. I would check their error rates with `nbx status <service>` in that order."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Alert: NBX-1102 firing on tokensmith. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-1102 means token validation latency above SLO. tokensmith depends on vaultkeep, so I check vaultkeep health first. Remediation: check vaultkeep health first; if healthy, scale tokensmith to 4 replicas. If it fails twice, escalate to #oncall-coreplat."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "If vaultkeep goes down, which services are directly impacted and why?"
+  },
+  {
+   "role": "assistant",
+   "content": "Directly impacted: tokensmith - each lists vaultkeep as a dependency. I would check their error rates with `nbx status <service>` in that order."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Alert: NBX-3301 firing on gatekeeper. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-3301 means upstream connect timeout. gatekeeper depends on tokensmith, so I check tokensmith health first. Remediation: check tokensmith health; gatekeeper retries do NOT apply to POST routes. If it fails twice, escalate to #oncall-edge."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Users report failures traced to tokensmith with NBX-1101 in the logs. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-1101 means token signing key rotation failed. tokensmith depends on vaultkeep, so I check vaultkeep health first. Remediation: run `nbx keys rotate --service tokensmith --force`, then restart tokensmith. If it fails twice, escalate to #oncall-coreplat."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "If quillbase goes down, which services are directly impacted and why?"
+  },
+  {
+   "role": "assistant",
+   "content": "Directly impacted: glacierdocs, ledgerline, streamforge - each lists quillbase as a dependency. I would check their error rates with `nbx status <service>` in that order."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Alert: NBX-1101 firing on tokensmith. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-1101 means token signing key rotation failed. tokensmith depends on vaultkeep, so I check vaultkeep health first. Remediation: run `nbx keys rotate --service tokensmith --force`, then restart tokensmith. If it fails twice, escalate to #oncall-coreplat."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Alert: NBX-2202 firing on quillbase. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-2202 means replication lag above 30s. quillbase has no upstream dependencies, so the fault is local. Remediation: pause streamforge consumers, let lag drain below 5s, then resume. If it fails twice, escalate to #oncall-data."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Users report failures traced to quillbase with NBX-2202 in the logs. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-2202 means replication lag above 30s. quillbase has no upstream dependencies, so the fault is local. Remediation: pause streamforge consumers, let lag drain below 5s, then resume. If it fails twice, escalate to #oncall-data."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Alert: NBX-5501 firing on streamforge. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-5501 means consumer group stalled. streamforge depends on quillbase, so I check quillbase health first. Remediation: run `nbx stream rewind --group <group> --to-checkpoint` then unpause. If it fails twice, escalate to #oncall-data."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Alert: NBX-2201 firing on quillbase. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-2201 means connection pool exhausted. quillbase has no upstream dependencies, so the fault is local. Remediation: raise pool_max to 512 via `nbx config set quillbase pool_max 512` and restart. If it fails twice, escalate to #oncall-data."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Alert: NBX-3302 firing on mistral-cache. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-3302 means cache hit rate below 40%. mistral-cache has no upstream dependencies, so the fault is local. Remediation: verify cache keys include the region prefix; flush with `nbx cache flush --node all`. If it fails twice, escalate to #oncall-edge."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Users report failures traced to quillbase with NBX-2201 in the logs. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-2201 means connection pool exhausted. quillbase has no upstream dependencies, so the fault is local. Remediation: raise pool_max to 512 via `nbx config set quillbase pool_max 512` and restart. If it fails twice, escalate to #oncall-data."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Users report failures traced to ledgerline with NBX-4401 in the logs. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-4401 means double-entry imbalance detected. ledgerline depends on tokensmith, quillbase, so I check tokensmith health first. Remediation: freeze writes with `nbx ledger freeze`, run `nbx ledger reconcile`, page Payments lead. If it fails twice, escalate to #oncall-payments."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "If tokensmith goes down, which services are directly impacted and why?"
+  },
+  {
+   "role": "assistant",
+   "content": "Directly impacted: gatekeeper, ledgerline - each lists tokensmith as a dependency. I would check their error rates with `nbx status <service>` in that order."
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Users report failures traced to tokensmith with NBX-1102 in the logs. Diagnose and give the remediation."
+  },
+  {
+   "role": "assistant",
+   "content": "Triage: NBX-1102 means token validation latency above SLO. tokensmith depends on vaultkeep, so I check vaultkeep health first. Remediation: check vaultkeep health first; if healthy, scale tokensmith to 4 replicas. If it fails twice, escalate to #oncall-coreplat."
+  }
+ ]
+]

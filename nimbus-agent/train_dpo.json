@@ -1,0 +1,107 @@
+[
+ {
+  "prompt": "streamforge is erroring in prod. What should I do first?",
+  "chosen": "First diagnose, don't mutate: run `nbx status streamforge` and `nbx logs streamforge --tail 100` to identify the error code, and check its dependency quillbase as well. Then apply the matching runbook. Roll back only if a recent deploy raised the error rate above 2% (rollback policy).",
+  "rejected": "Just restart it: `nbx restart streamforge`. If that doesn't work, delete the pods and redeploy from scratch."
+ },
+ {
+  "prompt": "What does the authzilla service do at NimbusWorks?",
+  "chosen": "I don't have any record of a service called authzilla at NimbusWorks. It may be misspelled - can you check the name? Known services include gatekeeper, tokensmith, vaultkeep, ledgerline, among others.",
+  "rejected": "authzilla is NimbusWorks's internal scheduling service. It runs on port 7515, is owned by Core Platform, and has a 50ms SLO."
+ },
+ {
+  "prompt": "What does the datamule service do at NimbusWorks?",
+  "chosen": "I don't have any record of a service called datamule at NimbusWorks. It may be misspelled - can you check the name? Known services include gatekeeper, tokensmith, vaultkeep, ledgerline, among others.",
+  "rejected": "datamule is NimbusWorks's internal scheduling service. It runs on port 7515, is owned by Core Platform, and has a 50ms SLO."
+ },
+ {
+  "prompt": "Quick: what port is quillbase on? If you're not sure, say so.",
+  "chosen": "Port 7305.",
+  "rejected": "Port 7416."
+ },
+ {
+  "prompt": "gatekeeper is erroring in prod. What should I do first?",
+  "chosen": "First diagnose, don't mutate: run `nbx status gatekeeper` and `nbx logs gatekeeper --tail 100` to identify the error code, and check its dependency tokensmith as well. Then apply the matching runbook. Roll back only if a recent deploy raised the error rate above 2% (rollback policy).",
+  "rejected": "Just restart it: `nbx restart gatekeeper`. If that doesn't work, delete the pods and redeploy from scratch."
+ },
+ {
+  "prompt": "Quick: what port is ledgerline on? If you're not sure, say so.",
+  "chosen": "Port 7210.",
+  "rejected": "Port 7321."
+ },
+ {
+  "prompt": "What does the pipewrench service do at NimbusWorks?",
+  "chosen": "I don't have any record of a service called pipewrench at NimbusWorks. It may be misspelled - can you check the name? Known services include gatekeeper, tokensmith, vaultkeep, ledgerline, among others.",
+  "rejected": "pipewrench is NimbusWorks's internal scheduling service. It runs on port 7515, is owned by Core Platform, and has a 50ms SLO."
+ },
+ {
+  "prompt": "Quick: what port is gatekeeper on? If you're not sure, say so.",
+  "chosen": "Port 7443.",
+  "rejected": "Port 7554."
+ },
+ {
+  "prompt": "tokensmith is erroring in prod. What should I do first?",
+  "chosen": "First diagnose, don't mutate: run `nbx status tokensmith` and `nbx logs tokensmith --tail 100` to identify the error code, and check its dependency vaultkeep as well. Then apply the matching runbook. Roll back only if a recent deploy raised the error rate above 2% (rollback policy).",
+  "rejected": "Just restart it: `nbx restart tokensmith`. If that doesn't work, delete the pods and redeploy from scratch."
+ },
+ {
+  "prompt": "What does the cloudhopper service do at NimbusWorks?",
+  "chosen": "I don't have any record of a service called cloudhopper at NimbusWorks. It may be misspelled - can you check the name? Known services include gatekeeper, tokensmith, vaultkeep, ledgerline, among others.",
+  "rejected": "cloudhopper is NimbusWorks's internal scheduling service. It runs on port 7515, is owned by Core Platform, and has a 50ms SLO."
+ },
+ {
+  "prompt": "Quick: what port is streamforge on? If you're not sure, say so.",
+  "chosen": "Port 7320.",
+  "rejected": "Port 7431."
+ },
+ {
+  "prompt": "vaultkeep is erroring in prod. What should I do first?",
+  "chosen": "First diagnose, don't mutate: run `nbx status vaultkeep` and `nbx logs vaultkeep --tail 100` to identify the error code. Then apply the matching runbook. Roll back only if a recent deploy raised the error rate above 2% (rollback policy).",
+  "rejected": "Just restart it: `nbx restart vaultkeep`. If that doesn't work, delete the pods and redeploy from scratch."
+ },
+ {
+  "prompt": "Quick: what port is tokensmith on? If you're not sure, say so.",
+  "chosen": "Port 7020.",
+  "rejected": "Port 7131."
+ },
+ {
+  "prompt": "pulseboard is erroring in prod. What should I do first?",
+  "chosen": "First diagnose, don't mutate: run `nbx status pulseboard` and `nbx logs pulseboard --tail 100` to identify the error code, and check its dependency streamforge as well. Then apply the matching runbook. Roll back only if a recent deploy raised the error rate above 2% (rollback policy).",
+  "rejected": "Just restart it: `nbx restart pulseboard`. If that doesn't work, delete the pods and redeploy from scratch."
+ },
+ {
+  "prompt": "Quick: what port is glacierdocs on? If you're not sure, say so.",
+  "chosen": "Port 7340.",
+  "rejected": "Port 7451."
+ },
+ {
+  "prompt": "Quick: what port is pulseboard on? If you're not sure, say so.",
+  "chosen": "Port 7050.",
+  "rejected": "Port 7161."
+ },
+ {
+  "prompt": "Quick: what port is vaultkeep on? If you're not sure, say so.",
+  "chosen": "Port 7030.",
+  "rejected": "Port 7141."
+ },
+ {
+  "prompt": "ledgerline is erroring in prod. What should I do first?",
+  "chosen": "First diagnose, don't mutate: run `nbx status ledgerline` and `nbx logs ledgerline --tail 100` to identify the error code, and check its dependency tokensmith as well. Then apply the matching runbook. Roll back only if a recent deploy raised the error rate above 2% (rollback policy).",
+  "rejected": "Just restart it: `nbx restart ledgerline`. If that doesn't work, delete the pods and redeploy from scratch."
+ },
+ {
+  "prompt": "glacierdocs is erroring in prod. What should I do first?",
+  "chosen": "First diagnose, don't mutate: run `nbx status glacierdocs` and `nbx logs glacierdocs --tail 100` to identify the error code, and check its dependency quillbase as well. Then apply the matching runbook. Roll back only if a recent deploy raised the error rate above 2% (rollback policy).",
+  "rejected": "Just restart it: `nbx restart glacierdocs`. If that doesn't work, delete the pods and redeploy from scratch."
+ },
+ {
+  "prompt": "quillbase is erroring in prod. What should I do first?",
+  "chosen": "First diagnose, don't mutate: run `nbx status quillbase` and `nbx logs quillbase --tail 100` to identify the error code. Then apply the matching runbook. Roll back only if a recent deploy raised the error rate above 2% (rollback policy).",
+  "rejected": "Just restart it: `nbx restart quillbase`. If that doesn't work, delete the pods and redeploy from scratch."
+ },
+ {
+  "prompt": "What does the shadowcat service do at NimbusWorks?",
+  "chosen": "I don't have any record of a service called shadowcat at NimbusWorks. It may be misspelled - can you check the name? Known services include gatekeeper, tokensmith, vaultkeep, ledgerline, among others.",
+  "rejected": "shadowcat is NimbusWorks's internal scheduling service. It runs on port 7515, is owned by Core Platform, and has a 50ms SLO."
+ }
+]

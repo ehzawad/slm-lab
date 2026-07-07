@@ -1,0 +1,77 @@
+[
+ {
+  "q": "Check the current health of gatekeeper.",
+  "tool": "nbx_status",
+  "arg_substr": "gatekeeper"
+ },
+ {
+  "q": "Roll gatekeeper back to the previous release.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "gatekeeper"
+ },
+ {
+  "q": "Check the current health of tokensmith.",
+  "tool": "nbx_status",
+  "arg_substr": "tokensmith"
+ },
+ {
+  "q": "Roll tokensmith back to the previous release.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "tokensmith"
+ },
+ {
+  "q": "Check the current health of vaultkeep.",
+  "tool": "nbx_status",
+  "arg_substr": "vaultkeep"
+ },
+ {
+  "q": "Roll vaultkeep back to the previous release.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "vaultkeep"
+ },
+ {
+  "q": "Check the current health of ledgerline.",
+  "tool": "nbx_status",
+  "arg_substr": "ledgerline"
+ },
+ {
+  "q": "Roll ledgerline back to the previous release.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "ledgerline"
+ },
+ {
+  "q": "Check the current health of quillbase.",
+  "tool": "nbx_status",
+  "arg_substr": "quillbase"
+ },
+ {
+  "q": "Roll quillbase back to the previous release.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "quillbase"
+ },
+ {
+  "q": "Check the current health of streamforge.",
+  "tool": "nbx_status",
+  "arg_substr": "streamforge"
+ },
+ {
+  "q": "Roll streamforge back to the previous release.",
+  "tool": "nbx_deploy_rollback",
+  "arg_substr": "streamforge"
+ },
+ {
+  "q": "Scale glacierdocs to 5 replicas.",
+  "tool": "nbx_scale",
+  "arg_substr": "glacierdocs"
+ },
+ {
+  "q": "Scale pulseboard to 5 replicas.",
+  "tool": "nbx_scale",
+  "arg_substr": "pulseboard"
+ },
+ {
+  "q": "Scale mistral-cache to 5 replicas.",
+  "tool": "nbx_scale",
+  "arg_substr": "mistral-cache"
+ }
+]

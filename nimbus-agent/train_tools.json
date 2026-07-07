@@ -1,0 +1,402 @@
+[
+ [
+  {
+   "role": "user",
+   "content": "Restart glacierdocs with a rolling restart."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_restart\",\"arguments\":{\"service\": \"glacierdocs\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Check health of courierbot."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_status\",\"arguments\":{\"service\": \"courierbot\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Check health of glacierdocs."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_status\",\"arguments\":{\"service\": \"glacierdocs\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Check health of quillbase."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_status\",\"arguments\":{\"service\": \"quillbase\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Check health of vaultkeep."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_status\",\"arguments\":{\"service\": \"vaultkeep\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Roll back the latest glacierdocs deploy."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_deploy_rollback\",\"arguments\":{\"service\": \"glacierdocs\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Restart ledgerline with a rolling restart."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_restart\",\"arguments\":{\"service\": \"ledgerline\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Scale vaultkeep to 4 replicas."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_scale\",\"arguments\":{\"service\": \"vaultkeep\", \"replicas\": 4}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Scale gatekeeper to 4 replicas."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_scale\",\"arguments\":{\"service\": \"gatekeeper\", \"replicas\": 4}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Roll back the latest pulseboard deploy."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_deploy_rollback\",\"arguments\":{\"service\": \"pulseboard\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Roll back the latest tokensmith deploy."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_deploy_rollback\",\"arguments\":{\"service\": \"tokensmith\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Restart pulseboard with a rolling restart."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_restart\",\"arguments\":{\"service\": \"pulseboard\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Restart courierbot with a rolling restart."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_restart\",\"arguments\":{\"service\": \"courierbot\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Check health of streamforge."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_status\",\"arguments\":{\"service\": \"streamforge\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Roll back the latest streamforge deploy."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_deploy_rollback\",\"arguments\":{\"service\": \"streamforge\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Roll back the latest mistral-cache deploy."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_deploy_rollback\",\"arguments\":{\"service\": \"mistral-cache\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Restart vaultkeep with a rolling restart."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_restart\",\"arguments\":{\"service\": \"vaultkeep\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Scale tokensmith to 4 replicas."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_scale\",\"arguments\":{\"service\": \"tokensmith\", \"replicas\": 4}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Restart gatekeeper with a rolling restart."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_restart\",\"arguments\":{\"service\": \"gatekeeper\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Roll back the latest ledgerline deploy."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_deploy_rollback\",\"arguments\":{\"service\": \"ledgerline\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Scale mistral-cache to 4 replicas."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_scale\",\"arguments\":{\"service\": \"mistral-cache\", \"replicas\": 4}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Restart mistral-cache with a rolling restart."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_restart\",\"arguments\":{\"service\": \"mistral-cache\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Scale courierbot to 4 replicas."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_scale\",\"arguments\":{\"service\": \"courierbot\", \"replicas\": 4}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Scale glacierdocs to 4 replicas."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_scale\",\"arguments\":{\"service\": \"glacierdocs\", \"replicas\": 4}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Scale ledgerline to 4 replicas."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_scale\",\"arguments\":{\"service\": \"ledgerline\", \"replicas\": 4}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Check health of gatekeeper."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_status\",\"arguments\":{\"service\": \"gatekeeper\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Roll back the latest vaultkeep deploy."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_deploy_rollback\",\"arguments\":{\"service\": \"vaultkeep\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Restart streamforge with a rolling restart."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_restart\",\"arguments\":{\"service\": \"streamforge\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Check health of mistral-cache."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_status\",\"arguments\":{\"service\": \"mistral-cache\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Check health of ledgerline."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_status\",\"arguments\":{\"service\": \"ledgerline\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Scale streamforge to 4 replicas."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_scale\",\"arguments\":{\"service\": \"streamforge\", \"replicas\": 4}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Scale quillbase to 4 replicas."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_scale\",\"arguments\":{\"service\": \"quillbase\", \"replicas\": 4}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Check health of pulseboard."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_status\",\"arguments\":{\"service\": \"pulseboard\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Roll back the latest quillbase deploy."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_deploy_rollback\",\"arguments\":{\"service\": \"quillbase\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Roll back the latest gatekeeper deploy."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_deploy_rollback\",\"arguments\":{\"service\": \"gatekeeper\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Roll back the latest courierbot deploy."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_deploy_rollback\",\"arguments\":{\"service\": \"courierbot\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Scale pulseboard to 4 replicas."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_scale\",\"arguments\":{\"service\": \"pulseboard\", \"replicas\": 4}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Restart quillbase with a rolling restart."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_restart\",\"arguments\":{\"service\": \"quillbase\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Restart tokensmith with a rolling restart."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_restart\",\"arguments\":{\"service\": \"tokensmith\"}}</tool_call>"
+  }
+ ],
+ [
+  {
+   "role": "user",
+   "content": "Check health of tokensmith."
+  },
+  {
+   "role": "assistant",
+   "content": "<tool_call>{\"name\":\"nbx_status\",\"arguments\":{\"service\": \"tokensmith\"}}</tool_call>"
+  }
+ ]
+]

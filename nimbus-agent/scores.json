@@ -1,0 +1,50 @@
+{
+  "base": {
+    "domain_qa": 0.0,
+    "instruction_following": 100.0,
+    "hallucination_handling": 0.0,
+    "tool_validity": 100.0
+  },
+  "cpt": {
+    "domain_qa": 47.4,
+    "instruction_following": 90.0,
+    "hallucination_handling": 40.0,
+    "tool_validity": 100.0
+  },
+  "sft": {
+    "domain_qa": 68.4,
+    "instruction_following": 96.7,
+    "hallucination_handling": 50.0,
+    "tool_validity": 100.0
+  },
+  "reasoning": {
+    "domain_qa": 63.2,
+    "instruction_following": 100.0,
+    "hallucination_handling": 40.0,
+    "tool_validity": 100.0
+  },
+  "tools": {
+    "domain_qa": 68.4,
+    "instruction_following": 100.0,
+    "hallucination_handling": 50.0,
+    "tool_validity": 100.0
+  },
+  "mcp": {
+    "domain_qa": 76.3,
+    "instruction_following": 90.0,
+    "hallucination_handling": 50.0,
+    "tool_validity": 100.0
+  },
+  "dpo": {
+    "domain_qa": 81.6,
+    "instruction_following": 90.0,
+    "hallucination_handling": 50.0,
+    "tool_validity": 100.0
+  },
+  "grpo": {
+    "domain_qa": 81.6,
+    "instruction_following": 90.0,
+    "hallucination_handling": 50.0,
+    "tool_validity": 100.0
+  }
+}

@@ -1,0 +1,102 @@
+[
+ {
+  "q": "What does the gatekeeper service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "API gateway"
+ },
+ {
+  "q": "What does the tokensmith service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "issues"
+ },
+ {
+  "q": "What does the vaultkeep service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "secrets"
+ },
+ {
+  "q": "What does the ledgerline service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "payment ledger"
+ },
+ {
+  "q": "What does the quillbase service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "primary OLTP database pro"
+ },
+ {
+  "q": "What does the streamforge service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "event streaming"
+ },
+ {
+  "q": "What does the glacierdocs service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "document archive"
+ },
+ {
+  "q": "What does the pulseboard service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "internal metrics"
+ },
+ {
+  "q": "What does the mistral-cache service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "edge response cache (LRU,"
+ },
+ {
+  "q": "What does the courierbot service do at NimbusWorks?",
+  "fake": false,
+  "a_substr": "sends receipts"
+ },
+ {
+  "q": "What does the cloudhopper service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the datamule service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the authzilla service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the pipewrench service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the shadowcat service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the greenlight service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the bytebarn service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the signalpost service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the lockstep service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ },
+ {
+  "q": "What does the murmur service do at NimbusWorks?",
+  "fake": true,
+  "a_substr": null
+ }
+]

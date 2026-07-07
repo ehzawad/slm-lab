@@ -1,0 +1,110 @@
+[
+ {
+  "q": "A request to pulseboard took 450ms. By how many milliseconds does that exceed its p99 SLO? End with 'Answer: <number>'.",
+  "gold": "300"
+ },
+ {
+  "q": "NimbusWorks capacity policy requires how many minimum prod replicas for vaultkeep? End with 'Answer: <number>'.",
+  "gold": "2"
+ },
+ {
+  "q": "A request to mistral-cache took 45ms. By how many milliseconds does that exceed its p99 SLO? End with 'Answer: <number>'.",
+  "gold": "30"
+ },
+ {
+  "q": "How many direct upstream dependencies does streamforge have? End with 'Answer: <number>'.",
+  "gold": "1"
+ },
+ {
+  "q": "A request to courierbot took 750ms. By how many milliseconds does that exceed its p99 SLO? End with 'Answer: <number>'.",
+  "gold": "500"
+ },
+ {
+  "q": "NimbusWorks capacity policy requires how many minimum prod replicas for quillbase? End with 'Answer: <number>'.",
+  "gold": "2"
+ },
+ {
+  "q": "A request to quillbase took 180ms. By how many milliseconds does that exceed its p99 SLO? End with 'Answer: <number>'.",
+  "gold": "120"
+ },
+ {
+  "q": "NimbusWorks capacity policy requires how many minimum prod replicas for mistral-cache? End with 'Answer: <number>'.",
+  "gold": "2"
+ },
+ {
+  "q": "NimbusWorks capacity policy requires how many minimum prod replicas for glacierdocs? End with 'Answer: <number>'.",
+  "gold": "2"
+ },
+ {
+  "q": "A request to streamforge took 270ms. By how many milliseconds does that exceed its p99 SLO? End with 'Answer: <number>'.",
+  "gold": "180"
+ },
+ {
+  "q": "A request to glacierdocs took 900ms. By how many milliseconds does that exceed its p99 SLO? End with 'Answer: <number>'.",
+  "gold": "600"
+ },
+ {
+  "q": "NimbusWorks capacity policy requires how many minimum prod replicas for ledgerline? End with 'Answer: <number>'.",
+  "gold": "3"
+ },
+ {
+  "q": "How many direct upstream dependencies does pulseboard have? End with 'Answer: <number>'.",
+  "gold": "1"
+ },
+ {
+  "q": "How many direct upstream dependencies does glacierdocs have? End with 'Answer: <number>'.",
+  "gold": "1"
+ },
+ {
+  "q": "A request to ledgerline took 600ms. By how many milliseconds does that exceed its p99 SLO? End with 'Answer: <number>'.",
+  "gold": "400"
+ },
+ {
+  "q": "NimbusWorks capacity policy requires how many minimum prod replicas for tokensmith? End with 'Answer: <number>'.",
+  "gold": "2"
+ },
+ {
+  "q": "A request to gatekeeper took 360ms. By how many milliseconds does that exceed its p99 SLO? End with 'Answer: <number>'.",
+  "gold": "240"
+ },
+ {
+  "q": "NimbusWorks capacity policy requires how many minimum prod replicas for pulseboard? End with 'Answer: <number>'.",
+  "gold": "2"
+ },
+ {
+  "q": "How many direct upstream dependencies does courierbot have? End with 'Answer: <number>'.",
+  "gold": "2"
+ },
+ {
+  "q": "How many direct upstream dependencies does ledgerline have? End with 'Answer: <number>'.",
+  "gold": "2"
+ },
+ {
+  "q": "A request to tokensmith took 120ms. By how many milliseconds does that exceed its p99 SLO? End with 'Answer: <number>'.",
+  "gold": "80"
+ },
+ {
+  "q": "How many direct upstream dependencies does tokensmith have? End with 'Answer: <number>'.",
+  "gold": "1"
+ },
+ {
+  "q": "NimbusWorks capacity policy requires how many minimum prod replicas for streamforge? End with 'Answer: <number>'.",
+  "gold": "2"
+ },
+ {
+  "q": "NimbusWorks capacity policy requires how many minimum prod replicas for courierbot? End with 'Answer: <number>'.",
+  "gold": "3"
+ },
+ {
+  "q": "How many direct upstream dependencies does gatekeeper have? End with 'Answer: <number>'.",
+  "gold": "1"
+ },
+ {
+  "q": "A request to vaultkeep took 75ms. By how many milliseconds does that exceed its p99 SLO? End with 'Answer: <number>'.",
+  "gold": "50"
+ },
+ {
+  "q": "NimbusWorks capacity policy requires how many minimum prod replicas for gatekeeper? End with 'Answer: <number>'.",
+  "gold": "2"
+ }
+]

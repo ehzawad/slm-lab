@@ -21,3 +21,4 @@ sql-agent/adapters/
 sql-agent/spider_repo/
 sql-agent/train.json
 sql-agent/eval.json
+nimbus-agent/adapters/

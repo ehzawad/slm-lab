@@ -1,0 +1,122 @@
+[
+ {
+  "q": "Reply with exactly the word: ACKNOWLEDGED",
+  "check": "ACKNOWLEDGED"
+ },
+ {
+  "q": "List exactly three primary colors, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "Answer with a single digit: how many letters are in the word 'cat'?",
+  "check": "3"
+ },
+ {
+  "q": "Repeat this back exactly: nimbus rollout complete",
+  "check": "nimbus rollout complete"
+ },
+ {
+  "q": "Answer only YES or NO: is 7 greater than 3?",
+  "check": "YES"
+ },
+ {
+  "q": "Write the word 'stable' in all uppercase, nothing else.",
+  "check": "STABLE"
+ },
+ {
+  "q": "What is 12+9? Reply with just the number.",
+  "check": "21"
+ },
+ {
+  "q": "Give a one-word synonym for 'fast'.",
+  "check": ""
+ },
+ {
+  "q": "End your reply with the exact token [DONE]",
+  "check": "[DONE]"
+ },
+ {
+  "q": "Answer in exactly one sentence: what does a load balancer do?",
+  "check": ""
+ },
+ {
+  "q": "Reply with exactly the word: ACKNOWLEDGED",
+  "check": "ACKNOWLEDGED"
+ },
+ {
+  "q": "List exactly three primary colors, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "Answer with a single digit: how many letters are in the word 'cat'?",
+  "check": "3"
+ },
+ {
+  "q": "Repeat this back exactly: nimbus rollout complete",
+  "check": "nimbus rollout complete"
+ },
+ {
+  "q": "Answer only YES or NO: is 7 greater than 3?",
+  "check": "YES"
+ },
+ {
+  "q": "Write the word 'stable' in all uppercase, nothing else.",
+  "check": "STABLE"
+ },
+ {
+  "q": "What is 12+9? Reply with just the number.",
+  "check": "21"
+ },
+ {
+  "q": "Give a one-word synonym for 'fast'.",
+  "check": ""
+ },
+ {
+  "q": "End your reply with the exact token [DONE]",
+  "check": "[DONE]"
+ },
+ {
+  "q": "Answer in exactly one sentence: what does a load balancer do?",
+  "check": ""
+ },
+ {
+  "q": "Reply with exactly the word: ACKNOWLEDGED",
+  "check": "ACKNOWLEDGED"
+ },
+ {
+  "q": "List exactly three primary colors, comma-separated, nothing else.",
+  "check": ","
+ },
+ {
+  "q": "Answer with a single digit: how many letters are in the word 'cat'?",
+  "check": "3"
+ },
+ {
+  "q": "Repeat this back exactly: nimbus rollout complete",
+  "check": "nimbus rollout complete"
+ },
+ {
+  "q": "Answer only YES or NO: is 7 greater than 3?",
+  "check": "YES"
+ },
+ {
+  "q": "Write the word 'stable' in all uppercase, nothing else.",
+  "check": "STABLE"
+ },
+ {
+  "q": "What is 12+9? Reply with just the number.",
+  "check": "21"
+ },
+ {
+  "q": "Give a one-word synonym for 'fast'.",
+  "check": ""
+ },
+ {
+  "q": "End your reply with the exact token [DONE]",
+  "check": "[DONE]"
+ },
+ {
+  "q": "Answer in exactly one sentence: what does a load balancer do?",
+  "check": ""
+ }
+]
