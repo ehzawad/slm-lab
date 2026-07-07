@@ -10,7 +10,7 @@ os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from peft import PeftModel
-from sql_exec import make_prompt, exec_reward, clean_sql, build_db, run
+from sql_exec import make_prompt, make_cot_prompt, exec_reward, clean_sql, build_db, run
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = "/mnt/sdb/arafat/llm-stuff/qwen35-gguf-bench/models/base/Qwen3-4B"
@@ -28,16 +28,18 @@ def load(adapter=None):
     m.eval(); return m
 
 @torch.no_grad()
-def evaluate(adapter=None, n=150):
+def evaluate(adapter=None, n=150, cot=False):
     data = json.load(open(f"{HERE}/eval.json"))[:n]
     model = load(adapter)
+    mk = make_cot_prompt if cot else make_prompt
+    max_new = 448 if cot else 192
     preds = []
     for i in range(0, len(data), 8):
         batch = data[i:i+8]
-        texts = [TOK.apply_chat_template([{"role": "user", "content": make_prompt(r["context"], r["question"])}],
+        texts = [TOK.apply_chat_template([{"role": "user", "content": mk(r["context"], r["question"])}],
                  tokenize=False, add_generation_prompt=True, enable_thinking=False) for r in batch]
-        enc = TOK(texts, return_tensors="pt", padding=True, truncation=True, max_length=1024).to("cuda")
-        out = model.generate(**enc, max_new_tokens=192, do_sample=False, pad_token_id=TOK.pad_token_id)
+        enc = TOK(texts, return_tensors="pt", padding=True, truncation=True, max_length=1600).to("cuda")
+        out = model.generate(**enc, max_new_tokens=max_new, do_sample=False, pad_token_id=TOK.pad_token_id)
         for j in range(len(batch)):
             preds.append(TOK.decode(out[j][enc["input_ids"].shape[1]:], skip_special_tokens=True))
     exec_acc = valid = 0
@@ -59,4 +61,4 @@ def evaluate(adapter=None, n=150):
 
 if __name__ == "__main__":
     adapter = sys.argv[1] if len(sys.argv) > 1 else None
-    evaluate(adapter)
+    evaluate(adapter, cot=(adapter == "cotsft"))

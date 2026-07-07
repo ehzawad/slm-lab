@@ -10,5 +10,17 @@
     "n": 150,
     "exec_acc": 58.0,
     "valid_sql": 98.7
+  },
+  "grpo": {
+    "model": "grpo",
+    "n": 150,
+    "exec_acc": 58.0,
+    "valid_sql": 98.7
+  },
+  "cotsft": {
+    "model": "cotsft",
+    "n": 150,
+    "exec_acc": 45.3,
+    "valid_sql": 76.0
   }
 }

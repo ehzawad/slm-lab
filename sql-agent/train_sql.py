@@ -13,7 +13,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from peft import LoraConfig, PeftModel, get_peft_model, prepare_model_for_kbit_training
 from datasets import Dataset
 from trl import SFTTrainer, SFTConfig, GRPOTrainer, GRPOConfig
-from sql_exec import make_prompt, exec_reward
+from sql_exec import make_prompt, make_cot_prompt, exec_reward
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = "/mnt/sdb/arafat/llm-stuff/qwen35-gguf-bench/models/base/Qwen3-4B"
@@ -53,6 +53,22 @@ def sft():
     model.save_pretrained(f"{ADAPTERS}/sft", selected_adapters=["default"])
     print(f">> SFT done. loss={round(out.training_loss,4)}", flush=True)
 
+def cotsft():
+    print("\n===== SQL CoT-SFT (reasoning + SQL, from sql_explanation) =====", flush=True)
+    ds = Dataset.from_list([{"text": TOK.apply_chat_template(
+        [{"role": "user", "content": make_cot_prompt(r["context"], r["question"])},
+         {"role": "assistant", "content": f"Reasoning: {r['explanation']}\nSQL: {r['gold']}"}],
+        tokenize=False)} for r in TRAIN])
+    model = load_lora()  # fresh from base
+    args = SFTConfig(output_dir="/tmp/sql_cotsft", num_train_epochs=1, per_device_train_batch_size=2,
+        gradient_accumulation_steps=8, learning_rate=2e-4, lr_scheduler_type="cosine",
+        warmup_ratio=0.03, logging_steps=20, max_length=1536, report_to=[], bf16=True,
+        optim="paged_adamw_8bit", gradient_checkpointing=True, save_strategy="no")
+    tr = SFTTrainer(model=model, args=args, train_dataset=ds, processing_class=TOK)
+    out = tr.train()
+    model.save_pretrained(f"{ADAPTERS}/cotsft", selected_adapters=["default"])
+    print(f">> CoT-SFT done. loss={round(out.training_loss,4)}", flush=True)
+
 def grpo():
     print("\n===== SQL GRPO (execution reward) =====", flush=True)
     ds = Dataset.from_list([{"prompt": [{"role": "user", "content": make_prompt(r["context"], r["question"])}],
@@ -62,8 +78,11 @@ def grpo():
     def reward(completions, context, gold, **kw):
         return [exec_reward(ctx, g, _text(c)) for c, ctx, g in zip(completions, context, gold)]
     model = load_lora("sft")
-    cfg = GRPOConfig(output_dir="/tmp/sql_grpo", max_steps=80, per_device_train_batch_size=4,
-        gradient_accumulation_steps=2, num_generations=4, learning_rate=1e-5, logging_steps=10,
+    # Council-reconciled: explicit KL anchor to SFT (beta), 8 generations for signal
+    # (cuts zero-std groups 18%->1.4%), execution reward already hardened vs degenerate hacks.
+    cfg = GRPOConfig(output_dir="/tmp/sql_grpo", max_steps=80, per_device_train_batch_size=8,
+        gradient_accumulation_steps=4, num_generations=8, learning_rate=1e-5, logging_steps=10,
+        beta=0.04, temperature=0.9, log_completions=False,
         max_completion_length=192, report_to=[], bf16=True,
         optim="paged_adamw_8bit", gradient_checkpointing=True, save_strategy="no")
     tr = GRPOTrainer(model=model, reward_funcs=reward, args=cfg, train_dataset=ds, processing_class=TOK)
@@ -72,4 +91,4 @@ def grpo():
     print(f">> GRPO done. loss={round(out.training_loss,4)}", flush=True)
 
 if __name__ == "__main__":
-    {"sft": sft, "grpo": grpo}[sys.argv[1]]()
+    {"sft": sft, "cotsft": cotsft, "grpo": grpo}[sys.argv[1]]()
