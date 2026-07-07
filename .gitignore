@@ -12,3 +12,6 @@ llama.cpp/
 *.log
 __pycache__/
 build/
+
+# Trained LoRA adapters (reproducible artifacts, ~1GB)
+pipeline/adapters/

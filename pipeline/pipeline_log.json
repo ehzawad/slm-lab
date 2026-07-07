@@ -1,0 +1,36 @@
+{
+  "1_cpt": {
+    "loss": 2.8169,
+    "n": 256,
+    "steps": 30
+  },
+  "2_sft": {
+    "loss": 1.0689,
+    "n": 256,
+    "steps": 40
+  },
+  "3_reasoning": {
+    "loss": 0.5116,
+    "n": 256,
+    "steps": 40
+  },
+  "4_tools": {
+    "loss": 0.789,
+    "n": 256,
+    "steps": 40
+  },
+  "5_mcp": {
+    "loss": 0.3187,
+    "n": 66,
+    "steps": 30
+  },
+  "6_dpo": {
+    "loss": 0.7275,
+    "steps": 30
+  },
+  "7_grpo": {
+    "loss": -0.0236,
+    "reward": null,
+    "steps": 15
+  }
+}

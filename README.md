@@ -13,6 +13,11 @@ A lab for experiments with small / on-device language models (sub-10B, GGUF, age
   DB), state/memory, parallel calls, and tool-error recovery — scored **end-to-end**. Overturns
   the single-turn conclusion (gpt-oss-20b 6/8→8/8; Qwen "failures" were a llama.cpp parser gap).
   See [AGENTIC_RESULTS.md](agentic-harness/AGENTIC_RESULTS.md).
+- [**pipeline/**](pipeline/) — an OpenAI-style **7-stage post-training flow** run end-to-end on the
+  A5000 (CPT → SFT → reasoning → tool-calling → MCP → DPO → GRPO), one accumulating QLoRA adapter,
+  real dataset per stage. Proof-of-plumbing (all 7 green), reconciled with a Codex council — incl.
+  overriding a version-specific "DPO reference" bug after verifying trl 1.7 handles it correctly.
+  See [PIPELINE.md](pipeline/PIPELINE.md).
 
 ## Key takeaway
 
