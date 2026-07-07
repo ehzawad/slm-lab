@@ -23,6 +23,12 @@ Everything runs on a single NVIDIA RTX A5000 (24 GB), GPU 0 only.
   Qwen3-4B QLoRA on gretel synthetic data, scored by execution accuracy (run the SQL, compare result
   sets). Web-searched SOTA + council-reconciled before RL. Result: base 47.3% to SFT 58.0% execution
   accuracy (real +10.7); GRPO held; CoT-SFT hurt at 4B. See [SQL_RESULTS.md](sql-agent/SQL_RESULTS.md).
+- [**nimbus-agent/**](nimbus-agent/) - the all-seven-stages experiment: an internal ops agent for a
+  fictional company whose corpus is provably absent from pretraining, so every stage has a metric it
+  uniquely moves. Reproduced the Thinking Machines knowledge-vs-instruction-following curve, then a
+  controlled ablation: naive stage stacking ends at 23.7 domain QA (catastrophic format collapse at
+  the tools stage); replay mixing alone ends at 81.6 (3.4x). See
+  [NIMBUS_RESULTS.md](nimbus-agent/NIMBUS_RESULTS.md).
 
 ## Key takeaways
 
