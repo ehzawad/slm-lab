@@ -1,0 +1,32 @@
+{
+  "base": {
+    "reasoning_acc": 35.0,
+    "tool_valid": 87.5,
+    "tool_correct": 87.5
+  },
+  "3_reasoning": {
+    "reasoning_acc": 62.5,
+    "tool_valid": 100.0,
+    "tool_correct": 100.0
+  },
+  "4_tools": {
+    "reasoning_acc": 50.0,
+    "tool_valid": 100.0,
+    "tool_correct": 100.0
+  },
+  "5_mcp": {
+    "reasoning_acc": 45.0,
+    "tool_valid": 100.0,
+    "tool_correct": 100.0
+  },
+  "6_dpo": {
+    "reasoning_acc": 55.0,
+    "tool_valid": 100.0,
+    "tool_correct": 100.0
+  },
+  "7b_agentic": {
+    "reasoning_acc": 47.5,
+    "tool_valid": 100.0,
+    "tool_correct": 100.0
+  }
+}

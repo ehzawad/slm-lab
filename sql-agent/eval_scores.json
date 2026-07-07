@@ -1,0 +1,14 @@
+{
+  "base": {
+    "model": "base",
+    "n": 150,
+    "exec_acc": 47.3,
+    "valid_sql": 95.3
+  },
+  "sft": {
+    "model": "sft",
+    "n": 150,
+    "exec_acc": 58.0,
+    "valid_sql": 98.7
+  }
+}
