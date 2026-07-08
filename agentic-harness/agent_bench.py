@@ -16,13 +16,15 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.environ.get("SLM_LAB_ROOT", os.path.dirname(HERE))  # holds models/ + llama.cpp/
 BIN = f"{REPO}/llama.cpp/build/bin"
 PORT = 18413
-ENV = {**os.environ, "CUDA_VISIBLE_DEVICES": "0", "CUDA_DEVICE_ORDER": "PCI_BUS_ID"}
+ENV = {**os.environ, "CUDA_VISIBLE_DEVICES": os.environ.get("CUDA_VISIBLE_DEVICES", "0"),
+       "CUDA_DEVICE_ORDER": "PCI_BUS_ID"}  # default A5000 (0); set 1 for the A6000 when free
 
 MODELS = [
     ("Qwen3.5-4B Q4_K_M",  f"{REPO}/models/q4b/Qwen3.5-4B-Q4_K_M.gguf"),
     ("Qwen3.5-9B Q4_K_M",  f"{REPO}/models/q9b/Qwen3.5-9B-Q4_K_M.gguf"),
     ("Qwen3.5-9B Q8_0",    f"{REPO}/models/q9b/Qwen3.5-9B-Q8_0.gguf"),
     ("gpt-oss-20b Q4_K_M", f"{REPO}/models/gptoss20b/gpt-oss-20b-Q4_K_M.gguf"),
+    ("gemma4-12B-agentic-v2 Q4_K_M", f"{REPO}/models/gemma4agentic/gemma4-v2-Q4_K_M.gguf"),
 ]
 
 # ---------------- MCP client (spawns mcp_server.py, JSON-RPC over stdio) -------

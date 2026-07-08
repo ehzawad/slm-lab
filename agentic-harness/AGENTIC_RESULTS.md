@@ -43,6 +43,29 @@ that the agent still completed.
    and calls (13 vs 14) — weakly consistent with "Q8 slightly cleaner for agents," but
    within noise at N=8.
 
+## Community-model spot check: gemma4-12B-agentic-v2 (user-requested)
+
+`yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-GGUF` - a popular community
+fine-tune of Gemma-4-12B specialized for coding/terminal agentic loops (claims ~3.5x over
+base on tau2-bench telecom; distilled CoT rebuilt with Opus 4.8). Run at Q4_K_M on the A6000,
+same harness, same 8 tasks:
+
+| Model | Tasks | Iters | Tool calls | Tool-errors | XML-fallback | tg t/s |
+|-------|:-----:|------:|-----------:|------------:|:------------:|-------:|
+| gpt-oss-20b Q4_K_M          | 8/8 | 17 |  8 | 2 | 0 | 177 |
+| Qwen3.5-9B Q4_K_M           | 8/8 | 22 | 14 | 1 | 5 | 96  |
+| gemma4-12B-agentic-v2 Q4_K_M | 7/8 | 29 | 24 | 7 | 0 | 72  |
+
+Findings: (1) Gemma 4's native tool protocol parses cleanly through llama.cpp `--jinja` -
+zero parser workarounds, like gpt-oss and unlike Qwen3.5. (2) It is capable but inefficient:
+7/8 with 3x the tool calls of gpt-oss and 7 tool-errors; `state_memory` took 8 iterations of
+flailing before succeeding, and `error_recover` failed by burning the loop budget on retries
+without ever emitting a final answer - matching the model card's own honest caveat that v2
+"still flails a little sometimes (over-trying, retrying)". (3) Fairness note: these order-DB
+tasks resemble tau2 retail (where the card says the base model wins) more than the
+telecom/terminal loops it was tuned for, so this reads as an out-of-home-domain result, not a
+refutation of the card's telecom claim.
+
 ## Corroboration with official numbers
 
 Qwen3.5's own model card reports strong multi-turn agentic scores (BFCL-V4: 9B **66.1**,
