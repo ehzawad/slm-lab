@@ -1,7 +1,10 @@
 # slm-lab
 
 A lab for experiments with small / on-device language models (sub-10B, GGUF, agentic, fine-tuning).
-Everything runs on a single NVIDIA RTX A5000 (24 GB), GPU 0 only.
+Runs on a single box: NVIDIA RTX A5000 (24 GB, GPU 0) and RTX A6000 (48 GB, GPU 1).
+
+**Start here:** [LEARNINGS.md](LEARNINGS.md) - the full journey, per-experiment findings, measured
+model verdicts, cross-cutting lessons, and a prioritized roadmap of what to learn next.
 
 ## Experiments
 
