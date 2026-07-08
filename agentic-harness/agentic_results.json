@@ -93,99 +93,6 @@
     ]
   },
   {
-    "model": "Qwen3.5-9B Q4_K_M",
-    "agg": {
-      "success": 8,
-      "tool_calls": 14,
-      "invalid": 0,
-      "errors": 1,
-      "recovered": 2,
-      "n_tasks": 8
-    },
-    "per_task": [
-      {
-        "task": "cancel_unshipped",
-        "ok": true,
-        "tool_calls": 2,
-        "invalid": 0,
-        "errors": 0,
-        "iters": 3,
-        "xml_fallback": 1,
-        "final": "REFUND: 80"
-      },
-      {
-        "task": "cannot_cancel_shipped",
-        "ok": true,
-        "tool_calls": 1,
-        "invalid": 0,
-        "errors": 0,
-        "iters": 2,
-        "xml_fallback": 0,
-        "final": "CANNOT CANCEL"
-      },
-      {
-        "task": "multihop_search_calc",
-        "ok": true,
-        "tool_calls": 3,
-        "invalid": 0,
-        "errors": 0,
-        "iters": 4,
-        "xml_fallback": 2,
-        "final": "RESULT: 4200000"
-      },
-      {
-        "task": "state_memory",
-        "ok": true,
-        "tool_calls": 3,
-        "invalid": 0,
-        "errors": 0,
-        "iters": 5,
-        "xml_fallback": 1,
-        "final": "WITHIN"
-      },
-      {
-        "task": "parallel_compare",
-        "ok": true,
-        "tool_calls": 2,
-        "invalid": 0,
-        "errors": 0,
-        "iters": 2,
-        "xml_fallback": 0,
-        "final": "Order A1001 costs $25 and order A1003 costs $12. A1003 is cheaper.\n\nCHEAPER: A1003"
-      },
-      {
-        "task": "error_recover",
-        "ok": true,
-        "tool_calls": 2,
-        "invalid": 0,
-        "errors": 1,
-        "iters": 3,
-        "xml_fallback": 1,
-        "final": "STATUS: processing"
-      },
-      {
-        "task": "abstain_no_tool",
-        "ok": true,
-        "tool_calls": 0,
-        "invalid": 0,
-        "errors": 0,
-        "iters": 1,
-        "xml_fallback": 0,
-        "final": "ANSWER: Tokyo"
-      },
-      {
-        "task": "calc_direct",
-        "ok": true,
-        "tool_calls": 1,
-        "invalid": 0,
-        "errors": 0,
-        "iters": 2,
-        "xml_fallback": 0,
-        "final": "CALC: 396"
-      }
-    ]
-  },
-  {
     "model": "Qwen3.5-9B Q8_0",
     "agg": {
       "success": 8,
@@ -449,6 +356,99 @@
         "invalid": 0,
         "errors": 0,
         "iters": 2,
+        "xml_fallback": 0,
+        "final": "ANSWER: Tokyo"
+      },
+      {
+        "task": "calc_direct",
+        "ok": true,
+        "tool_calls": 1,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 2,
+        "xml_fallback": 0,
+        "final": "CALC: 396"
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.5-9B Q4_K_M",
+    "agg": {
+      "success": 8,
+      "tool_calls": 14,
+      "invalid": 0,
+      "errors": 1,
+      "recovered": 2,
+      "n_tasks": 8
+    },
+    "per_task": [
+      {
+        "task": "cancel_unshipped",
+        "ok": true,
+        "tool_calls": 2,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 3,
+        "xml_fallback": 1,
+        "final": "REFUND: 80"
+      },
+      {
+        "task": "cannot_cancel_shipped",
+        "ok": true,
+        "tool_calls": 1,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 2,
+        "xml_fallback": 0,
+        "final": "CANNOT CANCEL"
+      },
+      {
+        "task": "multihop_search_calc",
+        "ok": true,
+        "tool_calls": 3,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 4,
+        "xml_fallback": 2,
+        "final": "RESULT: 4200000"
+      },
+      {
+        "task": "state_memory",
+        "ok": true,
+        "tool_calls": 3,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 5,
+        "xml_fallback": 1,
+        "final": "WITHIN"
+      },
+      {
+        "task": "parallel_compare",
+        "ok": true,
+        "tool_calls": 2,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 2,
+        "xml_fallback": 0,
+        "final": "CHEAPER: A1003"
+      },
+      {
+        "task": "error_recover",
+        "ok": true,
+        "tool_calls": 2,
+        "invalid": 0,
+        "errors": 1,
+        "iters": 3,
+        "xml_fallback": 1,
+        "final": "STATUS: processing"
+      },
+      {
+        "task": "abstain_no_tool",
+        "ok": true,
+        "tool_calls": 0,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 1,
         "xml_fallback": 0,
         "final": "ANSWER: Tokyo"
       },
