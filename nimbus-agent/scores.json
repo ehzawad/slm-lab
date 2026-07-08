@@ -100,5 +100,41 @@
     "instruction_following": 95.8,
     "hallucination_handling": 34.2,
     "tool_validity": 100.0
+  },
+  "v4_toolsmix": {
+    "domain_qa": 48.0,
+    "instruction_following": 99.2,
+    "hallucination_handling": 36.7,
+    "tool_validity": 100.0
+  },
+  "v4_dpo": {
+    "domain_qa": 47.0,
+    "instruction_following": 98.3,
+    "hallucination_handling": 37.5,
+    "tool_validity": 100.0
+  },
+  "v4_grpo": {
+    "domain_qa": 45.0,
+    "instruction_following": 99.2,
+    "hallucination_handling": 37.5,
+    "tool_validity": 100.0
+  },
+  "v3_opd_A": {
+    "domain_qa": 50.0,
+    "instruction_following": 96.7,
+    "hallucination_handling": 34.2,
+    "tool_validity": 100.0
+  },
+  "v3_opd_C": {
+    "domain_qa": 52.0,
+    "instruction_following": 95.8,
+    "hallucination_handling": 34.2,
+    "tool_validity": 100.0
+  },
+  "v3_opd_D": {
+    "domain_qa": 50.0,
+    "instruction_following": 97.5,
+    "hallucination_handling": 34.2,
+    "tool_validity": 100.0
   }
 }

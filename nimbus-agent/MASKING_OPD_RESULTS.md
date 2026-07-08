@@ -70,6 +70,46 @@ flattered by the small 38-item set; the honest v2 number on 100 harder items is 
 - Active-label fraction 0.870 means 13 percent of trained tokens (user/system/tool-result) no
   longer receive loss - the defect being fixed was real but modest in token share for this mix.
 
+## Follow-up 1: the tools-dip fix (v4)
+
+v3's tools stage still dipped domain 44 to 36 before MCP recovered it. v4 does not sequence the
+narrow format at all: tools + MCP traces + a richer replay slice (sft chats AND reasoning traces)
+blended into one `toolsmix` stage (90 steps, matching v3's tools+mcp budget), then dpo/grpo
+unchanged. Reuses v3's cpt/sft/reasoning adapters.
+
+| Checkpoint | domain | IF | halluc | tools |
+|---|---:|---:|---:|---:|
+| v3_tools (the dip) | 36.0 | 99.2 | 33.3 | 100 |
+| v4_toolsmix        | 48.0 | 99.2 | 36.7 | 100 |
+| v3_grpo (final)    | 53.0 | 95.8 | 32.5 | 100 |
+| v4_grpo (final)    | 45.0 | 99.2 | 37.5 | 100 |
+
+Verdict: the dip is eliminated (48 vs 36; never below the reasoning checkpoint's 43), and v4's
+final model has better behavior (IF +3.4, halluc +5.0). But v3's final domain stays higher
+(53 vs 45): the sequential MCP stage acted as extra domain-relevant training that the merged
+stage does not replicate. Partial win with a real trade: choose the v3 recipe to maximize
+domain recall, the v4 recipe to maximize behavior robustness. Blending prevents erosion but
+also dilutes per-topic gradient.
+
+## Follow-up 2: OPD hyperparameter sweep
+
+Three more GKD variants from the same v3_grpo start as variant B, so all four are comparable:
+
+| Variant | lmbda | beta | steps/LR | domain | IF | halluc | tools |
+|---|---|---|---|---:|---:|---:|---:|
+| B | 0.5 | 0.5 | 60 @ 5e-6  | 52.0 | 95.8 | 34.2 | 100 |
+| A | 0.3 | 0.5 | 60 @ 5e-6  | 50.0 | 96.7 | 34.2 | 100 |
+| C | 0.5 | 0.3 | 60 @ 5e-6  | 52.0 | 95.8 | 34.2 | 100 |
+| D | 0.5 | 0.5 | 120 @ 1e-5 | 50.0 | 97.5 | 34.2 | 100 |
+
+Verdict: a robust wash across the hyperparameter range - the variant-B result was not an
+artifact of under-dosing. Even the double-dose D moves IF only +1.7 while costing 3.0 domain
+points (both within noise). A weak dose-response trend matches theory: stronger distillation
+pressure buys slightly more teacher behavior at slightly more domain cost. The domain-erasure
+risk stayed controlled (max -3.0) thanks to the behavior-only, teacher-prefiltered prompt pool.
+Standing conclusion: OPD is the tool for repairing broken behavior; a masked, replay-mixed
+pipeline does not break behavior, so there is nothing for it to buy here.
+
 ## Honest residuals
 
 - v3 vs v2 also differs by retraining randomness (same steps, LRs, seeds where controllable).

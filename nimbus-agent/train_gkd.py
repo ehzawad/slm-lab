@@ -77,18 +77,19 @@ def main():
     ds = Dataset.from_list([{"messages": r["messages"]} for r in rows])
     print(f"dataset: {len(ds)} conversations", flush=True)
 
+    # Sweep overrides via env (defaults = the original variant B config)
     cfg = GKDConfig(
         output_dir="/tmp/nb_opd",
-        max_steps=60,
+        max_steps=int(os.environ.get("OPD_STEPS", 60)),
         per_device_train_batch_size=1,
         gradient_accumulation_steps=8,
-        learning_rate=5e-6,
+        learning_rate=float(os.environ.get("OPD_LR", 5e-6)),
         lr_scheduler_type="cosine",
         warmup_ratio=0.05,
         max_length=768,
         max_new_tokens=96,
-        lmbda=0.5,
-        beta=0.5,
+        lmbda=float(os.environ.get("OPD_LMBDA", 0.5)),
+        beta=float(os.environ.get("OPD_BETA", 0.5)),
         seq_kd=False,
         temperature=0.7,
         bf16=True,
@@ -109,7 +110,7 @@ def main():
     )
     result = trainer.train()
 
-    out = f"{ADAPTERS_V3}/opd"
+    out = f"{ADAPTERS_V3}/{os.environ.get('OPD_NAME', 'opd')}"
     os.makedirs(ADAPTERS_V3, exist_ok=True)
     try:
         trainer.model.save_pretrained(out, selected_adapters=["default"])
