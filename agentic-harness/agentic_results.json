@@ -463,5 +463,191 @@
         "final": "CALC: 396"
       }
     ]
+  },
+  {
+    "model": "gemma-4-12B-it BASE Q4_K_M",
+    "agg": {
+      "success": 8,
+      "tool_calls": 13,
+      "invalid": 0,
+      "errors": 2,
+      "recovered": 2,
+      "n_tasks": 8
+    },
+    "per_task": [
+      {
+        "task": "cancel_unshipped",
+        "ok": true,
+        "tool_calls": 2,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 3,
+        "xml_fallback": 0,
+        "final": "REFUND: 80"
+      },
+      {
+        "task": "cannot_cancel_shipped",
+        "ok": true,
+        "tool_calls": 2,
+        "invalid": 0,
+        "errors": 1,
+        "iters": 3,
+        "xml_fallback": 0,
+        "final": "CANNOT CANCEL"
+      },
+      {
+        "task": "multihop_search_calc",
+        "ok": true,
+        "tool_calls": 2,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 3,
+        "xml_fallback": 0,
+        "final": "RESULT: 4200000"
+      },
+      {
+        "task": "state_memory",
+        "ok": true,
+        "tool_calls": 2,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 4,
+        "xml_fallback": 0,
+        "final": "WITHIN"
+      },
+      {
+        "task": "parallel_compare",
+        "ok": true,
+        "tool_calls": 2,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 3,
+        "xml_fallback": 0,
+        "final": "CHEAPER: A1003"
+      },
+      {
+        "task": "error_recover",
+        "ok": true,
+        "tool_calls": 2,
+        "invalid": 0,
+        "errors": 1,
+        "iters": 3,
+        "xml_fallback": 0,
+        "final": "STATUS: processing"
+      },
+      {
+        "task": "abstain_no_tool",
+        "ok": true,
+        "tool_calls": 0,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 1,
+        "xml_fallback": 0,
+        "final": "ANSWER: Tokyo"
+      },
+      {
+        "task": "calc_direct",
+        "ok": true,
+        "tool_calls": 1,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 2,
+        "xml_fallback": 0,
+        "final": "CALC: 396"
+      }
+    ]
+  },
+  {
+    "model": "Qwythos-9B nomtp",
+    "agg": {
+      "success": 8,
+      "tool_calls": 12,
+      "invalid": 0,
+      "errors": 3,
+      "recovered": 2,
+      "n_tasks": 8
+    },
+    "per_task": [
+      {
+        "task": "cancel_unshipped",
+        "ok": true,
+        "tool_calls": 2,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 3,
+        "xml_fallback": 0,
+        "final": "REFUND: 80"
+      },
+      {
+        "task": "cannot_cancel_shipped",
+        "ok": true,
+        "tool_calls": 1,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 2,
+        "xml_fallback": 0,
+        "final": "CANNOT CANCEL"
+      },
+      {
+        "task": "multihop_search_calc",
+        "ok": true,
+        "tool_calls": 1,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 2,
+        "xml_fallback": 0,
+        "final": "RESULT: 4200000"
+      },
+      {
+        "task": "state_memory",
+        "ok": true,
+        "tool_calls": 1,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 3,
+        "xml_fallback": 0,
+        "final": "WITHIN"
+      },
+      {
+        "task": "parallel_compare",
+        "ok": true,
+        "tool_calls": 4,
+        "invalid": 0,
+        "errors": 2,
+        "iters": 4,
+        "xml_fallback": 0,
+        "final": "CHEAPER: A1003"
+      },
+      {
+        "task": "error_recover",
+        "ok": true,
+        "tool_calls": 2,
+        "invalid": 0,
+        "errors": 1,
+        "iters": 3,
+        "xml_fallback": 0,
+        "final": "STATUS: processing"
+      },
+      {
+        "task": "abstain_no_tool",
+        "ok": true,
+        "tool_calls": 0,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 1,
+        "xml_fallback": 0,
+        "final": "ANSWER: Tokyo"
+      },
+      {
+        "task": "calc_direct",
+        "ok": true,
+        "tool_calls": 1,
+        "invalid": 0,
+        "errors": 0,
+        "iters": 2,
+        "xml_fallback": 0,
+        "final": "CALC: 396"
+      }
+    ]
   }
 ]

@@ -15,17 +15,21 @@ import subprocess, time, json, re, sys, os, urllib.request, signal
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.environ.get("SLM_LAB_ROOT", os.path.dirname(HERE))  # holds models/ + llama.cpp/
 BIN = f"{REPO}/llama.cpp/build/bin"
-PORT = 18413
+PORT = int(os.environ.get("AGENT_PORT", "18413"))
 ENV = {**os.environ, "CUDA_VISIBLE_DEVICES": os.environ.get("CUDA_VISIBLE_DEVICES", "0"),
        "CUDA_DEVICE_ORDER": "PCI_BUS_ID"}  # default A5000 (0); set 1 for the A6000 when free
 
-MODELS = [
-    ("Qwen3.5-4B Q4_K_M",  f"{REPO}/models/q4b/Qwen3.5-4B-Q4_K_M.gguf"),
-    ("Qwen3.5-9B Q4_K_M",  f"{REPO}/models/q9b/Qwen3.5-9B-Q4_K_M.gguf"),
-    ("Qwen3.5-9B Q8_0",    f"{REPO}/models/q9b/Qwen3.5-9B-Q8_0.gguf"),
-    ("gpt-oss-20b Q4_K_M", f"{REPO}/models/gptoss20b/gpt-oss-20b-Q4_K_M.gguf"),
-    ("gemma4-12B-agentic-v2 Q4_K_M", f"{REPO}/models/gemma4agentic/gemma4-v2-Q4_K_M.gguf"),
-]
+if os.environ.get("AGENT_ONLY"):
+    MODELS = [(os.environ["AGENT_ONLY_LABEL"], os.environ["AGENT_ONLY_PATH"])]
+else:
+    MODELS = [
+        ("Qwen3.5-4B Q4_K_M",  f"{REPO}/models/q4b/Qwen3.5-4B-Q4_K_M.gguf"),
+        ("Qwen3.5-9B Q4_K_M",  f"{REPO}/models/q9b/Qwen3.5-9B-Q4_K_M.gguf"),
+        ("Qwen3.5-9B Q8_0",    f"{REPO}/models/q9b/Qwen3.5-9B-Q8_0.gguf"),
+        ("gpt-oss-20b Q4_K_M", f"{REPO}/models/gptoss20b/gpt-oss-20b-Q4_K_M.gguf"),
+        ("gemma4-12B-agentic-v2 Q4_K_M", f"{REPO}/models/gemma4agentic/gemma4-v2-Q4_K_M.gguf"),
+        ("gemma-4-12B-it BASE Q4_K_M", f"{REPO}/models/gemma4base/gemma-4-12B-it-Q4_K_M.gguf"),
+    ]
 
 # ---------------- MCP client (spawns mcp_server.py, JSON-RPC over stdio) -------
 class MCP:
@@ -114,7 +118,7 @@ def start_server(path):
 
 def chat(messages, tools):
     body = {"messages": messages, "tools": tools, "tool_choice": "auto",
-            "temperature": 0.0, "max_tokens": 4096}
+            "temperature": float(os.environ.get("AGENT_TEMP", "0.0")), "max_tokens": 4096}
     req = urllib.request.Request(f"http://127.0.0.1:{PORT}/v1/chat/completions",
         data=json.dumps(body).encode(), headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=300) as r:
@@ -218,7 +222,7 @@ def run_task(task, tools, local, mcp):
     return ok, stats, final
 
 def main():
-    rp = f"{HERE}/agentic_results.json"
+    rp = os.environ.get("AGENT_RESULTS", f"{HERE}/agentic_results.json")
     results = json.load(open(rp)) if os.path.exists(rp) else []
     done = {r["model"] for r in results}
     tasks = build_tasks()

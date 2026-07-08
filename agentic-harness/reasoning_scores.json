@@ -1,0 +1,26 @@
+[
+  {
+    "label": "Qwen3.5-9B base",
+    "n": 40,
+    "accuracy_pct": 90.0,
+    "temp": 0.6
+  },
+  {
+    "label": "Qwythos-9B nomtp",
+    "n": 40,
+    "accuracy_pct": 95.0,
+    "temp": 0.6
+  },
+  {
+    "label": "gemma-4-12B-it base",
+    "n": 40,
+    "accuracy_pct": 42.5,
+    "temp": 0.6
+  },
+  {
+    "label": "gemma4-12B-agentic-v2",
+    "n": 40,
+    "accuracy_pct": 95.0,
+    "temp": 0.6
+  }
+]
