@@ -64,49 +64,62 @@ so the only Ampere QLoRA path is Unsloth's linearized `unsloth/gpt-oss-20b` load
 4-bit. `DISABLE_ADDMM_CUDA_LT=1` is required on this stack (sm_86 / bitsandbytes / cu130);
 without it, 4-bit matmul raises `CUBLAS_STATUS_NOT_INITIALIZED`. Script: `train_gptoss.py`.
 
-STAGE 1 — SFT (real, converged): all 520 harmony multi-turn tool trajectories
+STAGE 1 — SFT (ran and fit the rendered strings): all 520 harmony multi-turn tool trajectories
 (`sft_trajectories.json`), rendered with the tool schema, seq 2048, 1 epoch = 65 optimizer
 steps (bs 2 x accum 4). LoRA all-linear incl. MoE experts, r=16 alpha=32 lr 2e-4.
 Trainable 184,909,824 (0.88%). Peak 17.01 GB. Loss 3.72 -> 0.0055 (final training_loss
 0.4005), clean monotone convergence. Adapter: `adapters_gptoss/sft`.
 
-STAGE 2 — GRPO (ran end-to-end, SHORTENED, learning NO-OP, honest): single-turn verifiable
+Important caveat: the loss collapse proves the adapter fit the teacher-forced rendered
+sequence distribution; it does not prove useful free-running tool use. The rendered
+examples include the full harmony developer/tool-schema preamble. If SFT labels were not
+assistant-only masked, the run may have directly supervised schema/developer tokens, which
+would make later schema regurgitation a data/masking bug rather than pure overfit.
+
+STAGE 2 — GRPO (ran end-to-end, but did not test RL): single-turn verifiable
 execution-reward proxy (multi-turn rollout is not native to trl GRPOTrainer). The reward
 replays the model's JSON remediation plan on the real IncidentSim (solved=1.0). The reward
 fn was validated offline (gold plans -> 1.0; brute-force restart-all -> 0.0 on config/
-deploy/pool, 1.0 on crash). But reward was uniformly 0.0 across all 12 steps -> zero
-advantage -> no useful gradient. Root cause: the single-turn JSON-plan proxy is
-out-of-distribution for the SFT policy, which is a specialized multi-turn harmony
-tool-caller; asked for a one-shot plan it degenerates and never emits a parseable plan. So
-the GRPO adapter is effectively identical to the SFT adapter. Shortened because HF-generate
-rollout on the 20B MoE ran ~5-10 min/step (full config projected ~5.5 h) and, once trimmed,
-produced no signal.
+deploy/pool, 1.0 on crash). But the online rollout produced no usable samples: reward was
+uniformly 0.0 across all 12 steps, `completions/clipped_ratio=1`,
+`mean_terminated_length=0`, `rewards/reward_exec=0`, and `frac_reward_zero_std=1`. Every
+256-token completion hit the cap and never terminated.
 
-## 4. Before -> After (honest, controlled)
+This is a reward-wiring / rollout-length / format failure, not evidence about RL. With no
+terminated or rewarded completions and no reward variance, no conclusion about whether GRPO
+can improve the agent is supportable. More GRPO steps would not fix this by itself; the
+minimum fix is rollouts that can terminate and earn reward: larger completion length,
+correct stop tokens, a faithful multi-turn tool rollout, and/or shaped partial rewards that
+fire before a complete solved plan.
 
-The trained artifact is a LoRA adapter on the linearized `unsloth/gpt-oss-20b`, which cannot
-be served through llama.cpp the way the GGUF baseline was. So the adapter must be evaluated
-via local transformers/Unsloth `generate`. `eval_incident_adapter.py` renders the harmony
-prompt (stock `unsloth/gpt-oss-20b` tokenizer + tool schema), generates one turn, stops at
-`<|call|>` / `<|return|>`, and parses the harmony continuation back into OpenAI tool_calls —
-the SAME `incident_harness`, the SAME 24 scenarios. To isolate the adapter's effect we run
-the base weights through this IDENTICAL path (controlled before) and the SFT adapter through
-it (after). Greedy decoding, 256 new-token cap.
+## 4. Before -> After (confounded; controlled arm floored)
+
+The trained artifact is a LoRA adapter on the linearized `unsloth/gpt-oss-20b`, which was
+not served through llama.cpp the way the GGUF baseline was. The attempted controlled
+before/after therefore used local transformers/Unsloth `generate`.
+`eval_incident_adapter.py` renders the harmony prompt (stock `unsloth/gpt-oss-20b`
+tokenizer + tool schema), generates one turn, stops at `<|call|>` / `<|return|>`, and
+parses the harmony continuation back into OpenAI tool_calls — the SAME
+`incident_harness`, the SAME 24 scenarios. Greedy decoding, 256 new-token cap.
+
+This does NOT reproduce the grammar-constrained serving path that produced the
+11/24 gpt-oss-20b capacity result. It is only a same-backend sanity check of the
+base and adapter under the transformers/Unsloth path.
 
 ### Controlled results (identical transformers/Unsloth 4-bit path, greedy)
 
 | model (path)                          | solved      | root-cause | avg steps | free-running generation quality (greedy probe) |
 |---------------------------------------|-------------|------------|-----------|-----------------------------------------------|
 | gpt-oss-20b base (transformers)       | 0/24 (0.0%) | 0/24       | 0.0       | emits VALID harmony tool calls, but verbose analysis overruns the 256-tok window before the call on most prompts |
-| gpt-oss-20b SFT/TRAINED (transformers)| 0/24 (0.0%) | 0/24       | 0.0       | DEGENERATE: regurgitates the developer/tool-schema block, ~0 valid tool calls |
+| gpt-oss-20b SFT/TRAINED (transformers)| 0/24 (0.0%) | 0/24       | 0.0       | observed probes suggest degeneration: regurgitates the developer/tool-schema block, ~0 valid tool calls |
 
-Delta (SFT - base) on solved: 0 (both floored to 0 by the unconstrained decoding harness).
-The informative difference is qualitative, not in the tied solved count: see below.
+Delta (SFT - base) on solved: 0, but this delta is NOT an informative task-capacity
+measurement because both runs are floored by the unconstrained decoding harness.
 
 Reference point (different backend, grammar-CONSTRAINED): gpt-oss-20b GGUF baseline = 11/24.
 Full base run 2045s, full SFT run 4512s (both greedy, 256-tok cap, all 24 scenarios, GPU-1/A6000).
 
-### What actually happened, and what the delta supports
+### What actually happened, and what the result supports
 
 - The controlled transformers path does NOT reproduce the GGUF baseline's capacity, for
   either model. Without llama.cpp's tool-call grammar, base gpt-oss-20b's verbose
@@ -114,56 +127,108 @@ Full base run 2045s, full SFT run 4512s (both greedy, 256-tok cap, all 24 scenar
   tool call on these multi-service prompts, so most episodes end at step 0. This is a
   property of the unconstrained decoding harness, not of the model's latent capacity
   (the grammar-constrained GGUF proves the capacity is 11/24).
-- The two paths TIE at 0/24 solved on this floored harness, but the SFT adapter is
-  qualitatively WORSE in generation quality on the same footing. Direct greedy generation
-  probes show the SFT policy DEGENERATES: from `<|start|>assistant`
+- The base-vs-SFT task result is therefore inconclusive. A harness that floors the base
+  model from 11/24 to 0/24 cannot detect existing capability, so it cannot validly measure
+  whether training improved or degraded that capability.
+- Separate from task success, direct greedy generation probes suggest the SFT adapter may
+  have damaged free-running harmony/tool-call behavior on this transformers path: from
+  `<|start|>assistant`
   it regurgitates the developer/tool-schema block (e.g. `to=functions<|message|># Tools ...
   namespace functions { ... }`) instead of emitting an analysis + a well-formed
   `to=functions.NAME<|channel|>commentary json<|message|>{...}<|call|>` tool call. The base
   model, by contrast, emits valid harmony tool calls under identical greedy decoding
   (e.g. `to=functions.get_status<|channel|>commentary <|constrain|>json<|message|>
-  {"service":"courierbot"}<|call|>`). So the adapter damaged free-running generation.
+  {"service":"courierbot"}<|call|>`). This is a warning sign about the adapter or
+  rendering/masking path, not a valid capacity delta on the incident benchmark.
 - This is consistent with the training telemetry: teacher-forced loss collapsed to 0.0055
   on only 520 examples with a high LR (2e-4) and heavy all-linear+MoE LoRA — a regime that
   memorizes token transitions (low teacher-forced loss) while degrading autoregressive
-  free-running behavior (exposure bias / overfit). The GRPO stage, which was a documented
-  0-reward no-op, did not repair this.
+  free-running behavior (exposure bias / overfit). But this remains a plausible diagnosis,
+  not proven: a harmony rendering, label-masking, tokenizer/template, stop-token, or parser
+  bug could produce similar symptoms. The GRPO stage did not test RL because every rollout
+  clipped at the token cap, never terminated, and received zero reward.
 
 ### Honest verdict
 
-Training did NOT improve gpt-oss-20b's agentic capacity on the hard env, and on an
-identical evaluation footing the SFT adapter measurably degraded free-running tool-calling.
+The controlled before/after is inconclusive. The only defensible task-level claim is:
+the unconstrained transformers/Unsloth eval harness floored both base and SFT to 0/24, so
+it cannot measure a training delta. It is not defensible to conclude from these task
+scores that training did not improve gpt-oss-20b, or that SFT degraded gpt-oss-20b's
+agentic capacity.
+
+What can be said: the GGUF/llama.cpp `--jinja` baseline shows real base capacity
+(11/24); the attempted transformers control failed to recover any of that capacity
+(0/24); qualitative probes raise concern that the SFT adapter or its rendering/eval path
+produces malformed/free-running tool calls; and GRPO was a failed 0-reward rollout. Those
+facts motivate remediation, but they do not establish a before/after capability delta.
+
 The positive results in this project are: (a) a well-shaped, unsaturated, anti-brute-force
 environment; (b) a credible capacity baseline for gpt-oss-20b (11/24, grammar-constrained);
-and (c) a training stack that runs end-to-end on the Ampere/Unsloth path (SFT converges;
-GRPO wired and verified to execute with a real, offline-validated execution reward). The
-missing piece for a genuine improvement is a rollout/eval regime aligned with the policy.
+and (c) a training stack that can run on the Ampere/Unsloth path. The training result is
+negative/confounded: SFT free-running collapse is observed but not diagnosed, and GRPO had
+no usable online reward signal. The missing piece for a genuine before/after is serving
+base and SFT through the same valid tool-constrained path after the SFT data/masking path
+is audited.
 
 ### Caveats (what the delta does and does NOT support)
 
 - Backend confound: the BEFORE capacity number (11/24) is grammar-constrained GGUF; the
-  controlled before/after pair is grammar-UNconstrained transformers. The clean, apples-to-
-  apples controlled pair (base vs SFT through the same transformers path) is what isolates
-  the adapter's effect; the GGUF number is a separate, stronger-harness reference.
-- The controlled transformers numbers are floored by the unconstrained decoding harness
-  (base near-0), so they under-report base capacity; they still validly show the adapter
-  did not help and in fact hurt free-running generation (base emits valid tool calls,
-  SFT regurgitates schema).
+  attempted before/after pair is grammar-UNconstrained transformers. Because the
+  transformers path floors the base model to 0/24, it is not a valid apples-to-apples
+  capacity comparison.
+- The controlled transformers numbers under-report base capacity and do not prove that
+  the adapter helped, failed to help, or hurt task capacity. They only show that this
+  particular unconstrained transformers harness could not detect success from either
+  base or SFT.
+- The SFT degeneration evidence is qualitative and thin: base emits valid harmony tool
+  calls in probes while SFT often regurgitates schema. That is enough to flag a likely
+  adapter/eval-path problem, not enough to diagnose overfit as the sole cause.
 - Dataset sizes are small: SFT 520 trajectories, GRPO a 64-scenario subset, 12 steps
-  (shortened). The GRPO stage is a documented learning no-op (uniform 0 reward, proxy
-  format OOD for the policy), so no GRPO-driven improvement is claimed.
+  (shortened). The GRPO stage is a documented rollout/reward failure (uniform 0 reward,
+  all completions clipped at 256 tokens, zero terminated completions), so no RL conclusion
+  is claimed.
 - The SFT LoRA is heavy (all-linear incl. MoE, r=16, lr 2e-4) on a tiny corpus; the
-  overfit/degeneration is the most likely cause and is directly observed in greedy probes.
+  overfit/degeneration hypothesis is plausible, but it is confounded with train/eval
+  template mismatch and possible missing assistant-only loss masking.
+
+### How to distinguish overfit from a data/rendering bug
+
+Run the cheap audit before interpreting this as memorization:
+
+1. Render several train and eval prompts to raw text and diff the assistant generation
+   boundary. Role headers, tool namespace shape, channel names, `<|call|>`, `<|return|>`,
+   and `add_generation_prompt` placement must match.
+2. Inspect an actual SFT batch's `labels`. If the intent is assistant-only SFT, system,
+   developer, tool schema, user text, and tool-result observations should be `-100`. If
+   schema/developer tokens are supervised, schema regurgitation is a data/masking bug.
+3. Break loss down by segment: schema/developer, user, tool observations, assistant
+   tool-call headers/JSON, final answers. Near-zero schema loss plus schema generation is a
+   red flag for masking/rendering contamination.
+4. Run forced-prefix probes. End the prompt with
+   `<|start|>assistant to=functions.get_status<|channel|>commentary json<|message|>` and
+   check whether the SFT adapter completes valid JSON plus `<|call|>`. If forced prefixes
+   work but normal prompts start with schema, suspect the generation prompt/template
+   boundary. If forced prefixes also fail, overfit/corruption is more likely.
+5. Train a tiny diagnostic adapter on 20-50 examples with confirmed assistant-only masking,
+   lower LR, and the exact eval renderer. If schema regurgitation disappears, the original
+   run was likely a stack/data issue. If it persists only when driven to a near-zero loss
+   floor, overfit/exposure bias becomes the stronger explanation.
 
 ### Recommendation for a real improvement next
 
-Either (a) convert the SFT-merged model to GGUF and serve via llama.cpp `--jinja` so the
-tool-call grammar constrains the (degenerate) free-running output the same way it does the
-base — this would give a true grammar-constrained before/after on identical footing; and/or
-(b) reduce the SFT regime (lower LR ~5e-5, fewer epochs / early stop, lighter LoRA) to stop
-the free-running degeneration; and (c) implement a genuine multi-turn rollout reward (custom
-loop, not vanilla GRPOTrainer) so RL uses the trained harmony tool-calling instead of the
-OOD single-turn JSON-plan proxy.
+Single cheapest next step: audit and fix SFT rendering + label masking, then rerun a short
+low-LR SFT probe and measure valid tool-call rate before doing the full 24-scenario eval.
+This is cheaper and more diagnostic than immediately converting a possibly-buggy adapter.
+
+After the masking/template audit passes, merge the SFT LoRA into the base, convert the
+merged checkpoint to GGUF, and serve both base and SFT via the same llama.cpp `--jinja`
+grammar-constrained path with the same prompt, tools, scenario set, context/token budget,
+temperature, parser, and scoring. That is the apples-to-apples before/after that can answer
+whether SFT changed incident-response capacity.
+
+Separately, replace the single-turn JSON-plan GRPO proxy or make it terminate and reward:
+larger `max_completion_length`, correct stop tokens, a real multi-turn tool loop if
+possible, and shaped partial rewards. The current GRPO run supports no RL conclusion.
 
 ## Files
 

@@ -44,9 +44,18 @@ Per-experiment detail lives in the sub-project docs linked below; this is the ma
    Qwythos makes a small real reasoning/tool-cleanliness gain (far short of its advertised +30
    gsm8k), and gemma4-agentic trades agentic reliability for a domain (telecom) we did not test.
 
-8. **gpt-oss-20b deep-dive + harder agentic env + training stack** - gpt-oss-agentic/ (in progress
-   on the `gpt-oss-agentic` branch). Building an unsaturated executable incident-response
-   simulator, baselining gpt-oss-20b on it, then CPT->SFT->agentic-GRPO via Unsloth.
+8. **gpt-oss-20b deep-dive + harder agentic env + training stack** - [gpt-oss-agentic/GPT_OSS_AGENTIC_FINDINGS.md](gpt-oss-agentic/GPT_OSS_AGENTIC_FINDINGS.md)
+   (on the `gpt-oss-agentic` branch). Built an unsaturated executable incident-response simulator
+   (expert 24/24; gpt-oss-20b 11/24, Qwythos 10/24, Qwen3.5-9B 1/24 - the 8/8 ceiling is gone).
+   Finding: the ENV and the credible gpt-oss baseline (11/24, grammar-constrained GGUF) are the
+   wins. The training was inconclusive AND confounded: SFT loss collapsed to 0.0055 on 520
+   examples (memorization-regime) and the adapter degenerated in free-running probes, but the only
+   controlled before/after (base vs SFT on the SAME transformers path) FLOORED both to 0/24 - so it
+   supports NO claim that training helped or hurt. GRPO earned zero reward across all steps
+   (non-terminating 256-token completions = broken rollout), so it tested nothing. Council-verified:
+   retract any "training degraded gpt-oss" claim; the harness that floors the base cannot measure a
+   delta. Lesson: a before/after across two different serving paths (grammar-constrained GGUF vs
+   unconstrained transformers) is not a valid comparison - merge+convert to one path first.
 
 ## Model verdicts (measured, not marketing)
 

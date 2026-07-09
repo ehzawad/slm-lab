@@ -2,11 +2,12 @@
 """Evaluate a TRAINED gpt-oss adapter (or the base model) on the incident-response
 env using a LOCAL transformers/Unsloth generate wired into incident_harness.chat().
 
-This is the controlled BEFORE/AFTER measurement: the same 24 scenarios, the same
-harness, the same 4-bit gpt-oss-20b weights, differing only in whether the SFT
-LoRA adapter is attached. Both are run through this identical local-generate path,
-so the delta isolates the adapter's effect (the GGUF baseline in incident_scores.json
-is a separate, backend-different reference point).
+This is an attempted same-backend BEFORE/AFTER check: the same 24 scenarios, the
+same harness, the same 4-bit gpt-oss-20b weights, differing only in whether the
+SFT LoRA adapter is attached. It does not reproduce the grammar-constrained GGUF
+serving path used for the main baseline, so if this local-generate path floors
+the base model it cannot provide a valid task-capacity delta. The GGUF baseline
+in incident_scores.json is a separate, backend-different reference point.
 
 gpt-oss uses the harmony chat format. We render OpenAI-style messages+tools with the
 stock `unsloth/gpt-oss-20b` tokenizer (the adapter-dir tokenizer's patched jinja
