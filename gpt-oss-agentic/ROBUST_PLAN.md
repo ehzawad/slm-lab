@@ -62,7 +62,38 @@ Sanity gate: base gpt-oss-20b must reproduce ~11/24 on the chosen path.
 - Grammar-constrained tool calling -> invalid-call rate to 0, measured on the 24-scenario hard env
   with the VALID path. BFCL-style schema-validity as a second axis.
 
-## Open decisions for the council
+## COUNCIL VERDICT - final de-risked scope (this is what the workflow builds)
+Unanimous across 4 roles:
+- **Eval foundation FIRST and it gates everything.** No training result is interpretable until the
+  exact eval path reproduces a NON-FLOORED base baseline. Smoke-test this before any training.
+- **Eval path ranking:** (1) recent-stable vLLM + LoRA + guided decoding (foundation, if it passes
+  the A6000 smoke test - aligns eval with production serving + multi-LoRA); (2) transformers + PEFT
+  + Outlines/lm-format-enforcer grammar (correct fallback, unmerged adapter, avoids MXFP4 merge);
+  (3) merge -> GGUF + GBNF is OUT for training conclusions (MXFP4 merge/reconvert untested).
+- **CUT GRPO this round** - defer until SFT + same-path eval show a measurable held-out gain, else
+  another no-op. Then single-turn RLVR only; multi-turn later.
+- **CUT MTP speculative decoding** (false premise: gpt-oss has no draft head). **DEFER aLoRA.**
+- **Prove ONE adapter: Adapter A (tool-call reliability)** - directly validates harness + mask +
+  guided decoding. Adapter B (incident-diagnosis) queued for a later workflow.
+- **SFT: instrument the mask** (decode a batch; train_on_responses_only is a helper not proof) and
+  judge success by FREE-RUNNING held-out generation (valid-tool-call rate), not teacher-forced loss.
+- **Highest-risk assumption to smoke-test FIRST:** recent-stable vLLM runs gpt-oss-20b + LoRA +
+  guided JSON on Ampere in the harmony path without crashing and reproduces a non-floored base.
+
+### Final workflow shape (gated, standalone-valuable phases)
+1. FOUNDATION (gate): stand up the eval path (vLLM primary, transformers+grammar fallback), prove a
+   NON-FLOORED base baseline on the incident env via the SAME path adapters will use. Correct
+   sampling (temp 1.0/top_p 1.0/top_k 0), constrain only JSON args, reasoning_effort medium. GATE.
+2. DATA + SFT (Adapter A, tool-call reliability): harmony commentary-channel rendering + hard
+   negatives + held-out split; assistant-only mask VERIFIED by decoding; 1 epoch; held-out
+   valid-tool-call rate as the success metric.
+3. VALID before/after: base vs Adapter A on the SAME path - solved/24 + executable-call rate +
+   invalid-call rate (novel, unpublished for gpt-oss). Base must stay non-floored.
+4. INFERENCE bench (parallel on A5000): llama.cpp vs vLLM tok/s + TTFT, prefix caching,
+   one-replica-per-GPU, correct sampling. No MTP.
+5. SYNTHESIZE + commit + push. Deferred/queued: GRPO, Adapter B, aLoRA (documented).
+
+## Open decisions for the council (ANSWERED ABOVE)
 1. Which eval path (Track 1) is the right foundation given the vLLM triton risk on A6000 - push
    vLLM, or go straight to merge->GGUF, or transformers+grammar?
 2. Is assistant-only masking + LR reduction + early-stop the correct AND sufficient fix for the
