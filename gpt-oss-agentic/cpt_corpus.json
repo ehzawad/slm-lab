@@ -1,0 +1,582 @@
+[
+ {
+  "id": "overview",
+  "title": "NimbusWorks platform overview",
+  "text": "NimbusWorks runs a microservice fleet operated via the `nbx` CLI. There are\n10 production services across 4 teams. Each service has a\nhealth status (healthy/degraded/down), an error rate, a replica count, and a\nper-service connection pool. Teams and on-call ownership:\n- Core Platform: lead Farida Rahman, on-call #oncall-coreplat\n- Data Services: lead Tomasz Krol, on-call #oncall-data\n- Edge & Traffic: lead Ines Delgado, on-call #oncall-edge\n- Payments: lead Kwame Mensah, on-call #oncall-payments\nExactly one service is ever the ROOT CAUSE of an incident; every other alerting\nservice is a cascading symptom of an unhealthy dependency.\n"
+ },
+ {
+  "id": "handbook:gatekeeper",
+  "title": "Service handbook: gatekeeper",
+  "text": "Service `gatekeeper` is owned by the Edge & Traffic team. API gateway; terminates TLS and routes external requests. It listens on port 7443\nand has an SLO of 120 ms p99. It depends on: tokensmith. Services that depend on\ngatekeeper (its dependents): none (leaf consumer). Canonical config key `upstream_timeout_ms` with healthy value 2000. This service does not front a sized connection pool.\nWhen gatekeeper is the root cause, its dependents show upstream connect timeouts\n(NBX-3301) even though they are individually healthy; restarting a\ndependent does nothing until gatekeeper itself is fixed.\n"
+ },
+ {
+  "id": "handbook:tokensmith",
+  "title": "Service handbook: tokensmith",
+  "text": "Service `tokensmith` is owned by the Core Platform team. issues and validates NimbusAuth session tokens. It listens on port 7020\nand has an SLO of 40 ms p99. It depends on: vaultkeep. Services that depend on\ntokensmith (its dependents): gatekeeper, ledgerline. Canonical config key `validation_timeout_ms` with healthy value 3000. This service maintains a database connection pool; the healthy pool_max is >= 512.\nWhen tokensmith is the root cause, its dependents show upstream connect timeouts\n(NBX-3301) even though they are individually healthy; restarting a\ndependent does nothing until tokensmith itself is fixed.\n"
+ },
+ {
+  "id": "handbook:vaultkeep",
+  "title": "Service handbook: vaultkeep",
+  "text": "Service `vaultkeep` is owned by the Core Platform team. secrets and key-material store. It listens on port 7030\nand has an SLO of 25 ms p99. It depends on: none (leaf dependency). Services that depend on\nvaultkeep (its dependents): tokensmith. Canonical config key `cache_ttl_s` with healthy value 300. This service does not front a sized connection pool.\nWhen vaultkeep is the root cause, its dependents show upstream connect timeouts\n(NBX-3301) even though they are individually healthy; restarting a\ndependent does nothing until vaultkeep itself is fixed.\n"
+ },
+ {
+  "id": "handbook:ledgerline",
+  "title": "Service handbook: ledgerline",
+  "text": "Service `ledgerline` is owned by the Payments team. payment ledger; records all transactions. It listens on port 7210\nand has an SLO of 200 ms p99. It depends on: tokensmith, quillbase. Services that depend on\nledgerline (its dependents): courierbot. Canonical config key `batch_size` with healthy value 100. This service maintains a database connection pool; the healthy pool_max is >= 512.\nWhen ledgerline is the root cause, its dependents show upstream connect timeouts\n(NBX-3301) even though they are individually healthy; restarting a\ndependent does nothing until ledgerline itself is fixed.\n"
+ },
+ {
+  "id": "handbook:quillbase",
+  "title": "Service handbook: quillbase",
+  "text": "Service `quillbase` is owned by the Data Services team. primary OLTP database proxy. It listens on port 7305\nand has an SLO of 60 ms p99. It depends on: none (leaf dependency). Services that depend on\nquillbase (its dependents): glacierdocs, ledgerline, streamforge. Canonical config key `statement_timeout_ms` with healthy value 5000. This service maintains a database connection pool; the healthy pool_max is >= 512.\nWhen quillbase is the root cause, its dependents show upstream connect timeouts\n(NBX-3301) even though they are individually healthy; restarting a\ndependent does nothing until quillbase itself is fixed.\n"
+ },
+ {
+  "id": "handbook:streamforge",
+  "title": "Service handbook: streamforge",
+  "text": "Service `streamforge` is owned by the Data Services team. event streaming and change-data-capture pipeline. It listens on port 7320\nand has an SLO of 90 ms p99. It depends on: quillbase. Services that depend on\nstreamforge (its dependents): courierbot, pulseboard. Canonical config key `consumer_max_poll` with healthy value 500. This service does not front a sized connection pool.\nWhen streamforge is the root cause, its dependents show upstream connect timeouts\n(NBX-3301) even though they are individually healthy; restarting a\ndependent does nothing until streamforge itself is fixed.\n"
+ },
+ {
+  "id": "handbook:glacierdocs",
+  "title": "Service handbook: glacierdocs",
+  "text": "Service `glacierdocs` is owned by the Data Services team. document archive and retrieval service. It listens on port 7340\nand has an SLO of 300 ms p99. It depends on: quillbase. Services that depend on\nglacierdocs (its dependents): none (leaf consumer). Canonical config key `fetch_timeout_ms` with healthy value 4000. This service maintains a database connection pool; the healthy pool_max is >= 512.\nWhen glacierdocs is the root cause, its dependents show upstream connect timeouts\n(NBX-3301) even though they are individually healthy; restarting a\ndependent does nothing until glacierdocs itself is fixed.\n"
+ },
+ {
+  "id": "handbook:pulseboard",
+  "title": "Service handbook: pulseboard",
+  "text": "Service `pulseboard` is owned by the Core Platform team. internal metrics and alerting dashboard. It listens on port 7050\nand has an SLO of 150 ms p99. It depends on: streamforge. Services that depend on\npulseboard (its dependents): none (leaf consumer). Canonical config key `refresh_interval_s` with healthy value 30. This service does not front a sized connection pool.\nWhen pulseboard is the root cause, its dependents show upstream connect timeouts\n(NBX-3301) even though they are individually healthy; restarting a\ndependent does nothing until pulseboard itself is fixed.\n"
+ },
+ {
+  "id": "handbook:mistral-cache",
+  "title": "Service handbook: mistral-cache",
+  "text": "Service `mistral-cache` is owned by the Edge & Traffic team. edge response cache (LRU, 64GB per node). It listens on port 7460\nand has an SLO of 15 ms p99. It depends on: none (leaf dependency). Services that depend on\nmistral-cache (its dependents): none (leaf consumer). Canonical config key `region_prefix_required` with healthy value true. This service does not front a sized connection pool.\nWhen mistral-cache is the root cause, its dependents show upstream connect timeouts\n(NBX-3301) even though they are individually healthy; restarting a\ndependent does nothing until mistral-cache itself is fixed.\n"
+ },
+ {
+  "id": "handbook:courierbot",
+  "title": "Service handbook: courierbot",
+  "text": "Service `courierbot` is owned by the Payments team. sends receipts and payment notifications. It listens on port 7230\nand has an SLO of 250 ms p99. It depends on: ledgerline, streamforge. Services that depend on\ncourierbot (its dependents): none (leaf consumer). Canonical config key `retry_backoff_ms` with healthy value 250. This service does not front a sized connection pool.\nWhen courierbot is the root cause, its dependents show upstream connect timeouts\n(NBX-3301) even though they are individually healthy; restarting a\ndependent does nothing until courierbot itself is fixed.\n"
+ },
+ {
+  "id": "runbook:NBX-1101",
+  "title": "Runbook NBX-1101",
+  "text": "Error NBX-1101 on `tokensmith`: token signing key rotation failed. Remediation: run `nbx keys rotate --service tokensmith --force`, then restart tokensmith. Confirm recovery with\n`nbx status tokensmith` showing status healthy and error rate below 1%.\n"
+ },
+ {
+  "id": "runbook:NBX-1102",
+  "title": "Runbook NBX-1102",
+  "text": "Error NBX-1102 on `tokensmith`: token validation latency above SLO. Remediation: check vaultkeep health first; if healthy, scale tokensmith to 4 replicas. Confirm recovery with\n`nbx status tokensmith` showing status healthy and error rate below 1%.\n"
+ },
+ {
+  "id": "runbook:NBX-2201",
+  "title": "Runbook NBX-2201",
+  "text": "Error NBX-2201 on `quillbase`: connection pool exhausted. Remediation: raise pool_max to 512 via `nbx config set quillbase pool_max 512` and restart. Confirm recovery with\n`nbx status quillbase` showing status healthy and error rate below 1%.\n"
+ },
+ {
+  "id": "runbook:NBX-2202",
+  "title": "Runbook NBX-2202",
+  "text": "Error NBX-2202 on `quillbase`: replication lag above 30s. Remediation: pause streamforge consumers, let lag drain below 5s, then resume. Confirm recovery with\n`nbx status quillbase` showing status healthy and error rate below 1%.\n"
+ },
+ {
+  "id": "runbook:NBX-3301",
+  "title": "Runbook NBX-3301",
+  "text": "Error NBX-3301 on `gatekeeper`: upstream connect timeout. Remediation: check tokensmith health; gatekeeper retries do NOT apply to POST routes. Confirm recovery with\n`nbx status gatekeeper` showing status healthy and error rate below 1%.\n"
+ },
+ {
+  "id": "runbook:NBX-3302",
+  "title": "Runbook NBX-3302",
+  "text": "Error NBX-3302 on `mistral-cache`: cache hit rate below 40%. Remediation: verify cache keys include the region prefix; flush with `nbx cache flush --node all`. Confirm recovery with\n`nbx status mistral-cache` showing status healthy and error rate below 1%.\n"
+ },
+ {
+  "id": "runbook:NBX-4401",
+  "title": "Runbook NBX-4401",
+  "text": "Error NBX-4401 on `ledgerline`: double-entry imbalance detected. Remediation: freeze writes with `nbx ledger freeze`, run `nbx ledger reconcile`, page Payments lead. Confirm recovery with\n`nbx status ledgerline` showing status healthy and error rate below 1%.\n"
+ },
+ {
+  "id": "runbook:NBX-5501",
+  "title": "Runbook NBX-5501",
+  "text": "Error NBX-5501 on `streamforge`: consumer group stalled. Remediation: run `nbx stream rewind --group <group> --to-checkpoint` then unpause. Confirm recovery with\n`nbx status streamforge` showing status healthy and error rate below 1%.\n"
+ },
+ {
+  "id": "playbook:bad_config",
+  "title": "Fault playbook: bad_config",
+  "text": "Incident class `bad_config`. Error code NBX-6600. A configuration value drifted out of its valid range. A bare restart re-loads the SAME bad value and does NOT fix it. Correct sequence: `set_config` the canonical key to its healthy value, THEN `restart` so the new value takes effect.\nAlways identify the single root-cause service first (the one whose logs show a\nreal fault code, not the cascade code NBX-3301), fix it, then verify with\ncheck_all that every service returned to healthy.\n"
+ },
+ {
+  "id": "playbook:bad_deploy",
+  "title": "Fault playbook: bad_deploy",
+  "text": "Incident class `bad_deploy`. Error code NBX-6700. Error rate spiked immediately after the most recent deploy. A restart just re-launches the same bad release. Correct fix: `rollback` the service to the previous release.\nAlways identify the single root-cause service first (the one whose logs show a\nreal fault code, not the cascade code NBX-3301), fix it, then verify with\ncheck_all that every service returned to healthy.\n"
+ },
+ {
+  "id": "playbook:pool_exhausted",
+  "title": "Fault playbook: pool_exhausted",
+  "text": "Incident class `pool_exhausted`. Error code NBX-2201. The connection pool is saturated. A restart alone keeps the tiny pool. Correct sequence: `set_config` pool_max to >= 512, THEN `restart`.\nAlways identify the single root-cause service first (the one whose logs show a\nreal fault code, not the cascade code NBX-3301), fix it, then verify with\ncheck_all that every service returned to healthy.\n"
+ },
+ {
+  "id": "playbook:crash",
+  "title": "Fault playbook: crash",
+  "text": "Incident class `crash`. Error code NBX-6900. The process stopped answering health checks. This is the ONLY class a plain `restart` of the ROOT service fixes. Restarting a cascaded symptom instead of the root does nothing.\nAlways identify the single root-cause service first (the one whose logs show a\nreal fault code, not the cascade code NBX-3301), fix it, then verify with\ncheck_all that every service returned to healthy.\n"
+ },
+ {
+  "id": "depfact:gatekeeper->tokensmith",
+  "title": "Dependency fact: gatekeeper -> tokensmith",
+  "text": "`gatekeeper` depends on `tokensmith`. If `tokensmith` is unhealthy, `gatekeeper` will report\nNBX-3301 upstream connect timeouts and appear down even though `gatekeeper`\nitself has no root-cause fault. Fixing `tokensmith` restores `gatekeeper` automatically.\n"
+ },
+ {
+  "id": "depfact:tokensmith->vaultkeep",
+  "title": "Dependency fact: tokensmith -> vaultkeep",
+  "text": "`tokensmith` depends on `vaultkeep`. If `vaultkeep` is unhealthy, `tokensmith` will report\nNBX-3301 upstream connect timeouts and appear down even though `tokensmith`\nitself has no root-cause fault. Fixing `vaultkeep` restores `tokensmith` automatically.\n"
+ },
+ {
+  "id": "depfact:ledgerline->tokensmith",
+  "title": "Dependency fact: ledgerline -> tokensmith",
+  "text": "`ledgerline` depends on `tokensmith`. If `tokensmith` is unhealthy, `ledgerline` will report\nNBX-3301 upstream connect timeouts and appear down even though `ledgerline`\nitself has no root-cause fault. Fixing `tokensmith` restores `ledgerline` automatically.\n"
+ },
+ {
+  "id": "depfact:ledgerline->quillbase",
+  "title": "Dependency fact: ledgerline -> quillbase",
+  "text": "`ledgerline` depends on `quillbase`. If `quillbase` is unhealthy, `ledgerline` will report\nNBX-3301 upstream connect timeouts and appear down even though `ledgerline`\nitself has no root-cause fault. Fixing `quillbase` restores `ledgerline` automatically.\n"
+ },
+ {
+  "id": "depfact:streamforge->quillbase",
+  "title": "Dependency fact: streamforge -> quillbase",
+  "text": "`streamforge` depends on `quillbase`. If `quillbase` is unhealthy, `streamforge` will report\nNBX-3301 upstream connect timeouts and appear down even though `streamforge`\nitself has no root-cause fault. Fixing `quillbase` restores `streamforge` automatically.\n"
+ },
+ {
+  "id": "depfact:glacierdocs->quillbase",
+  "title": "Dependency fact: glacierdocs -> quillbase",
+  "text": "`glacierdocs` depends on `quillbase`. If `quillbase` is unhealthy, `glacierdocs` will report\nNBX-3301 upstream connect timeouts and appear down even though `glacierdocs`\nitself has no root-cause fault. Fixing `quillbase` restores `glacierdocs` automatically.\n"
+ },
+ {
+  "id": "depfact:pulseboard->streamforge",
+  "title": "Dependency fact: pulseboard -> streamforge",
+  "text": "`pulseboard` depends on `streamforge`. If `streamforge` is unhealthy, `pulseboard` will report\nNBX-3301 upstream connect timeouts and appear down even though `pulseboard`\nitself has no root-cause fault. Fixing `streamforge` restores `pulseboard` automatically.\n"
+ },
+ {
+  "id": "depfact:courierbot->ledgerline",
+  "title": "Dependency fact: courierbot -> ledgerline",
+  "text": "`courierbot` depends on `ledgerline`. If `ledgerline` is unhealthy, `courierbot` will report\nNBX-3301 upstream connect timeouts and appear down even though `courierbot`\nitself has no root-cause fault. Fixing `ledgerline` restores `courierbot` automatically.\n"
+ },
+ {
+  "id": "depfact:courierbot->streamforge",
+  "title": "Dependency fact: courierbot -> streamforge",
+  "text": "`courierbot` depends on `streamforge`. If `streamforge` is unhealthy, `courierbot` will report\nNBX-3301 upstream connect timeouts and appear down even though `courierbot`\nitself has no root-cause fault. Fixing `streamforge` restores `courierbot` automatically.\n"
+ },
+ {
+  "id": "policy:deploy-freeze",
+  "title": "Policy: deploy-freeze",
+  "text": "Production deploys are frozen every Friday 18:00 UTC through Monday 06:00 UTC.\n"
+ },
+ {
+  "id": "policy:sev1",
+  "title": "Policy: sev1",
+  "text": "A Sev1 incident requires paging the service team lead within 10 minutes and posting to #incident-bridge.\n"
+ },
+ {
+  "id": "policy:rollback",
+  "title": "Policy: rollback",
+  "text": "Any deploy showing error-rate increase above 2% within 15 minutes must be rolled back with `nbx deploy rollback <service>`.\n"
+ },
+ {
+  "id": "policy:secrets",
+  "title": "Policy: secrets",
+  "text": "Secrets may only be read through vaultkeep; direct file access is a fireable offense.\n"
+ },
+ {
+  "id": "policy:capacity",
+  "title": "Policy: capacity",
+  "text": "Services must run at least 2 replicas in prod; payments services at least 3.\n"
+ },
+ {
+  "id": "cli:status:7793",
+  "title": "CLI: nbx status <service>",
+  "text": "`nbx status <service>` -- show health, replica count, error rate, p99 latency of a service.\n"
+ },
+ {
+  "id": "cli:logs:7164",
+  "title": "CLI: nbx logs <service> --tail N",
+  "text": "`nbx logs <service> --tail N` -- show last N log lines of a service.\n"
+ },
+ {
+  "id": "cli:deploy:3774",
+  "title": "CLI: nbx deploy rollback <service>",
+  "text": "`nbx deploy rollback <service>` -- roll a service back to the previous release.\n"
+ },
+ {
+  "id": "cli:scale:1848",
+  "title": "CLI: nbx scale <service> --replicas N",
+  "text": "`nbx scale <service> --replicas N` -- set replica count.\n"
+ },
+ {
+  "id": "cli:config:8405",
+  "title": "CLI: nbx config set <service> <key> <value>",
+  "text": "`nbx config set <service> <key> <value>` -- set a config value (requires restart).\n"
+ },
+ {
+  "id": "cli:restart:7557",
+  "title": "CLI: nbx restart <service>",
+  "text": "`nbx restart <service>` -- rolling restart of a service.\n"
+ },
+ {
+  "id": "cli:keys:8858",
+  "title": "CLI: nbx keys rotate --service <service> --force",
+  "text": "`nbx keys rotate --service <service> --force` -- force key-material rotation.\n"
+ },
+ {
+  "id": "cli:ledger:907",
+  "title": "CLI: nbx ledger freeze",
+  "text": "`nbx ledger freeze` -- freeze ledgerline writes (Sev1 payments action).\n"
+ },
+ {
+  "id": "cli:cache:8885",
+  "title": "CLI: nbx cache flush --node all",
+  "text": "`nbx cache flush --node all` -- flush mistral-cache on every node.\n"
+ },
+ {
+  "id": "method:triage",
+  "title": "Incident triage methodology",
+  "text": "Triage at NimbusWorks: (1) run check_all to see which services are unhealthy.\n(2) Distinguish root from symptom: pull get_logs on the deepest-looking broken\nservice; a NBX-3301 means it is only a symptom -- follow its dependency\nupward. (3) The root's logs carry a real fault code\n(NBX-6600, NBX-6700, NBX-2201, NBX-6900). (4) Apply the fault-type fix.\n(5) Re-run check_all to verify full recovery within the tool-call budget.\n"
+ },
+ {
+  "id": "method:antibrute",
+  "title": "Why restart-everything fails",
+  "text": "Blindly restarting every service is an anti-pattern at NimbusWorks. Only a `crash`\n(NBX-6900) is cleared by a restart. bad_config\n(NBX-6600), bad_deploy (NBX-6700) and\npool_exhausted (NBX-2201) all survive a restart and need a\nset_config+restart, a rollback, or a pool bump + restart respectively.\n"
+ },
+ {
+  "id": "remediation:bad_config:gatekeeper",
+  "title": "Remediation card: bad_config on gatekeeper",
+  "text": "When `gatekeeper` (Edge & Traffic) suffers a bad_config fault it emits NBX-6600. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config gatekeeper upstream_timeout_ms=2000; 2) restart gatekeeper.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_config:gatekeeper",
+  "title": "Postmortem: bad_config at gatekeeper",
+  "text": "Incident summary. Root cause: a bad_config fault on `gatekeeper`, owned by Edge & Traffic. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\ngatekeeper plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `gatekeeper` returned NBX-6600: config value 'upstream_timeout_ms' out of valid range; correct it and restart.\nResolution followed the bad_config playbook: 1) set_config gatekeeper upstream_timeout_ms=2000; 2) restart gatekeeper. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_config:tokensmith",
+  "title": "Remediation card: bad_config on tokensmith",
+  "text": "When `tokensmith` (Core Platform) suffers a bad_config fault it emits NBX-6600. Its\ntransitive dependents (courierbot, gatekeeper, ledgerline) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config tokensmith validation_timeout_ms=3000; 2) restart tokensmith.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_config:tokensmith",
+  "title": "Postmortem: bad_config at tokensmith",
+  "text": "Incident summary. Root cause: a bad_config fault on `tokensmith`, owned by Core Platform. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\ntokensmith plus its dependents (courierbot, gatekeeper, ledgerline) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `tokensmith` returned NBX-6600: config value 'validation_timeout_ms' out of valid range; correct it and restart.\nResolution followed the bad_config playbook: 1) set_config tokensmith validation_timeout_ms=3000; 2) restart tokensmith. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_config:vaultkeep",
+  "title": "Remediation card: bad_config on vaultkeep",
+  "text": "When `vaultkeep` (Core Platform) suffers a bad_config fault it emits NBX-6600. Its\ntransitive dependents (courierbot, gatekeeper, ledgerline, tokensmith) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config vaultkeep cache_ttl_s=300; 2) restart vaultkeep.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_config:vaultkeep",
+  "title": "Postmortem: bad_config at vaultkeep",
+  "text": "Incident summary. Root cause: a bad_config fault on `vaultkeep`, owned by Core Platform. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nvaultkeep plus its dependents (courierbot, gatekeeper, ledgerline, tokensmith) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `vaultkeep` returned NBX-6600: config value 'cache_ttl_s' out of valid range; correct it and restart.\nResolution followed the bad_config playbook: 1) set_config vaultkeep cache_ttl_s=300; 2) restart vaultkeep. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_config:ledgerline",
+  "title": "Remediation card: bad_config on ledgerline",
+  "text": "When `ledgerline` (Payments) suffers a bad_config fault it emits NBX-6600. Its\ntransitive dependents (courierbot) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config ledgerline batch_size=100; 2) restart ledgerline.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_config:ledgerline",
+  "title": "Postmortem: bad_config at ledgerline",
+  "text": "Incident summary. Root cause: a bad_config fault on `ledgerline`, owned by Payments. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nledgerline plus its dependents (courierbot) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `ledgerline` returned NBX-6600: config value 'batch_size' out of valid range; correct it and restart.\nResolution followed the bad_config playbook: 1) set_config ledgerline batch_size=100; 2) restart ledgerline. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_config:quillbase",
+  "title": "Remediation card: bad_config on quillbase",
+  "text": "When `quillbase` (Data Services) suffers a bad_config fault it emits NBX-6600. Its\ntransitive dependents (courierbot, glacierdocs, ledgerline, pulseboard, streamforge) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config quillbase statement_timeout_ms=5000; 2) restart quillbase.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_config:quillbase",
+  "title": "Postmortem: bad_config at quillbase",
+  "text": "Incident summary. Root cause: a bad_config fault on `quillbase`, owned by Data Services. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nquillbase plus its dependents (courierbot, glacierdocs, ledgerline, pulseboard, streamforge) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `quillbase` returned NBX-6600: config value 'statement_timeout_ms' out of valid range; correct it and restart.\nResolution followed the bad_config playbook: 1) set_config quillbase statement_timeout_ms=5000; 2) restart quillbase. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_config:streamforge",
+  "title": "Remediation card: bad_config on streamforge",
+  "text": "When `streamforge` (Data Services) suffers a bad_config fault it emits NBX-6600. Its\ntransitive dependents (courierbot, pulseboard) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config streamforge consumer_max_poll=500; 2) restart streamforge.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_config:streamforge",
+  "title": "Postmortem: bad_config at streamforge",
+  "text": "Incident summary. Root cause: a bad_config fault on `streamforge`, owned by Data Services. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nstreamforge plus its dependents (courierbot, pulseboard) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `streamforge` returned NBX-6600: config value 'consumer_max_poll' out of valid range; correct it and restart.\nResolution followed the bad_config playbook: 1) set_config streamforge consumer_max_poll=500; 2) restart streamforge. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_config:glacierdocs",
+  "title": "Remediation card: bad_config on glacierdocs",
+  "text": "When `glacierdocs` (Data Services) suffers a bad_config fault it emits NBX-6600. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config glacierdocs fetch_timeout_ms=4000; 2) restart glacierdocs.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_config:glacierdocs",
+  "title": "Postmortem: bad_config at glacierdocs",
+  "text": "Incident summary. Root cause: a bad_config fault on `glacierdocs`, owned by Data Services. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nglacierdocs plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `glacierdocs` returned NBX-6600: config value 'fetch_timeout_ms' out of valid range; correct it and restart.\nResolution followed the bad_config playbook: 1) set_config glacierdocs fetch_timeout_ms=4000; 2) restart glacierdocs. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_config:pulseboard",
+  "title": "Remediation card: bad_config on pulseboard",
+  "text": "When `pulseboard` (Core Platform) suffers a bad_config fault it emits NBX-6600. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config pulseboard refresh_interval_s=30; 2) restart pulseboard.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_config:pulseboard",
+  "title": "Postmortem: bad_config at pulseboard",
+  "text": "Incident summary. Root cause: a bad_config fault on `pulseboard`, owned by Core Platform. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\npulseboard plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `pulseboard` returned NBX-6600: config value 'refresh_interval_s' out of valid range; correct it and restart.\nResolution followed the bad_config playbook: 1) set_config pulseboard refresh_interval_s=30; 2) restart pulseboard. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_config:mistral-cache",
+  "title": "Remediation card: bad_config on mistral-cache",
+  "text": "When `mistral-cache` (Edge & Traffic) suffers a bad_config fault it emits NBX-6600. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config mistral-cache region_prefix_required=true; 2) restart mistral-cache.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_config:mistral-cache",
+  "title": "Postmortem: bad_config at mistral-cache",
+  "text": "Incident summary. Root cause: a bad_config fault on `mistral-cache`, owned by Edge & Traffic. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nmistral-cache plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `mistral-cache` returned NBX-6600: config value 'region_prefix_required' out of valid range; correct it and restart.\nResolution followed the bad_config playbook: 1) set_config mistral-cache region_prefix_required=true; 2) restart mistral-cache. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_config:courierbot",
+  "title": "Remediation card: bad_config on courierbot",
+  "text": "When `courierbot` (Payments) suffers a bad_config fault it emits NBX-6600. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config courierbot retry_backoff_ms=250; 2) restart courierbot.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_config:courierbot",
+  "title": "Postmortem: bad_config at courierbot",
+  "text": "Incident summary. Root cause: a bad_config fault on `courierbot`, owned by Payments. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\ncourierbot plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `courierbot` returned NBX-6600: config value 'retry_backoff_ms' out of valid range; correct it and restart.\nResolution followed the bad_config playbook: 1) set_config courierbot retry_backoff_ms=250; 2) restart courierbot. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_deploy:gatekeeper",
+  "title": "Remediation card: bad_deploy on gatekeeper",
+  "text": "When `gatekeeper` (Edge & Traffic) suffers a bad_deploy fault it emits NBX-6700. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) rollback gatekeeper.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_deploy:gatekeeper",
+  "title": "Postmortem: bad_deploy at gatekeeper",
+  "text": "Incident summary. Root cause: a bad_deploy fault on `gatekeeper`, owned by Edge & Traffic. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\ngatekeeper plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `gatekeeper` returned NBX-6700: error-rate spiked immediately after the last deploy; roll back the release.\nResolution followed the bad_deploy playbook: 1) rollback gatekeeper. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_deploy:tokensmith",
+  "title": "Remediation card: bad_deploy on tokensmith",
+  "text": "When `tokensmith` (Core Platform) suffers a bad_deploy fault it emits NBX-6700. Its\ntransitive dependents (courierbot, gatekeeper, ledgerline) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) rollback tokensmith.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_deploy:tokensmith",
+  "title": "Postmortem: bad_deploy at tokensmith",
+  "text": "Incident summary. Root cause: a bad_deploy fault on `tokensmith`, owned by Core Platform. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\ntokensmith plus its dependents (courierbot, gatekeeper, ledgerline) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `tokensmith` returned NBX-6700: error-rate spiked immediately after the last deploy; roll back the release.\nResolution followed the bad_deploy playbook: 1) rollback tokensmith. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_deploy:vaultkeep",
+  "title": "Remediation card: bad_deploy on vaultkeep",
+  "text": "When `vaultkeep` (Core Platform) suffers a bad_deploy fault it emits NBX-6700. Its\ntransitive dependents (courierbot, gatekeeper, ledgerline, tokensmith) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) rollback vaultkeep.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_deploy:vaultkeep",
+  "title": "Postmortem: bad_deploy at vaultkeep",
+  "text": "Incident summary. Root cause: a bad_deploy fault on `vaultkeep`, owned by Core Platform. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nvaultkeep plus its dependents (courierbot, gatekeeper, ledgerline, tokensmith) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `vaultkeep` returned NBX-6700: error-rate spiked immediately after the last deploy; roll back the release.\nResolution followed the bad_deploy playbook: 1) rollback vaultkeep. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_deploy:ledgerline",
+  "title": "Remediation card: bad_deploy on ledgerline",
+  "text": "When `ledgerline` (Payments) suffers a bad_deploy fault it emits NBX-6700. Its\ntransitive dependents (courierbot) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) rollback ledgerline.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_deploy:ledgerline",
+  "title": "Postmortem: bad_deploy at ledgerline",
+  "text": "Incident summary. Root cause: a bad_deploy fault on `ledgerline`, owned by Payments. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nledgerline plus its dependents (courierbot) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `ledgerline` returned NBX-6700: error-rate spiked immediately after the last deploy; roll back the release.\nResolution followed the bad_deploy playbook: 1) rollback ledgerline. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_deploy:quillbase",
+  "title": "Remediation card: bad_deploy on quillbase",
+  "text": "When `quillbase` (Data Services) suffers a bad_deploy fault it emits NBX-6700. Its\ntransitive dependents (courierbot, glacierdocs, ledgerline, pulseboard, streamforge) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) rollback quillbase.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_deploy:quillbase",
+  "title": "Postmortem: bad_deploy at quillbase",
+  "text": "Incident summary. Root cause: a bad_deploy fault on `quillbase`, owned by Data Services. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nquillbase plus its dependents (courierbot, glacierdocs, ledgerline, pulseboard, streamforge) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `quillbase` returned NBX-6700: error-rate spiked immediately after the last deploy; roll back the release.\nResolution followed the bad_deploy playbook: 1) rollback quillbase. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_deploy:streamforge",
+  "title": "Remediation card: bad_deploy on streamforge",
+  "text": "When `streamforge` (Data Services) suffers a bad_deploy fault it emits NBX-6700. Its\ntransitive dependents (courierbot, pulseboard) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) rollback streamforge.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_deploy:streamforge",
+  "title": "Postmortem: bad_deploy at streamforge",
+  "text": "Incident summary. Root cause: a bad_deploy fault on `streamforge`, owned by Data Services. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nstreamforge plus its dependents (courierbot, pulseboard) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `streamforge` returned NBX-6700: error-rate spiked immediately after the last deploy; roll back the release.\nResolution followed the bad_deploy playbook: 1) rollback streamforge. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_deploy:glacierdocs",
+  "title": "Remediation card: bad_deploy on glacierdocs",
+  "text": "When `glacierdocs` (Data Services) suffers a bad_deploy fault it emits NBX-6700. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) rollback glacierdocs.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_deploy:glacierdocs",
+  "title": "Postmortem: bad_deploy at glacierdocs",
+  "text": "Incident summary. Root cause: a bad_deploy fault on `glacierdocs`, owned by Data Services. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nglacierdocs plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `glacierdocs` returned NBX-6700: error-rate spiked immediately after the last deploy; roll back the release.\nResolution followed the bad_deploy playbook: 1) rollback glacierdocs. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_deploy:pulseboard",
+  "title": "Remediation card: bad_deploy on pulseboard",
+  "text": "When `pulseboard` (Core Platform) suffers a bad_deploy fault it emits NBX-6700. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) rollback pulseboard.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_deploy:pulseboard",
+  "title": "Postmortem: bad_deploy at pulseboard",
+  "text": "Incident summary. Root cause: a bad_deploy fault on `pulseboard`, owned by Core Platform. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\npulseboard plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `pulseboard` returned NBX-6700: error-rate spiked immediately after the last deploy; roll back the release.\nResolution followed the bad_deploy playbook: 1) rollback pulseboard. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_deploy:mistral-cache",
+  "title": "Remediation card: bad_deploy on mistral-cache",
+  "text": "When `mistral-cache` (Edge & Traffic) suffers a bad_deploy fault it emits NBX-6700. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) rollback mistral-cache.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_deploy:mistral-cache",
+  "title": "Postmortem: bad_deploy at mistral-cache",
+  "text": "Incident summary. Root cause: a bad_deploy fault on `mistral-cache`, owned by Edge & Traffic. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nmistral-cache plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `mistral-cache` returned NBX-6700: error-rate spiked immediately after the last deploy; roll back the release.\nResolution followed the bad_deploy playbook: 1) rollback mistral-cache. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:bad_deploy:courierbot",
+  "title": "Remediation card: bad_deploy on courierbot",
+  "text": "When `courierbot` (Payments) suffers a bad_deploy fault it emits NBX-6700. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) rollback courierbot.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:bad_deploy:courierbot",
+  "title": "Postmortem: bad_deploy at courierbot",
+  "text": "Incident summary. Root cause: a bad_deploy fault on `courierbot`, owned by Payments. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\ncourierbot plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `courierbot` returned NBX-6700: error-rate spiked immediately after the last deploy; roll back the release.\nResolution followed the bad_deploy playbook: 1) rollback courierbot. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:pool_exhausted:quillbase",
+  "title": "Remediation card: pool_exhausted on quillbase",
+  "text": "When `quillbase` (Data Services) suffers a pool_exhausted fault it emits NBX-2201. Its\ntransitive dependents (courierbot, glacierdocs, ledgerline, pulseboard, streamforge) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config quillbase pool_max=512; 2) restart quillbase.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:pool_exhausted:quillbase",
+  "title": "Postmortem: pool_exhausted at quillbase",
+  "text": "Incident summary. Root cause: a pool_exhausted fault on `quillbase`, owned by Data Services. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nquillbase plus its dependents (courierbot, glacierdocs, ledgerline, pulseboard, streamforge) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `quillbase` returned NBX-2201: connection pool exhausted; raise pool_max to >=512 and restart.\nResolution followed the pool_exhausted playbook: 1) set_config quillbase pool_max=512; 2) restart quillbase. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:pool_exhausted:tokensmith",
+  "title": "Remediation card: pool_exhausted on tokensmith",
+  "text": "When `tokensmith` (Core Platform) suffers a pool_exhausted fault it emits NBX-2201. Its\ntransitive dependents (courierbot, gatekeeper, ledgerline) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config tokensmith pool_max=512; 2) restart tokensmith.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:pool_exhausted:tokensmith",
+  "title": "Postmortem: pool_exhausted at tokensmith",
+  "text": "Incident summary. Root cause: a pool_exhausted fault on `tokensmith`, owned by Core Platform. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\ntokensmith plus its dependents (courierbot, gatekeeper, ledgerline) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `tokensmith` returned NBX-2201: connection pool exhausted; raise pool_max to >=512 and restart.\nResolution followed the pool_exhausted playbook: 1) set_config tokensmith pool_max=512; 2) restart tokensmith. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:pool_exhausted:ledgerline",
+  "title": "Remediation card: pool_exhausted on ledgerline",
+  "text": "When `ledgerline` (Payments) suffers a pool_exhausted fault it emits NBX-2201. Its\ntransitive dependents (courierbot) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config ledgerline pool_max=512; 2) restart ledgerline.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:pool_exhausted:ledgerline",
+  "title": "Postmortem: pool_exhausted at ledgerline",
+  "text": "Incident summary. Root cause: a pool_exhausted fault on `ledgerline`, owned by Payments. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nledgerline plus its dependents (courierbot) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `ledgerline` returned NBX-2201: connection pool exhausted; raise pool_max to >=512 and restart.\nResolution followed the pool_exhausted playbook: 1) set_config ledgerline pool_max=512; 2) restart ledgerline. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:pool_exhausted:glacierdocs",
+  "title": "Remediation card: pool_exhausted on glacierdocs",
+  "text": "When `glacierdocs` (Data Services) suffers a pool_exhausted fault it emits NBX-2201. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) set_config glacierdocs pool_max=512; 2) restart glacierdocs.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:pool_exhausted:glacierdocs",
+  "title": "Postmortem: pool_exhausted at glacierdocs",
+  "text": "Incident summary. Root cause: a pool_exhausted fault on `glacierdocs`, owned by Data Services. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nglacierdocs plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `glacierdocs` returned NBX-2201: connection pool exhausted; raise pool_max to >=512 and restart.\nResolution followed the pool_exhausted playbook: 1) set_config glacierdocs pool_max=512; 2) restart glacierdocs. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:crash:gatekeeper",
+  "title": "Remediation card: crash on gatekeeper",
+  "text": "When `gatekeeper` (Edge & Traffic) suffers a crash fault it emits NBX-6900. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) restart gatekeeper.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:crash:gatekeeper",
+  "title": "Postmortem: crash at gatekeeper",
+  "text": "Incident summary. Root cause: a crash fault on `gatekeeper`, owned by Edge & Traffic. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\ngatekeeper plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `gatekeeper` returned NBX-6900: process not responding to health checks; needs a restart.\nResolution followed the crash playbook: 1) restart gatekeeper. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:crash:tokensmith",
+  "title": "Remediation card: crash on tokensmith",
+  "text": "When `tokensmith` (Core Platform) suffers a crash fault it emits NBX-6900. Its\ntransitive dependents (courierbot, gatekeeper, ledgerline) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) restart tokensmith.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:crash:tokensmith",
+  "title": "Postmortem: crash at tokensmith",
+  "text": "Incident summary. Root cause: a crash fault on `tokensmith`, owned by Core Platform. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\ntokensmith plus its dependents (courierbot, gatekeeper, ledgerline) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `tokensmith` returned NBX-6900: process not responding to health checks; needs a restart.\nResolution followed the crash playbook: 1) restart tokensmith. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:crash:vaultkeep",
+  "title": "Remediation card: crash on vaultkeep",
+  "text": "When `vaultkeep` (Core Platform) suffers a crash fault it emits NBX-6900. Its\ntransitive dependents (courierbot, gatekeeper, ledgerline, tokensmith) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) restart vaultkeep.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:crash:vaultkeep",
+  "title": "Postmortem: crash at vaultkeep",
+  "text": "Incident summary. Root cause: a crash fault on `vaultkeep`, owned by Core Platform. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nvaultkeep plus its dependents (courierbot, gatekeeper, ledgerline, tokensmith) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `vaultkeep` returned NBX-6900: process not responding to health checks; needs a restart.\nResolution followed the crash playbook: 1) restart vaultkeep. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:crash:ledgerline",
+  "title": "Remediation card: crash on ledgerline",
+  "text": "When `ledgerline` (Payments) suffers a crash fault it emits NBX-6900. Its\ntransitive dependents (courierbot) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) restart ledgerline.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:crash:ledgerline",
+  "title": "Postmortem: crash at ledgerline",
+  "text": "Incident summary. Root cause: a crash fault on `ledgerline`, owned by Payments. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nledgerline plus its dependents (courierbot) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `ledgerline` returned NBX-6900: process not responding to health checks; needs a restart.\nResolution followed the crash playbook: 1) restart ledgerline. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:crash:quillbase",
+  "title": "Remediation card: crash on quillbase",
+  "text": "When `quillbase` (Data Services) suffers a crash fault it emits NBX-6900. Its\ntransitive dependents (courierbot, glacierdocs, ledgerline, pulseboard, streamforge) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) restart quillbase.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:crash:quillbase",
+  "title": "Postmortem: crash at quillbase",
+  "text": "Incident summary. Root cause: a crash fault on `quillbase`, owned by Data Services. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nquillbase plus its dependents (courierbot, glacierdocs, ledgerline, pulseboard, streamforge) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `quillbase` returned NBX-6900: process not responding to health checks; needs a restart.\nResolution followed the crash playbook: 1) restart quillbase. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:crash:streamforge",
+  "title": "Remediation card: crash on streamforge",
+  "text": "When `streamforge` (Data Services) suffers a crash fault it emits NBX-6900. Its\ntransitive dependents (courierbot, pulseboard) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) restart streamforge.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:crash:streamforge",
+  "title": "Postmortem: crash at streamforge",
+  "text": "Incident summary. Root cause: a crash fault on `streamforge`, owned by Data Services. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nstreamforge plus its dependents (courierbot, pulseboard) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `streamforge` returned NBX-6900: process not responding to health checks; needs a restart.\nResolution followed the crash playbook: 1) restart streamforge. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:crash:glacierdocs",
+  "title": "Remediation card: crash on glacierdocs",
+  "text": "When `glacierdocs` (Data Services) suffers a crash fault it emits NBX-6900. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) restart glacierdocs.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:crash:glacierdocs",
+  "title": "Postmortem: crash at glacierdocs",
+  "text": "Incident summary. Root cause: a crash fault on `glacierdocs`, owned by Data Services. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nglacierdocs plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `glacierdocs` returned NBX-6900: process not responding to health checks; needs a restart.\nResolution followed the crash playbook: 1) restart glacierdocs. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:crash:pulseboard",
+  "title": "Remediation card: crash on pulseboard",
+  "text": "When `pulseboard` (Core Platform) suffers a crash fault it emits NBX-6900. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) restart pulseboard.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:crash:pulseboard",
+  "title": "Postmortem: crash at pulseboard",
+  "text": "Incident summary. Root cause: a crash fault on `pulseboard`, owned by Core Platform. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\npulseboard plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `pulseboard` returned NBX-6900: process not responding to health checks; needs a restart.\nResolution followed the crash playbook: 1) restart pulseboard. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:crash:mistral-cache",
+  "title": "Remediation card: crash on mistral-cache",
+  "text": "When `mistral-cache` (Edge & Traffic) suffers a crash fault it emits NBX-6900. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) restart mistral-cache.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:crash:mistral-cache",
+  "title": "Postmortem: crash at mistral-cache",
+  "text": "Incident summary. Root cause: a crash fault on `mistral-cache`, owned by Edge & Traffic. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\nmistral-cache plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `mistral-cache` returned NBX-6900: process not responding to health checks; needs a restart.\nResolution followed the crash playbook: 1) restart mistral-cache. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ },
+ {
+  "id": "remediation:crash:courierbot",
+  "title": "Remediation card: crash on courierbot",
+  "text": "When `courierbot` (Payments) suffers a crash fault it emits NBX-6900. Its\ntransitive dependents (no downstream services) go down with NBX-3301 as pure symptoms.\nCorrect remediation (do NOT restart the symptoms): 1) restart courierbot.\nVerify with check_all that all 10 services report healthy.\n"
+ },
+ {
+  "id": "postmortem:crash:courierbot",
+  "title": "Postmortem: crash at courierbot",
+  "text": "Incident summary. Root cause: a crash fault on `courierbot`, owned by Payments. The\nfirst symptom the on-call saw was multiple alerting services; check_all showed\ncourierbot plus its dependents (no downstream services) unhealthy. get_logs on the dependents\nreturned NBX-3301 (upstream connect timeout) -- a symptom, not the cause.\nget_logs on `courierbot` returned NBX-6900: process not responding to health checks; needs a restart.\nResolution followed the crash playbook: 1) restart courierbot. After the fix, check_all\nconfirmed all services healthy. Lesson: never restart a NBX-3301 symptom;\nwalk the dependency chain to the one service with a real fault code.\n"
+ }
+]

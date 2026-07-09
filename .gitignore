@@ -26,3 +26,8 @@ nimbus-agent/adapters_v4/
 models/qwythos_src/
 models/qwythos/
 .venv-vllm/
+
+# Unsloth training venv and gpt-oss agentic large/regenerable artifacts
+.venv-unsloth/
+gpt-oss-agentic/adapters_gptoss/
+gpt-oss-agentic/unsloth_compiled_cache/
