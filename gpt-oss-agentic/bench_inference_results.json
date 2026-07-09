@@ -1,0 +1,141 @@
+{
+  "gpu": "A5000 (GPU0)",
+  "gguf": "gpt-oss-20b-Q4_K_M.gguf",
+  "sampling": {
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "min_p": 0.0
+  },
+  "configs": {
+    "f16_kv": {
+      "rows": [
+        {
+          "label": "f16kv",
+          "reasoning_effort": "low",
+          "ttft_s": 0.011548666666666665,
+          "decode_tps": 133.95825699535524,
+          "prefill_tps": 86.74556236172792,
+          "gen_tokens": 69.66666666666667,
+          "total_s": 0.585162878036499,
+          "prompt_tokens": 1.0
+        },
+        {
+          "label": "f16kv",
+          "reasoning_effort": "medium",
+          "ttft_s": 0.011992666666666667,
+          "decode_tps": 128.87530562195414,
+          "prefill_tps": 83.38509122335813,
+          "gen_tokens": 48.666666666666664,
+          "total_s": 0.43828543027242023,
+          "prompt_tokens": 1.0
+        },
+        {
+          "label": "f16kv",
+          "reasoning_effort": "high",
+          "ttft_s": 0.011880666666666666,
+          "decode_tps": 130.50631055287317,
+          "prefill_tps": 84.18822754038182,
+          "gen_tokens": 74.33333333333333,
+          "total_s": 0.6475648880004883,
+          "prompt_tokens": 1.0
+        }
+      ],
+      "sustained_decode": {
+        "ttft_s": 0.130131,
+        "stream_ttft_s": 0.22203969955444336,
+        "total_s": 7.907784938812256,
+        "gen_tokens": 1024,
+        "prompt_tokens": 229,
+        "decode_tps": 132.74705114222746,
+        "prefill_tps": 1759.7651597236631
+      },
+      "reason_effort": [
+        {
+          "reasoning_effort": "low",
+          "gen_tokens": 4023.3333333333335,
+          "total_s": 33.130043824513756,
+          "ttft_s": 0.06435766666666666,
+          "decode_tps": 122.32031822947476
+        },
+        {
+          "reasoning_effort": "medium",
+          "gen_tokens": 3492.6666666666665,
+          "total_s": 27.61179820696513,
+          "ttft_s": 0.08719933333333334,
+          "decode_tps": 127.52537339537393
+        },
+        {
+          "reasoning_effort": "high",
+          "gen_tokens": 4096.0,
+          "total_s": 33.827008644739784,
+          "ttft_s": 0.08826566666666667,
+          "decode_tps": 121.99775201241918
+        }
+      ],
+      "cache": {
+        "cold": {
+          "ttft_s": 0.26669299999999996,
+          "stream_ttft_s": 0.4765300750732422,
+          "total_s": 0.5085110664367676,
+          "gen_tokens": 8,
+          "prompt_tokens": 904,
+          "decode_tps": 132.31232323900568,
+          "prefill_tps": 3389.665270554533
+        },
+        "warm": {
+          "ttft_s": 0.012592,
+          "stream_ttft_s": 0.08934736251831055,
+          "total_s": 0.12027859687805176,
+          "gen_tokens": 8,
+          "prompt_tokens": 1,
+          "decode_tps": 145.3884597910041,
+          "prefill_tps": 79.41550190597204
+        }
+      }
+    },
+    "q8_k": {
+      "rows": [
+        {
+          "label": "q8k",
+          "reasoning_effort": "low",
+          "ttft_s": 0.023572,
+          "decode_tps": 53.716646588150816,
+          "prefill_tps": 42.5596432351343,
+          "gen_tokens": 84.33333333333333,
+          "total_s": 1.6700549920399983,
+          "prompt_tokens": 1.0
+        },
+        {
+          "label": "q8k",
+          "reasoning_effort": "medium",
+          "ttft_s": 0.02368333333333333,
+          "decode_tps": 53.83838030579119,
+          "prefill_tps": 42.29602322179099,
+          "gen_tokens": 45.666666666666664,
+          "total_s": 0.9091939926147461,
+          "prompt_tokens": 1.0
+        },
+        {
+          "label": "q8k",
+          "reasoning_effort": "high",
+          "ttft_s": 0.021953,
+          "decode_tps": 56.13734369075311,
+          "prefill_tps": 45.60547405267106,
+          "gen_tokens": 70.0,
+          "total_s": 1.3000500996907551,
+          "prompt_tokens": 1.0
+        }
+      ],
+      "sustained_decode": {
+        "ttft_s": 0.30813999999999997,
+        "stream_ttft_s": 0.4034867286682129,
+        "total_s": 18.66835904121399,
+        "gen_tokens": 1024,
+        "prompt_tokens": 229,
+        "decode_tps": 55.91483079183865,
+        "prefill_tps": 743.1686895566951
+      }
+    }
+  }
+}

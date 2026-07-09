@@ -935,5 +935,195 @@
         "redundant_calls": 0
       }
     ]
+  },
+  {
+    "label": "gpt-oss-20b base (vllm same-path)",
+    "path": "vllm-openai-tool-parser",
+    "model": "/mnt/sdb/arafat/llm-stuff/qwen35-gguf-bench/gpt-oss-agentic/../models/gptoss20b-hf",
+    "adapter": null,
+    "temp": 1.0,
+    "reasoning_effort": "medium",
+    "n_scenarios": 24,
+    "max_calls": 15,
+    "solved": 20,
+    "solved_rate": 0.8333,
+    "correct_root_cause": 20,
+    "root_cause_rate": 0.8333,
+    "avg_steps": 6.667,
+    "redundant_calls_total": 11,
+    "redundant_call_rate": 0.0688,
+    "elapsed_s": 228.1,
+    "gpu": "GPU1",
+    "timestamp": "2026-07-09T06:41:23.407424+00:00",
+    "per_scenario": [
+      {
+        "id": "bad_config:pulseboard",
+        "solved": true,
+        "steps": 6,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "bad_deploy:gatekeeper",
+        "solved": true,
+        "steps": 5,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "pool_exhausted:glacierdocs",
+        "solved": true,
+        "steps": 6,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "crash:gatekeeper",
+        "solved": true,
+        "steps": 6,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "bad_config:gatekeeper",
+        "solved": false,
+        "steps": 10,
+        "correct_root_cause": false,
+        "redundant_calls": 2
+      },
+      {
+        "id": "bad_deploy:courierbot",
+        "solved": true,
+        "steps": 4,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "pool_exhausted:ledgerline",
+        "solved": true,
+        "steps": 6,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "crash:mistral-cache",
+        "solved": true,
+        "steps": 5,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "bad_config:mistral-cache",
+        "solved": false,
+        "steps": 7,
+        "correct_root_cause": false,
+        "redundant_calls": 3
+      },
+      {
+        "id": "bad_deploy:glacierdocs",
+        "solved": true,
+        "steps": 6,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "pool_exhausted:tokensmith",
+        "solved": true,
+        "steps": 9,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "crash:glacierdocs",
+        "solved": true,
+        "steps": 6,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "bad_config:glacierdocs",
+        "solved": false,
+        "steps": 11,
+        "correct_root_cause": false,
+        "redundant_calls": 3
+      },
+      {
+        "id": "bad_deploy:mistral-cache",
+        "solved": true,
+        "steps": 5,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "pool_exhausted:quillbase",
+        "solved": true,
+        "steps": 10,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "crash:pulseboard",
+        "solved": true,
+        "steps": 6,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "bad_config:courierbot",
+        "solved": false,
+        "steps": 9,
+        "correct_root_cause": false,
+        "redundant_calls": 3
+      },
+      {
+        "id": "bad_deploy:pulseboard",
+        "solved": true,
+        "steps": 5,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "crash:courierbot",
+        "solved": true,
+        "steps": 5,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "bad_config:streamforge",
+        "solved": true,
+        "steps": 6,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "bad_deploy:streamforge",
+        "solved": true,
+        "steps": 5,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "crash:ledgerline",
+        "solved": true,
+        "steps": 8,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "bad_config:ledgerline",
+        "solved": true,
+        "steps": 8,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      },
+      {
+        "id": "bad_deploy:ledgerline",
+        "solved": true,
+        "steps": 6,
+        "correct_root_cause": true,
+        "redundant_calls": 0
+      }
+    ]
   }
 ]

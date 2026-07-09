@@ -47,15 +47,25 @@ Per-experiment detail lives in the sub-project docs linked below; this is the ma
 8. **gpt-oss-20b deep-dive + harder agentic env + training stack** - [gpt-oss-agentic/GPT_OSS_AGENTIC_FINDINGS.md](gpt-oss-agentic/GPT_OSS_AGENTIC_FINDINGS.md)
    (on the `gpt-oss-agentic` branch). Built an unsaturated executable incident-response simulator
    (expert 24/24; gpt-oss-20b 11/24, Qwythos 10/24, Qwen3.5-9B 1/24 - the 8/8 ceiling is gone).
-   Finding: the ENV and the credible gpt-oss baseline (11/24, grammar-constrained GGUF) are the
-   wins. The training was inconclusive AND confounded: SFT loss collapsed to 0.0055 on 520
-   examples (memorization-regime) and the adapter degenerated in free-running probes, but the only
-   controlled before/after (base vs SFT on the SAME transformers path) FLOORED both to 0/24 - so it
-   supports NO claim that training helped or hurt. GRPO earned zero reward across all steps
-   (non-terminating 256-token completions = broken rollout), so it tested nothing. Council-verified:
-   retract any "training degraded gpt-oss" claim; the harness that floors the base cannot measure a
-   delta. Lesson: a before/after across two different serving paths (grammar-constrained GGUF vs
-   unconstrained transformers) is not a valid comparison - merge+convert to one path first.
+   Finding: the ENV and the credible gpt-oss baseline are the wins. **Correction (same-path
+   rework, see `gpt-oss-agentic/ROBUST_RESULTS.md`):** the prior before/after was confounded by
+   comparing a grammar-constrained GGUF base against an unconstrained transformers fine-tune, and
+   the one single-path control FLOORED both base and SFT to 0/24 - so it supported NO claim either
+   way. Fixed by serving base and adapter on ONE byte-identical path (vLLM 0.24 OpenAI + openai
+   tool parser on unmerged HF weights, temp 1.0 top_p 1.0 top_k 0 min_p 0, reasoning medium), with
+   two required fixes: a triton-warmup boot patch and harmony channel-token sanitization in the
+   tool parser (the leaked `<|channel|>commentary` tokens poisoning fed-back history were the actual
+   flooring cause). Result: **base is now NON-FLOORED at 20/24 (83.3%)** on the same path - clearly
+   above the 11/24 GGUF reference and able to measure a delta in either direction. Adapter A
+   (tool-call reliability, r16/alpha16 all-linear+experts) trained with a VERIFIED assistant-only
+   loss mask (decoded `MASK_ASSERTIONS_PASSED`: only assistant analysis+commentary+final carry
+   loss), early-stopped at step 20 (train_loss 0.92, tail 0.058). The same-path before/after is
+   measurement-ready and confound-free but the Adapter-A after-row is PENDING (GPU held by a
+   vestigial post-save held-out eval; armed runner `run_beforeafter.sh` fires on GPU free) - so no
+   improvement/regression is claimed yet, reported plainly. GRPO still deferred (prior run earned
+   zero reward = broken rollout; prove clean SFT before/after first). Lesson stands: a before/after
+   across two serving paths is invalid - unify the path (merge/convert or single vLLM endpoint)
+   before measuring, and non-floored baselines are the prerequisite for any training claim.
 
 ## Model verdicts (measured, not marketing)
 
