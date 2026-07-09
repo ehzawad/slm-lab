@@ -240,3 +240,40 @@ and should be avoided.
 - `bench_inference.py` + `bench_inference_results.json` — inference-perf raw data.
 </content>
 </invoke>
+
+## Addendum - before/after run outcome (two new findings)
+
+1. **Base baseline is STOCHASTIC at temp 1.0.** The same base gpt-oss-20b on the same vLLM path
+   scored 20/24 (foundation run) and 15/24 (before/after re-run) - a +-5 swing from sampling noise
+   alone. Consequence: single-run scoring is unreliable; any training delta smaller than ~5/24 is
+   noise. A trustworthy before/after needs multiple seeds per condition (or a larger scenario set)
+   and a reported confidence interval. This retroactively cautions every single-run number in this
+   repo.
+
+2. **Adapter A is NOT vLLM-servable as trained.** vLLM's LoRA loader rejected it:
+   `expected target modules in {o_proj,v_proj,experts,k_proj,router,q_proj} but received
+   model.layers.0.mlp.experts.down_projs.N ...`. The per-expert MoE LoRA decomposition produced by
+   Unsloth `target_parameters` (mlp.experts.gate_up_proj/down_proj) is exactly what OpenAI/research
+   recommend for TRAINING, but vLLM expects a single fused `experts` (and `router`) module, not the
+   per-expert `experts.down_projs.N` naming. So the same-path (vLLM) Adapter-A after-row could not
+   be produced. The base row still landed (15/24).
+
+   Fix options for a valid Adapter-A before/after: (a) re-train with vLLM-servable target modules
+   (attention q/k/v/o + router, and/or a fused `experts` target vLLM accepts) - drops per-expert
+   adaptation but is servable on the same path; (b) evaluate the existing adapter on the
+   transformers+PEFT fallback path AND re-run the base there too (same-path), but transformers MXFP4
+   decode is ~0.14 tok/s (hours for 24 scenarios); (c) merge the adapter into the base and serve
+   merged (merge->GGUF ruled out for MXFP4; merge->transformers is slow). Option (a) is the
+   pragmatic path to a servable, same-path, multi-seed before/after.
+
+## Net honest status of this build
+- WIN (banked): the prior "training failure"/flooring was largely a SERVING BUG - the vLLM openai
+  tool parser leaked harmony channel tokens into tool names/args, poisoning fed-back history. Fixed
+  via sanitization. On the corrected path the BASE scores ~15-20/24 (not 0/24, not 11/24) - the
+  model was fine; the harness was corrupting it.
+- WIN (banked): the SFT training fix works - verified assistant-only mask, train loss 0.92 (not the
+  0.0055 memorization), adapter saved.
+- WIN (banked): inference numbers (llama.cpp 133 tok/s, keep f16 KV, reasoning_effort medium).
+- OPEN: a valid Adapter-A before/after needs (i) a vLLM-servable adapter (re-train, option a) and
+  (ii) multi-seed scoring to beat the +-5 stochastic noise. No improvement/regression is claimed.
+- DEFERRED (unchanged): GRPO, Adapter B, aLoRA.
