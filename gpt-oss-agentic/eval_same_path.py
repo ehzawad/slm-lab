@@ -133,6 +133,7 @@ def make_chat(port, model_name, temp=1.0, max_tokens=2048, retries=3,
             "top_p": 1.0,
             "top_k": 0,
             "min_p": 0.0,
+            **({"seed": SEED} if SEED is not None else {}),
             "max_tokens": max_tokens,
             "stream": False,
             "reasoning_effort": reasoning_effort,
@@ -314,17 +315,22 @@ def _append_score(summary):
     print(f"[scores] appended -> {SCORES_PATH}")
 
 
+SEED = None
+
 def main():
+    global SEED
     ap = argparse.ArgumentParser()
     ap.add_argument("--label", default="gpt-oss-20b base (vllm same-path)")
     ap.add_argument("--model", default=DEFAULT_MODEL)
     ap.add_argument("--adapter", default=None)
     ap.add_argument("--port", type=int, default=18480)
     ap.add_argument("--temp", type=float, default=1.0)
+    ap.add_argument("--seed", type=int, default=None)
     ap.add_argument("--n", type=int, default=24)
     ap.add_argument("--max-calls", type=int, default=15)
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args()
+    SEED = args.seed
     evaluate(args.label, args.model, args.port, adapter_path=args.adapter,
              temp=args.temp, n_scenarios=args.n, max_calls=args.max_calls,
              verbose=args.verbose)

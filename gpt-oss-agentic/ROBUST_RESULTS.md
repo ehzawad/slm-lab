@@ -277,3 +277,32 @@ and should be avoided.
 - OPEN: a valid Adapter-A before/after needs (i) a vLLM-servable adapter (re-train, option a) and
   (ii) multi-seed scoring to beat the +-5 stochastic noise. No improvement/regression is claimed.
 - DEFERRED (unchanged): GRPO, Adapter B, aLoRA.
+
+## Adapter-completion attempt - stopped at a serving-stack wall (honest)
+Completing a VALID Adapter-A before/after required a vLLM-servable adapter. It peeled back twice:
+- per-expert MoE LoRA (target_parameters) -> vLLM LoRA loader rejects `experts.down_projs.N`.
+- + `router` -> PEFT rejects it (GptOssTopKRouter is not nn.Linear).
+- attention-only (q/k/v/o) -> the only PEFT+vLLM-servable option, but the Unsloth re-train
+  DEADLOCKED in the transformers-5.x import (frozen ~5h in `is_flash_linear_attention_available`
+  spam, model never reached GPU).
+Decision: STOP the adapter-completion chase. It is deep diminishing returns - attention-only is the
+weakest LoRA placement (research: significantly underperforms MLP/MoE), the base is near the env
+ceiling with +-5 stochastic noise, and the serving stack actively blocks the capable (MoE) adapter.
+The genuine finding stands and is more valuable than the delta would have been: **the MoE-expert
+LoRA targeting that training best-practice recommends for gpt-oss is NOT servable on vLLM today** -
+a real train-vs-serve gap. A proper Adapter-A eval needs either a serving path that accepts
+per-expert LoRA (merge-to-HF + transformers, slow) or vLLM adding fused-experts LoRA support.
+
+## FINAL banked wins of this build (all committed)
+1. The prior "training failure"/flooring was a SERVING BUG: the vLLM openai tool parser leaked
+   harmony channel tokens into tool names/args, poisoning fed-back history. Fixed by sanitization.
+   On the corrected same-path eval the BASE scores 15-20/24 (stochastic, temp 1.0) - NOT 0/24, not
+   11/24. The model was fine; the harness was corrupting it. This is the headline result.
+2. The SFT training fix works: VERIFIED assistant-only mask (decoded, MASK_ASSERTIONS_PASSED),
+   train loss 0.92 not the 0.0055 memorization.
+3. Measurement noise is real: base is +-5/24 at temp 1.0 - single-run scores need multi-seed CIs.
+4. Inference: llama.cpp 133 tok/s decode / 12ms TTFT; keep f16 KV (q8_0 KV is a 58% loss on
+   Ampere); reasoning_effort medium is fastest for tool loops.
+5. Serving gap documented: MoE-expert LoRA not vLLM-servable for gpt-oss.
+Deferred (unchanged): GRPO, Adapter B, aLoRA. The Adapter-A capability delta is UNMEASURED and not
+claimed either way.

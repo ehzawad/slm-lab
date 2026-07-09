@@ -34,13 +34,16 @@ from incident_sim import TOOLS_SPEC  # noqa: E402
 
 MODEL_NAME = "unsloth/gpt-oss-20b"
 MAX_SEQ = 2048
-ADAPTER_A = os.path.join(HERE, "adapters_gptoss", "adapterA")
+ADAPTER_A = os.path.join(HERE, "adapters_gptoss", "adapterA_vllm")
 TRAIN_PATH = os.path.join(HERE, "adapterA_train.json")
 HELD_PATH = os.path.join(HERE, "adapterA_heldout.json")
 
-LORA_TARGETS = ["q_proj", "k_proj", "v_proj", "o_proj",
-                "gate_proj", "up_proj", "down_proj"]
-EXPERT_LAYERS = (7, 15, 23)
+# vLLM-servable target set only: its LoRA loader accepts {q,k,v,o}_proj + router + experts.
+# The per-expert target_parameters form (experts.down_projs.N) is NOT servable, so we drop it
+# and the non-servable gate/up/down_proj names. Attention + router is the servable compromise
+# (MoE-expert adaptation sacrificed for a valid same-path vLLM before/after).
+LORA_TARGETS = ["q_proj", "k_proj", "v_proj", "o_proj"]  # attention-only: router is GptOssTopKRouter (not nn.Linear, PEFT rejects it); q/k/v/o are vLLM-servable
+EXPERT_LAYERS = ()
 RESP_PART = "<|start|>assistant"
 INSTR_PART = "<|start|>functions"
 
@@ -232,6 +235,10 @@ def main():
           f"peak_GB={peak:.2f} adapter={ADAPTER_A}", flush=True)
     print("SFT_LOSS_HISTORY=" + json.dumps(losses), flush=True)
 
+    if not os.environ.get("HELDOUT_EVAL"):
+        print("SFT_DONE (held-out free-running eval skipped; use vLLM before/after "
+              "for the real signal - transformers MXFP4 decode is ~0.14 tok/s)", flush=True)
+        raise SystemExit(0)
     print("=== free-running held-out eval (valid-tool-call rate) ===", flush=True)
     rate, valid, n, per_kind, details = free_running_eval(
         model, tokenizer, render_tok, held["eval_prompts"])
